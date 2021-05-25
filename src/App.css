@@ -73,16 +73,17 @@ html, body {
   font-size: 24px;
 }
 
-.sign-in, .registration {
+.sign-in, .registration, .certificates {
   height: 500px;
   padding: 20px;
   background-color: #F1F9FF;
 }
 
-.sign-in-content, .registration-content {
+.sign-in-content, .registration-content, .certificates-content {
   margin-left: auto;
   margin-right: auto;
-  width: 300px;
+  width: 50%;
+  min-width: 300px;
   padding: 20px;
   padding-bottom: 40px;
   background-color: white;
@@ -138,4 +139,43 @@ html, body {
   color: white;
   font-weight: bold;
   border-radius: 6px;
+}
+
+.certificates-title {
+  color: #49AAFC;
+  font-weight: bold;
+}
+
+.certificates-list-cell {
+  display: flex;
+  border-bottom: 1px #49AAFC solid;
+  height: 120px;
+}
+
+.certificates-list-cell-icon {
+  margin-top: 20px;
+  width: 80px;
+  height: 60px;
+}
+
+.certificates-list-cell-detail {
+  margin-left: 20px;
+  width: 100%;
+}
+
+.certificates-list-cell-title {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+}
+.certificates-list-cell-date {
+  font-size: 16px;
+  text-align: left;
+}
+.certificates-list-cell p {
+  color: #49AAFC;
+}
+
+.certificates-list-cell-by {
+  text-align: right;
 }
