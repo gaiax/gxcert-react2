@@ -5,13 +5,14 @@ import SignIn from "./views/SignIn";
 import Registration from "./views/Registration";
 import Certificates from "./views/Certificates";
 import Certificate from "./views/Certificate";
+import NewCert from "./views/NewCert";
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <Header></Header>
-      <Certificate />
+      <NewCert />
     </div>
   );
 }
