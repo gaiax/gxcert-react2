@@ -27,3 +27,48 @@ html, body {
   border-radius: 5px;
   color: white;
 }
+.sign-up {
+  background: transparent;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  border: 2px solid #ccc;
+  border-color: #49AAFC;
+  border-radius: 5px;
+  color: #49AAFC;
+  font-weight: bold;
+}
+
+.top {
+  display: flex;
+
+}
+
+.top-left, .top-right {
+  width: 50%;
+  height: 500px;
+}
+
+.top-left {
+  background-color: cyan;
+}
+
+.top-right {
+  padding-top: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.concept {
+  font-size: 16px;
+  color: #666;
+  font-weight: bold;
+  text-align: left;
+}
+
+.concept-large {
+  color: #49AAFC;
+  font-weight: normal;
+  text-align: left;
+  font-size: 24px;
+}
