@@ -73,13 +73,13 @@ html, body {
   font-size: 24px;
 }
 
-.sign-in {
+.sign-in, .registration {
   height: 500px;
   padding: 20px;
   background-color: #F1F9FF;
 }
 
-.sign-in-content {
+.sign-in-content, .registration-content {
   margin-left: auto;
   margin-right: auto;
   width: 300px;
@@ -92,4 +92,50 @@ html, body {
   color: #49AAFC;
   font-size: 12px;
   font-weight: bold;
+}
+
+.registration-title {
+  color: #49AAFC;
+  font-weight: bold;
+}
+
+.registration-icon {
+  background-color: lightgray;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+}
+
+.registration-form {
+  margin-bottom: 60px;
+}
+
+.registration-form-title {
+  text-align: left;
+  font-weight: bold;
+  color: #49AAFC;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 4px;
+}
+
+.registration-form-name, .registration-form-email {
+  height: 34px;
+  border-radius: 6px;
+  border: 1px solid #49AAFC;
+  background: #F1F9FF;
+  font-size: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.register-button {
+  background-color: #49AAFC;
+  height: 34px;
+  line-height: 34px;
+  margin-left: 30px;
+  margin-right: 30px;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
 }
