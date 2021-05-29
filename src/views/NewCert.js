@@ -16,6 +16,10 @@ function NewCert() {
           </p>
           <input type="text" className="new-cert-form-name" />
           <p className="new-cert-form-title">
+            Description of Certificate
+          </p>
+          <textarea className="new-cert-form-description"></textarea>
+          <p className="new-cert-form-title">
             Certificate Image
           </p>
           <img src="" className="new-cert-form-image" />
