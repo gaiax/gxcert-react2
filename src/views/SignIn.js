@@ -1,7 +1,7 @@
 import torusClient from "../torus";
 import getGxCert from "../gxcert-client";
 
-function SignIn() {
+function SignIn(props) {
   return (
     <div className="sign-in">
       <div className="sign-in-content">
@@ -10,6 +10,7 @@ function SignIn() {
           await torusClient.init();
           const web3 = await torusClient.login();
           const gxCert = getGxCert(web3);
+          props.history.push("/new");
 
         }) }/>
       </div>

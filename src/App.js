@@ -16,6 +16,7 @@ function App() {
       <Switch>
         <Route exact={true} path="/" component={Top} />
         <Route exact={true} path="/signup" component={SignIn} />
+        <Route exact={true} path="/new" component={NewCert} />
       </Switch>
     </div>
   );
