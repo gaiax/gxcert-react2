@@ -10,6 +10,7 @@ function SignIn(props) {
           await torusClient.init();
           const web3 = await torusClient.login();
           const gxCert = getGxCert(web3);
+          await gxCert.init();
           props.history.push("/new");
 
         }) }/>

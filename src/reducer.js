@@ -27,6 +27,13 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         to: action.payload
       });
+    case "SIGN":
+      const from = state.from;
+      const to = state.to;
+      const url = state.url;
+      const image = state.image;
+      const title = state.title;
+      const description = state.description;
     default:
       return initialState;
   }

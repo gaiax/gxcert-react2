@@ -14,6 +14,7 @@ import {
   onChangeFrom,
   onChangeTo,
   onChangeImage,
+  sign,
 } from "./actions";
 //import CertClient from "./client"
 
@@ -23,23 +24,26 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    onChangeTitle: () => {
-      dispatch(onChangeTitle());
+    onChangeTitle: (evt) => {
+      dispatch(onChangeTitle(evt));
     },
-    onChangeDescription: () => {
-      dispatch(onChangeDescription());
+    onChangeDescription: (evt) => {
+      dispatch(onChangeDescription(evt));
     },
-    onChangeUrl: () => {
-      dispatch(onChangeUrl());
+    onChangeUrl: (evt) => {
+      dispatch(onChangeUrl(evt));
     },
-    onChangeFrom: () => {
-      dispatch(onChangeFrom());
+    onChangeFrom: (evt) => {
+      dispatch(onChangeFrom(evt));
     },
-    onChangeTo: () => {
-      dispatch(onChangeTo());
+    onChangeTo: (evt) => {
+      dispatch(onChangeTo(evt));
     },
-    onChangeImage: () => {
-      dispatch(onChangeImage());
+    onChangeImage: (evt) => {
+      dispatch(onChangeImage(evt));
+    },
+    sign: () => {
+      dispatch(sign());
     },
   }
 }
