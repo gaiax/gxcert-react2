@@ -52,11 +52,12 @@ const sign = () => async (dispatch, getState) => {
     return;
   }
   const imageCid = await gxCert.uploadImageToIpfs(image);
+  const accounts = await gxCert.web3.eth.getAccounts();
   const certificate = {
     context: {},
     title: state.title,
     description: state.description,
-    from: state.from,
+    from: accounts[0],
     to: state.to,
     issued_at: (new Date()).getTime(),
     url: state.url,
@@ -66,10 +67,9 @@ const sign = () => async (dispatch, getState) => {
   if (!gxCert.isCertificate(certificate)) {
     return;
   }
-  console.log((await gxCert.web3.eth.getAccounts())[0]);
   let signed = null;
   try {
-    signed = await gxCert.signCertificate((await gxCert.web3.eth.getAccounts())[0].privateKey, certificate);
+    signed = await gxCert.signCertificate(certificate);
   } catch(err) {
     console.error(err);
     return;
