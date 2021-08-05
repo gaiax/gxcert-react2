@@ -7,6 +7,14 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { connect, Provider } from "react-redux";
 import store, { persistor } from "./store";
 import { withRouter, HashRouter as Router } from "react-router-dom";
+import {
+  onChangeTitle,
+  onChangeDescription,
+  onChangeUrl,
+  onChangeFrom,
+  onChangeTo,
+  onChangeImage,
+} from "./actions";
 //import CertClient from "./client"
 
 function mapStateToProps(state, props) {
@@ -15,9 +23,24 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    /*getCertificates: () => {
-      dispatch(getCertificates());
-    },*/
+    onChangeTitle: () => {
+      dispatch(onChangeTitle());
+    },
+    onChangeDescription: () => {
+      dispatch(onChangeDescription());
+    },
+    onChangeUrl: () => {
+      dispatch(onChangeUrl());
+    },
+    onChangeFrom: () => {
+      dispatch(onChangeFrom());
+    },
+    onChangeTo: () => {
+      dispatch(onChangeTo());
+    },
+    onChangeImage: () => {
+      dispatch(onChangeImage());
+    },
   }
 }
 

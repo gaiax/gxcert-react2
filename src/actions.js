@@ -40,6 +40,7 @@ export {
   onChangeTitle,
   onChangeDescription,
   onChangeImage,
+  onChangeUrl,
   onChangeFrom,
   onChangeTo,
 };
