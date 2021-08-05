@@ -18,8 +18,11 @@ class TorusClient {
     });
   }
   async login() {
-    await this.torus.login();
+    const response = await this.torus.login();
+    console.log(response);
+    console.log(this.torus);
     this.web3 = new Web3(this.torus.provider);
+    console.log(this.web3);
     return this.web3;
   }
 }

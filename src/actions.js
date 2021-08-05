@@ -66,10 +66,10 @@ const sign = () => async (dispatch, getState) => {
   if (!gxCert.isCertificate(certificate)) {
     return;
   }
-  console.log(gxCert.web3.eth.accounts[0]);
+  console.log((await gxCert.web3.eth.getAccounts())[0]);
   let signed = null;
   try {
-    signed = await gxCert.signCertificate(gxCert.web3.eth.accounts[0].privateKey, certificate);
+    signed = await gxCert.signCertificate((await gxCert.web3.eth.getAccounts())[0].privateKey, certificate);
   } catch(err) {
     console.error(err);
     return;
