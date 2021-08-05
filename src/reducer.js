@@ -3,10 +3,30 @@ import initialState from "./initialState";
 
 export default function Reducer(state=initialState, action) {
   switch(action.type) {
-    case "ON_CLICK_ISSUE_BUTTON":
+    case "ON_CHANGE_TITLE":
       return Object.assign({}, state, {
-        isIssuing: true,
-      }); 
+        title: action.payload
+      });
+    case "ON_CHANGE_DESCRIPTION":
+      return Object.assign({}, state, {
+        description: action.payload
+      });
+    case "ON_CHANGE_IMAGE":
+      return Object.assign({}, state, {
+        image: action.payload
+      });
+    case "ON_CHANGE_URL":
+      return Object.assign({}, state, {
+        url: action.payload
+      });
+    case "ON_CHANGE_FROM":
+      return Object.assign({}, state, {
+        from: action.payload
+      });
+    case "ON_CHANGE_TO":
+      return Object.assign({}, state, {
+        to: action.payload
+      });
     default:
       return initialState;
   }
