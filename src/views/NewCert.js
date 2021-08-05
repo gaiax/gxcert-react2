@@ -12,6 +12,14 @@ function NewCert() {
 
         <div className="new-cert-form">
           <p className="new-cert-form-title">
+            From
+          </p>
+          <input type="text" className="new-cert-form-name" />
+          <p className="new-cert-form-title">
+            To
+          </p>
+          <input type="text" className="new-cert-form-name" />
+          <p className="new-cert-form-title">
             Name of Certificate
           </p>
           <input type="text" className="new-cert-form-name" />
@@ -19,6 +27,10 @@ function NewCert() {
             Description of Certificate
           </p>
           <textarea className="new-cert-form-description"></textarea>
+          <p className="new-cert-form-title">
+            URL
+          </p>
+          <input type="text" className="new-cert-form-name" />
           <p className="new-cert-form-title">
             Certificate Image
           </p>
