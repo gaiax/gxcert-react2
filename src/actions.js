@@ -72,9 +72,15 @@ const sign = () => async (dispatch, getState) => {
     signed = await gxCert.signCertificate(certificate);
   } catch(err) {
     console.error(err);
+    alert("Failed to sign the certificate.");
     return;
   }
-  await gxCert.sendSignedCertificateToGx(signed);
+  try {
+    await gxCert.sendSignedCertificateToGx(signed);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to post the signed certificate.");
+  }
 
   dispatch({
     type: "SIGN",
