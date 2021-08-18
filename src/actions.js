@@ -49,9 +49,17 @@ const sign = () => async (dispatch, getState) => {
   const image = state.image;
   console.log(image);
   if (!image) {
+    alert("Image not set.");
     return;
   }
-  const imageCid = await gxCert.uploadImageToIpfs(image);
+  let imageCid;
+  try {
+    imageCid = await gxCert.uploadImageToIpfs(image);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to post the image to IPFS.");
+    return;
+  }
   const accounts = await gxCert.web3.eth.getAccounts();
   const certificate = {
     context: {},
@@ -65,6 +73,7 @@ const sign = () => async (dispatch, getState) => {
   }
   console.log(certificate);
   if (!gxCert.isCertificate(certificate)) {
+    alert("Invalid Certificate.");
     return;
   }
   let signed = null;
@@ -80,6 +89,7 @@ const sign = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to post the signed certificate.");
+    return;
   }
 
   dispatch({
