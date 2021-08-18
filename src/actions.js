@@ -74,7 +74,7 @@ const sign = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  console.log(signed);
+  await gxCert.sendSignedCertificateToGx(signed);
 
   dispatch({
     type: "SIGN",

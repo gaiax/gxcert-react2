@@ -10,12 +10,24 @@ class TorusClient {
       buildEnv: "production",
       enableLogging: true,
       network: {
+        host: "https://matic-mumbai.chainstacklabs.com",
+        chainId: 80001,
+        networkName: "Mumbai Testnet"
+      },
+      showTorusButton: true,
+    });
+    /*
+    await this.torus.init({
+      buildEnv: "production",
+      enableLogging: true,
+      network: {
         host: "http://localhost:7545",
         chainId: 80001,
         networkName: "localhost:7545"
       },
       showTorusButton: true,
     });
+    */
   }
   async login() {
     const response = await this.torus.login();
