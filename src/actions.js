@@ -42,6 +42,13 @@ const onChangeTo = (evt) => async (dispatch, getState) => {
   });
 }
 
+const loggedIn = (address) => async (dispatch) => {
+  dispatch({
+    type: "LOGGED_IN",
+    payload: address
+  });
+}
+
 const sign = () => async (dispatch, getState) => {
   const gxCert = getGxCert();
   console.log(gxCert);
@@ -105,4 +112,5 @@ export {
   onChangeFrom,
   onChangeTo,
   sign,
+  loggedIn,
 };

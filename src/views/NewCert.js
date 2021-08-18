@@ -19,7 +19,7 @@ class NewCert extends React.Component {
             <p className="new-cert-form-title">
               From
             </p>
-            <input type="text" className="new-cert-form-name" onChange={this.props.onChangeFrom} />
+            <input type="text" className="new-cert-form-name" onChange={this.props.onChangeFrom} value={this.props.from} disabled="disabled" />
             <p className="new-cert-form-title">
               To
             </p>

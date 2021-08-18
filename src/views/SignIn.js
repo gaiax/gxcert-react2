@@ -11,6 +11,12 @@ function SignIn(props) {
           const web3 = await torusClient.login();
           const gxCert = getGxCert(web3);
           await gxCert.init();
+          const accounts = await gxCert.web3.eth.getAccounts();
+          if (accounts.length === 0) {
+            console.log("Failed to login.");
+            return;
+          }
+          props.loggedIn(accounts[0]);
           props.history.push("/new");
 
         }) }/>

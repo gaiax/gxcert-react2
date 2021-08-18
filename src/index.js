@@ -15,6 +15,7 @@ import {
   onChangeTo,
   onChangeImage,
   sign,
+  loggedIn,
 } from "./actions";
 //import CertClient from "./client"
 
@@ -45,6 +46,9 @@ function mapDispatchToProps(dispatch, props) {
     sign: () => {
       dispatch(sign());
     },
+    loggedIn: (address) => {
+      dispatch(loggedIn(address));
+    }
   }
 }
 

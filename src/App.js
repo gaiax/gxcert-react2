@@ -21,7 +21,11 @@ class App extends React.Component {
         <Header></Header>
         <Switch>
           <Route exact={true} path="/" component={Top} />
-          <Route exact={true} path="/signup" component={SignIn} />
+          <Route exact={true} path="/signup" render={ (routeProps) => <SignIn
+            {...routeProps}
+            loggedIn={that.props.loggedIn}
+            />
+          } />
           <Route exact={true} path="/new" render={ () => <NewCert
               onChangeTitle={that.props.onChangeTitle}
               onChangeDescription={that.props.onChangeDescription}
@@ -30,6 +34,7 @@ class App extends React.Component {
               onChangeFrom={that.props.onChangeFrom}
               onChangeTo={that.props.onChangeTo}
               sign={that.props.sign}
+              from={that.props.state.from}
             />
           } />
         </Switch>

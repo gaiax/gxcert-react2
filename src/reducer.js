@@ -34,6 +34,10 @@ export default function Reducer(state=initialState, action) {
       const image = state.image;
       const title = state.title;
       const description = state.description;
+    case "LOGGED_IN":
+      return Object.assign({}, state, {
+        from: action.payload,
+      });
     default:
       return initialState;
   }
