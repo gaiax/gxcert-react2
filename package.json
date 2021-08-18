@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@toruslabs/torus-embed": "^1.12.1",
     "axios": "^0.21.1",
     "connected-react-router": "^6.9.1",
     "gxcert-lib": "github:gaiax/gxcert-lib",
@@ -16,6 +17,8 @@
     "react-scripts": "4.0.3",
     "redux": "^4.1.0",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
     "typescript-fsa": "^3.0.0",
     "typescript-fsa-reducers": "^1.2.2",
     "web-vitals": "^1.0.1"
