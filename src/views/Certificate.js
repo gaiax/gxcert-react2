@@ -1,13 +1,19 @@
+import { getImageOnIpfs } from "../util/ipfs"
 
-function Certificate() {
+
+function Certificate(props) {
+  const image = props.certificate.image;
+  props.fetchCertificateImage(image);
+
   return (
     <div className="certificate">
       <div className="certificate-content">
         <p className="certificate-title">
-          STARTUP STUDIO MASTER
+          {props.certificate.title}
         </p>
-        <img src="" className="certificate-icon" />
+        <img src={props.certificate.imageSrc} className="certificate-icon" />
         <table className="certificate-detail">
+          {props.certificate.description}
           <tr>
             <td>Date of issue: </td>
             <td>January 30th, 2020</td>

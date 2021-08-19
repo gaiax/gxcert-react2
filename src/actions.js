@@ -1,4 +1,5 @@
 import getGxCert from "./gxcert-client";
+import { getImageOnIpfs } from "./util/ipfs";
 
 const onChangeTitle = (evt) => async (dispatch, getState) => {
   dispatch({
@@ -46,6 +47,20 @@ const loggedIn = (address) => async (dispatch) => {
   dispatch({
     type: "LOGGED_IN",
     payload: address
+  });
+}
+
+const fetchCertificateImage = (cid) => async (dispatch) => {
+  let imageUrl;
+  try {
+    imageUrl = await getImageOnIpfs(cid);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_CERTIFICATE_IMAGE",
+    payload: imageUrl,
   });
 }
 
