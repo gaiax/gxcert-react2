@@ -15,6 +15,13 @@ class TorusClient {
         networkName: "Mumbai Testnet"
       },
       showTorusButton: true,
+      enabledVerifiers: {
+        google: true,
+        facebook:false,
+        reddit: false,
+        twitch: false,
+        discord: false,
+      }
     });
     /*
     await this.torus.init({
@@ -36,6 +43,12 @@ class TorusClient {
     this.web3 = new Web3(this.torus.provider);
     console.log(this.web3);
     return this.web3;
+  }
+  async getPublicAddressByGoogle(gmail) {
+    return await this.torus.getPublicAddress({
+      verifier: "google",
+      verifierId: gmail,
+    });
   }
 }
 

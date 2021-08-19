@@ -1,5 +1,6 @@
 import getGxCert from "./gxcert-client";
 import { getImageOnIpfs } from "./util/ipfs";
+import torusClient from "./torus";
 
 const onChangeTitle = (evt) => async (dispatch, getState) => {
   dispatch({
@@ -83,12 +84,24 @@ const sign = () => async (dispatch, getState) => {
     return;
   }
   const accounts = await gxCert.web3.eth.getAccounts();
+  let to;
+  try {
+    to = await torusClient.getPublicAddressByGoogle(state.to);
+  } catch(err) {
+    console.error(err);
+    alert("to google email address is invalid.");
+    return;
+  }
+  if (!to) {
+    alert("to google email address is invalid.");
+    return;
+  }
   const certificate = {
     context: {},
     title: state.title,
     description: state.description,
     from: accounts[0],
-    to: state.to,
+    to: to,
     issued_at: (new Date()).getTime(),
     url: state.url,
     image: imageCid,
