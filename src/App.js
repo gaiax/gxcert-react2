@@ -37,6 +37,11 @@ class App extends React.Component {
               from={that.props.state.from}
             />
           } />
+          <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate
+
+            {...routeProps}
+            />
+          } />
         </Switch>
       </div>
     );
