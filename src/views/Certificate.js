@@ -18,54 +18,36 @@ class Certificate extends React.Component {
     }
   }
   componentDidMount() {
-    const gxCert = getGxCert();
-    const id = this.props.match.params.id;
-    console.log(id);
-    const that = this;
-    gxCert.getCertByCid(id).then(certificate => {
-      console.log("get cert");
-      console.log(certificate);
-
-      that.setState({
-        from: certificate.from,
-        to: certificate.to,
-        title: certificate.title,
-        description: certificate.description,
-        issued_at: new Date(certificate.issued_at * 1000),
-        url: certificate.url,
-      });
-      getImageOnIpfs(certificate.image).then(imageUrl => {
-        that.setState({
-          image: imageUrl
-        });
-      });
-    });
+    const cid = this.props.match.params.id;
+    this.props.fetchCertificate(cid);
   }
   render() {
+    console.log("cert is ");
+    console.log(this.props.certificate);
     return (
       <div className="certificate">
         <div className="certificate-content">
           <p className="certificate-title">
-            {this.state.title}
+            {this.props.certificate.title}
           </p>
-          <img src={this.state.image} className="certificate-icon" />
+          <img src={this.props.certificateImage} className="certificate-icon" />
+          {this.state.description}
           <table className="certificate-detail">
-            {this.state.description}
             <tr>
               <td>From: </td>
-              <td>{this.state.from}</td>
+              <td>{this.props.certificate.from}</td>
             </tr>
             <tr>
               <td>To: </td>
-              <td>{this.state.to}</td>
+              <td>{this.props.certificate.to}</td>
             </tr>
             <tr>
               <td>Date of issue: </td>
-              <td>{this.state.issued_at.toISOString()}</td>
+              <td>{this.props.certificate.issued_at ? (new Date(this.props.certificate.issued_at)).toISOString() : ""}</td>
             </tr>
             <tr>
               <td>URL: </td>
-              <td>{this.state.url}</td>
+              <td><a href={this.props.certificate.url} target="_blank">{this.props.certificate.url}</a></td>
             </tr>
           </table>
           <div className="certificate-buttons">

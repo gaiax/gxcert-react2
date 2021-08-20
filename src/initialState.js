@@ -6,6 +6,8 @@ const initialState = {
   description: "",
   image: null,
   url: "",
+  certificate: {},
+  certificateImage: "",
 }
 
 export default initialState;

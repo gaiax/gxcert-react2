@@ -38,6 +38,14 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         from: action.payload,
       });
+    case "FETCHED_CERTIFICATE":
+      return Object.assign({}, state, {
+        certificate: action.payload,
+      });
+    case "FETCHED_CERTIFICATE_IMAGE":
+      return Object.assign({}, state, {
+        certificateImage: action.payload,
+      });
     default:
       return initialState;
   }

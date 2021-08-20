@@ -40,6 +40,9 @@ class App extends React.Component {
           <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate
 
             {...routeProps}
+            certificate={that.props.state.certificate}
+            certificateImage={that.props.state.certificateImage}
+            fetchCertificate={that.props.fetchCertificate}
             />
           } />
         </Switch>

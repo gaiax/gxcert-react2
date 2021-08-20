@@ -52,6 +52,33 @@ const loggedIn = (address) => async (dispatch) => {
   });
 }
 
+const fetchCertificate = (cid) => async (dispatch) => {
+  const gxCert = getGxCert();
+  let certificate;
+  try {
+    certificate = await gxCert.getCertByCid(cid);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_CERTIFICATE",
+    payload: certificate,
+  });
+  const imageCid = certificate.image;
+  let imageUrl;
+  try {
+    imageUrl = await getImageOnIpfs(imageCid);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_CERTIFICATE_IMAGE",
+    payload: imageUrl,
+  });
+}
+
 const fetchCertificateImage = (cid) => async (dispatch) => {
   let imageUrl;
   try {
@@ -143,4 +170,7 @@ export {
   onChangeTo,
   sign,
   loggedIn,
+  fetchCertificate,
+  fetchCertificateImage,
+
 };

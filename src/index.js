@@ -17,6 +17,8 @@ import {
   onChangeImage,
   sign,
   loggedIn,
+  fetchCertificate,
+  fetchCertificateImage,
 } from "./actions";
 //import CertClient from "./client"
 
@@ -49,6 +51,12 @@ function mapDispatchToProps(dispatch, props) {
     },
     loggedIn: (address) => {
       dispatch(loggedIn(address));
+    },
+    fetchCertificate: (cid) => {
+      dispatch(fetchCertificate(cid));
+    },
+    fetchCertificateImage: (cid) => {
+      dispatch(fetchCertificateImage(cid));
     }
   }
 }

@@ -9,7 +9,7 @@ function SignIn(props) {
         <img src="/google.png" onClick={(async () => {
           await torusClient.init();
           const web3 = await torusClient.login();
-          const gxCert = getGxCert(web3, "0xB50267Ee91f214160c35Bf1aFCb5D9D520D76322" );
+          const gxCert = getGxCert(web3, "0x4F09E3a387aF774FB9815850b893D44781563904" );
           await gxCert.init();
           const accounts = await gxCert.web3.eth.getAccounts();
           if (accounts.length === 0) {
