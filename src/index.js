@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { connect, Provider } from "react-redux";
 import store, { persistor } from "./store";
 import { withRouter, HashRouter as Router } from "react-router-dom";
+import history from "./history";
 import {
   onChangeTitle,
   onChangeDescription,
@@ -57,7 +58,7 @@ const RxApp = connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <Router>
+      <Router history={history}>
         <RxApp />
       </Router>
     </PersistGate>

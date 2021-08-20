@@ -1,6 +1,7 @@
 import getGxCert from "./gxcert-client";
 import { getImageOnIpfs } from "./util/ipfs";
 import torusClient from "./torus";
+import history from "./history";
 
 const onChangeTitle = (evt) => async (dispatch, getState) => {
   dispatch({
@@ -131,6 +132,7 @@ const sign = () => async (dispatch, getState) => {
     type: "SIGN",
     payload: null,
   });
+  history.push("/certs/" + signed.cid);
 }
 export {
   onChangeTitle,

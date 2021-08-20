@@ -19,10 +19,13 @@ class Certificate extends React.Component {
   }
   componentDidMount() {
     const gxCert = getGxCert();
-    console.log(props
     const id = this.props.match.params.id;
+    console.log(id);
     const that = this;
     gxCert.getCertByCid(id).then(certificate => {
+      console.log("get cert");
+      console.log(certificate);
+
       that.setState({
         from: certificate.from,
         to: certificate.to,

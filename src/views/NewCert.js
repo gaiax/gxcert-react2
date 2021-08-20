@@ -4,6 +4,9 @@ class NewCert extends React.Component {
   constructor() {
     super();
   }
+  async post() {
+    await this.props.sign(this.props.history);
+  }
   render() {
     return (
       <div className="new-cert">
