@@ -1,5 +1,5 @@
 
-function Certificates() {
+function Certificates(props) {
   return (
     <div className="certificates">
       <div className="certificates-content">
