@@ -7,34 +7,25 @@ function Certificates(props) {
           証明書
         </p>
         <div className="certificates-list">
-          <div className="certificates-list-cell">
-            <img src="" className="certificates-list-cell-icon"/>
-            <div className="certificates-list-cell-detail">
-              <p className="certificates-list-cell-title">
-                STARTUP STUDIO MASTER 
-              </p>
-              <p className="certificates-list-cell-date">
-                January 30th, 2020
-              </p>
-              <p className="certificates-list-cell-by">
-                Gaiax Co Ltd.
-              </p>
-            </div>
-          </div>
-          <div className="certificates-list-cell">
-            <img src="" className="certificates-list-cell-icon"/>
-            <div className="certificates-list-cell-detail">
-              <p className="certificates-list-cell-title">
-                STARTUP STUDIO MASTER 
-              </p>
-              <p className="certificates-list-cell-date">
-                January 30th, 2020
-              </p>
-              <p className="certificates-list-cell-by">
-                Gaiax Co Ltd.
-              </p>
-            </div>
-          </div>
+          { props.certificates.length === 0 ? <p className="certificate-not-found">Certificate not found.</p> : "" }
+          { props.certificates.map((certificate, index) => {
+            return (
+              <div className="certificates-list-cell">
+                <img src={certificate.imageUrl} className="certificates-list-cell-icon"/>
+                <div className="certificates-list-cell-detail">
+                  <p className="certificates-list-cell-title">
+                    {certificate.title} 
+                  </p>
+                  <p className="certificates-list-cell-date">
+                    { certificate.issued_at ? (new Date(certificate.issued_at)).toISOString() : "" }
+                  </p>
+                  <p className="certificates-list-cell-by">
+                    {certificate.from}
+                  </p>
+                </div>
+              </div>
+            );
+          }) };
         </div>
       </div>
     </div>
