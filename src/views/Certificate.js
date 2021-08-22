@@ -1,5 +1,4 @@
 import { getImageOnIpfs } from "../util/ipfs"
-import getGxCert from "../gxcert-client"
 import React from "react";
 
 

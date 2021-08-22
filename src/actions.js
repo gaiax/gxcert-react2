@@ -53,7 +53,13 @@ const loggedIn = (address) => async (dispatch) => {
 }
 
 const fetchCertificate = (cid) => async (dispatch) => {
-  const gxCert = getGxCert();
+  let gxCert;
+  try {
+    gxCert = getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
   let certificate;
   try {
     certificate = await gxCert.getCertByCid(cid);
@@ -94,11 +100,15 @@ const fetchCertificateImage = (cid) => async (dispatch) => {
 }
 
 const sign = () => async (dispatch, getState) => {
-  const gxCert = getGxCert();
-  console.log(gxCert);
+  let gxCert;
+  try {
+    gxCert = getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
   const state = getState().state;
   const image = state.image;
-  console.log(image);
   if (!image) {
     alert("Image not set.");
     return;
@@ -134,7 +144,6 @@ const sign = () => async (dispatch, getState) => {
     url: state.url,
     image: imageCid,
   }
-  console.log(certificate);
   if (!gxCert.isCertificate(certificate)) {
     alert("Invalid Certificate.");
     return;
