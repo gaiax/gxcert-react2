@@ -1,4 +1,4 @@
-import getGxCert from "./gxcert-client";
+import { getGxCert, getGxCertWithoutLogin } from "./gxcert-client";
 import { getImageOnIpfs } from "./util/ipfs";
 import torusClient from "./torus";
 import history from "./history";
@@ -55,7 +55,7 @@ const loggedIn = (address) => async (dispatch) => {
 const fetchCertificate = (cid) => async (dispatch) => {
   let gxCert;
   try {
-    gxCert = getGxCert();
+    gxCert = await getGxCertWithoutLogin();
   } catch(err) {
     console.error(err);
     return;
@@ -67,6 +67,7 @@ const fetchCertificate = (cid) => async (dispatch) => {
     console.error(err);
     return;
   }
+  console.log(certificate);
   dispatch({
     type: "FETCHED_CERTIFICATE",
     payload: certificate,

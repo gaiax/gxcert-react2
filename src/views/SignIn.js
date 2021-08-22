@@ -1,5 +1,5 @@
 import torusClient from "../torus";
-import getGxCert from "../gxcert-client";
+import { getGxCert } from "../gxcert-client";
 
 function SignIn(props) {
   return (
