@@ -16,6 +16,7 @@ import {
   onChangeTo,
   onChangeImage,
   sign,
+  signIn,
   loggedIn,
   fetchCertificate,
   fetchCertificateImage,
@@ -57,6 +58,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     fetchCertificateImage: (cid) => {
       dispatch(fetchCertificateImage(cid));
+    },
+    signIn: () => {
+      dispatch(signIn());
     }
   }
 }

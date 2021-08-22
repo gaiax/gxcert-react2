@@ -24,6 +24,7 @@ class App extends React.Component {
           <Route exact={true} path="/signup" render={ (routeProps) => <SignIn
             {...routeProps}
             loggedIn={that.props.loggedIn}
+            signIn={that.props.signIn}
             />
           } />
           <Route exact={true} path="/new" render={ () => <NewCert

@@ -100,6 +100,23 @@ const fetchCertificateImage = (cid) => async (dispatch) => {
   });
 }
 
+const signIn = () => async (dispatch) => {
+  await torusClient.init();
+  const web3 = await torusClient.login();
+  const gxCert = getGxCert(web3);
+  await gxCert.init();
+  const accounts = await gxCert.web3.eth.getAccounts();
+  if (accounts.length === 0) {
+    console.log("Failed to login.");
+    return;
+  }
+  dispatch({
+    type: "LOGGED_IN",
+    payload: accounts[0],
+  });
+  history.push("/new");
+}
+
 const sign = () => async (dispatch, getState) => {
   let gxCert;
   try {
@@ -179,6 +196,7 @@ export {
   onChangeFrom,
   onChangeTo,
   sign,
+  signIn,
   loggedIn,
   fetchCertificate,
   fetchCertificateImage,
