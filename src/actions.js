@@ -108,6 +108,15 @@ const fetchCertificates = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
+  for (let i = 0; i < certificates.length; i++) {
+    getImageOnIpfs(certificates[i].image).then(imageUrl => {
+      certificates[i].imageUrl = imageUrl;
+      dispatch({
+        type: "FETCHED_CERTIFICATES",
+        payload: certificates,
+      });
+    });
+  }
   dispatch({
     type: "FETCHED_CERTIFICATES",
     payload: certificates,
@@ -214,7 +223,6 @@ const sign = () => async (dispatch, getState) => {
     type: "SIGN",
     payload: null,
   });
-  //history.push("/certs/" + signed.cid);
   history.push("/certs");
 }
 export {
