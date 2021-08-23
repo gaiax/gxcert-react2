@@ -8,6 +8,7 @@ const initialState = {
   url: "",
   certificate: {},
   certificateImage: "",
+  certificates: [],
 }
 
 export default initialState;

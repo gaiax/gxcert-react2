@@ -46,6 +46,12 @@ class App extends React.Component {
             fetchCertificate={that.props.fetchCertificate}
             />
           } />
+          <Route exact={true} path="/certs" render={ (routeProps) => <Certificates
+            {...routeProps}
+            certificates={that.props.state.certificates}
+            fetchCertificates={that.props.fetchCertificates}
+            />
+          } />
         </Switch>
       </div>
     );

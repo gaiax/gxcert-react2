@@ -1,8 +1,10 @@
-function Header() {
+import history from "./history";
+
+function Header(props) {
   return (
     <header className="App-header">
       <div className="side-button">Side</div>
-      <div className="sign-in-button">SIGN IN</div>
+      <div className="sign-in-button" onClick={() => history.push("/signup")}>SIGN IN</div>
     </header>
   );
 }

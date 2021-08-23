@@ -86,6 +86,34 @@ const fetchCertificate = (cid) => async (dispatch) => {
   });
 }
 
+const fetchCertificates = () => async (dispatch, getState) => {
+  const state = getState().state;
+  const address = state.from;
+  console.log(state);
+  if (address === "" || !address) {
+    history.push("/top");
+    return;
+  }
+  let gxCert;
+  try {
+    gxCert = await getGxCertWithoutLogin();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  let certificates;
+  try {
+    certificates = await gxCert.getReceivedCerts(address);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_CERTIFICATES",
+    payload: certificates,
+  });
+}
+
 const fetchCertificateImage = (cid) => async (dispatch) => {
   let imageUrl;
   try {
@@ -186,7 +214,8 @@ const sign = () => async (dispatch, getState) => {
     type: "SIGN",
     payload: null,
   });
-  history.push("/certs/" + signed.cid);
+  //history.push("/certs/" + signed.cid);
+  history.push("/certs");
 }
 export {
   onChangeTitle,
@@ -199,6 +228,7 @@ export {
   signIn,
   loggedIn,
   fetchCertificate,
+  fetchCertificates,
   fetchCertificateImage,
 
 };

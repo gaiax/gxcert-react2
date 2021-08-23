@@ -19,6 +19,7 @@ import {
   signIn,
   loggedIn,
   fetchCertificate,
+  fetchCertificates,
   fetchCertificateImage,
 } from "./actions";
 //import CertClient from "./client"
@@ -55,6 +56,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     fetchCertificate: (cid) => {
       dispatch(fetchCertificate(cid));
+    },
+    fetchCertificates: () => {
+      dispatch(fetchCertificates());
     },
     fetchCertificateImage: (cid) => {
       dispatch(fetchCertificateImage(cid));
