@@ -39,6 +39,10 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         groupPhone: action.payload,
       });
+    case "ON_CHANGE_GROUP":
+      return Object.assign({}, state, {
+        groupId: parseInt(action.payload),
+      });
     case "SIGN":
       const from = state.from;
       const to = state.to;
@@ -61,6 +65,10 @@ export default function Reducer(state=initialState, action) {
     case "FETCHED_CERTIFICATE_IMAGE":
       return Object.assign({}, state, {
         certificateImage: action.payload,
+      });
+    case "FETCHED_GROUPS":
+      return Object.assign({}, state, {
+        groups: action.payload,
       });
     default:
       return initialState;

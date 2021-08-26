@@ -64,6 +64,12 @@ const onChangeGroupPhone = (evt) => async (dispatch, getState) => {
     payload: evt.target.value,
   });
 }
+const onChangeGroup = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_GROUP",
+    payload: evt.target.value,
+  });
+}
 
 const loggedIn = (address) => async (dispatch) => {
   dispatch({
@@ -87,7 +93,6 @@ const fetchCertificate = (cid) => async (dispatch) => {
     console.error(err);
     return;
   }
-  console.log(certificate);
   dispatch({
     type: "FETCHED_CERTIFICATE",
     payload: certificate,
@@ -104,12 +109,17 @@ const fetchCertificate = (cid) => async (dispatch) => {
     type: "FETCHED_CERTIFICATE_IMAGE",
     payload: imageUrl,
   });
+  const group = await gxCert.getGroup(certificate.groupId);
+  certificate.from = group.name;
+  dispatch({
+    type: "FETCHED_CERTIFICATE",
+    payload: certificate,
+  });
 }
 
 const fetchCertificates = () => async (dispatch, getState) => {
   const state = getState().state;
   const address = state.from;
-  console.log(state);
   if (address === "" || !address) {
     history.push("/top");
     return;
@@ -172,6 +182,10 @@ const signIn = () => async (dispatch) => {
     payload: accounts[0],
   });
   const groups = await gxCert.getGroups(accounts[0]);
+  dispatch({
+    type: "FETCHED_GROUPS",
+    payload: groups,
+  });
   if (groups.length === 0) {
     history.push("/group/new");
     return;
@@ -214,6 +228,7 @@ const sign = () => async (dispatch, getState) => {
     alert("to google email address is invalid.");
     return;
   }
+  const groupId = state.groupId;
   const certificate = {
     context: {},
     title: state.title,
@@ -223,6 +238,7 @@ const sign = () => async (dispatch, getState) => {
     issued_at: (new Date()).getTime(),
     url: state.url,
     image: imageCid,
+    groupId: groupId,
   }
   if (!gxCert.isCertificate(certificate)) {
     alert("Invalid Certificate.");
@@ -282,6 +298,7 @@ export {
   onChangeGroupName,
   onChangeGroupAddress,
   onChangeGroupPhone,
+  onChangeGroup,
   sign,
   signIn,
   loggedIn,

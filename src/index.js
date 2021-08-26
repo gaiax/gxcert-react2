@@ -18,6 +18,7 @@ import {
   onChangeGroupName,
   onChangeGroupAddress,
   onChangeGroupPhone,
+  onChangeGroup,
   sign,
   signIn,
   loggedIn,
@@ -60,6 +61,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     onChangeGroupPhone: (evt) => {
       dispatch(onChangeGroupPhone(evt));
+    },
+    onChangeGroup: (evt) => {
+      dispatch(onChangeGroup(evt));
     },
     sign: () => {
       dispatch(sign());

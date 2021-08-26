@@ -35,8 +35,10 @@ class App extends React.Component {
               onChangeImage={that.props.onChangeImage}
               onChangeFrom={that.props.onChangeFrom}
               onChangeTo={that.props.onChangeTo}
+              onChangeGroup={that.props.onChangeGroup}
               sign={that.props.sign}
               from={that.props.state.from}
+              groups={that.props.state.groups}
             />
           } />
           <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate

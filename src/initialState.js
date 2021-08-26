@@ -12,6 +12,8 @@ const initialState = {
   certificate: {},
   certificateImage: "",
   certificates: [],
+  groups: [],
+  groupId: null,
 }
 
 export default initialState;

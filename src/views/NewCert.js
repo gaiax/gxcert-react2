@@ -19,11 +19,18 @@ class NewCert extends React.Component {
             <p className="new-cert-form-title">
               From
             </p>
-            <input type="text" className="new-cert-form-name" onChange={this.props.onChangeFrom} value={this.props.from} disabled="disabled" />
+            <select className="new-cert-form-group" onChange={this.props.onChangeGroup}>
+              <option value="">Select group</option>
+              { this.props.groups.map(group => {
+                return (
+                  <option value={group.groupId.toString()}>{group.name}</option>
+                );
+              }) }
+            </select>
             <p className="new-cert-form-title">
               To
             </p>
-            <input type="text" className="new-cert-form-name" onChange={this.props.onChangeTo} />
+            <input type="text" className="new-cert-form-to" onChange={this.props.onChangeTo} />
             <p className="new-cert-form-title">
               Name of Certificate
             </p>
