@@ -55,6 +55,10 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/group/new" render={ (routeProps) => <NewGroup
             {...routeProps}
+            registerGroup={that.props.registerGroup}
+            onChangeGroupName={that.props.onChangeGroupName}
+            onChangeGroupAddress={that.props.onChangeGroupAddress}
+            onChangeGroupPhone={that.props.onChangeGroupPhone}
             />
           } />
         </Switch>

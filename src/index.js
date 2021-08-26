@@ -24,6 +24,7 @@ import {
   fetchCertificate,
   fetchCertificates,
   fetchCertificateImage,
+  registerGroup,
 } from "./actions";
 //import CertClient from "./client"
 
@@ -77,6 +78,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     signIn: () => {
       dispatch(signIn());
+    },
+    registerGroup: () => {
+      dispatch(registerGroup());
     }
   }
 }

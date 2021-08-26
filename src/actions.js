@@ -171,6 +171,11 @@ const signIn = () => async (dispatch) => {
     type: "LOGGED_IN",
     payload: accounts[0],
   });
+  const groups = await gxCert.getGroups(accounts[0]);
+  if (groups.length === 0) {
+    history.push("/group/new");
+    return;
+  }
   history.push("/new");
 }
 
@@ -245,6 +250,28 @@ const sign = () => async (dispatch, getState) => {
   });
   history.push("/certs");
 }
+const registerGroup = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const from = state.from;
+  const groupName = state.groupName;
+  const groupAddress = state.groupAddress;
+  const groupPhone = state.groupPhone;
+  try {
+    await gxCert.createGroup(groupName, from);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to create group.");
+    return;
+  }
+  history.push("/group");
+}
 export {
   onChangeTitle,
   onChangeDescription,
@@ -261,5 +288,6 @@ export {
   fetchCertificate,
   fetchCertificates,
   fetchCertificateImage,
+  registerGroup,
 
 };
