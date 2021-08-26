@@ -73,13 +73,13 @@ html, body {
   font-size: 24px;
 }
 
-.sign-in, .registration, .certificates, .certificate {
+.sign-in, .registration, .certificates, .certificate, .new-group {
   height: 500px;
   padding: 20px;
   background-color: #F1F9FF;
 }
 
-.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content{
+.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
@@ -95,11 +95,7 @@ html, body {
   font-weight: bold;
 }
 
-.registration-title {
-  color: #49AAFC;
-  font-weight: bold;
-}
-.new-cert-title {
+.registration-title, .new-cert-title, .new-group-title{
   color: #49AAFC;
   font-weight: bold;
 }
@@ -132,6 +128,7 @@ html, body {
   font-size: 18px;
   padding-left: 10px;
   padding-right: 10px;
+  margin-bottom: 20px;
 }
 
 .register-button {
@@ -230,10 +227,10 @@ html, body {
   font-size: 12px;
   border-radius: 4px;
 }
-.new-cert-description {
+.new-cert-description, .new-group-description {
   color: #49AAFC;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .new-cert-form {
@@ -291,4 +288,10 @@ html, body {
   padding-left: 10px;
   padding-right: 10px;
   margin-bottom: 4px;
+  margin-top: 0;
+}
+.new-group-form {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -7,6 +7,7 @@ import Registration from "./views/Registration";
 import Certificates from "./views/Certificates";
 import Certificate from "./views/Certificate";
 import NewCert from "./views/NewCert";
+import NewGroup from "./views/NewGroup";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 
@@ -50,6 +51,10 @@ class App extends React.Component {
             {...routeProps}
             certificates={that.props.state.certificates}
             fetchCertificates={that.props.fetchCertificates}
+            />
+          } />
+          <Route exact={true} path="/group/new" render={ (routeProps) => <NewGroup
+            {...routeProps}
             />
           } />
         </Switch>
