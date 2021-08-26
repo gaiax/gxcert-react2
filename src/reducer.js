@@ -27,6 +27,18 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         to: action.payload
       });
+    case "ON_CHANGE_GROUP_NAME":
+      return Object.assign({}, state, {
+        groupName: action.payload,
+      });
+    case "ON_CHANGE_GROUP_ADDRESS":
+      return Object.assign({}, state, {
+        groupAddress: action.payload,
+      });
+    case "ON_CHANGE_GROUP_PHONE":
+      return Object.assign({}, state, {
+        groupPhone: action.payload,
+      });
     case "SIGN":
       const from = state.from;
       const to = state.to;

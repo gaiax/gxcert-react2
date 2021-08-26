@@ -45,6 +45,26 @@ const onChangeTo = (evt) => async (dispatch, getState) => {
   });
 }
 
+const onChangeGroupName = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_GROUP_NAME",
+    payload: evt.target.value,
+  });
+}
+
+const onChangeGroupAddress = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_GROUP_ADDRESS",
+    payload: evt.target.value,
+  });
+}
+const onChangeGroupPhone = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_GROUP_PHONE",
+    payload: evt.target.value,
+  });
+}
+
 const loggedIn = (address) => async (dispatch) => {
   dispatch({
     type: "LOGGED_IN",
@@ -232,6 +252,9 @@ export {
   onChangeUrl,
   onChangeFrom,
   onChangeTo,
+  onChangeGroupName,
+  onChangeGroupAddress,
+  onChangeGroupPhone,
   sign,
   signIn,
   loggedIn,
