@@ -20,7 +20,7 @@ class NewCert extends React.Component {
               From
             </p>
             <select className="new-cert-form-group" onChange={this.props.onChangeGroup}>
-              <option value="">Select group</option>
+              <option hidden>Select group</option>
               { this.props.groups.map(group => {
                 return (
                   <option value={group.groupId.toString()}>{group.name}</option>
