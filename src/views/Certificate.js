@@ -21,8 +21,6 @@ class Certificate extends React.Component {
     this.props.fetchCertificate(cid);
   }
   render() {
-    console.log("cert is ");
-    console.log(this.props.certificate);
     return (
       <div className="certificate">
         <div className="certificate-content">

@@ -25,7 +25,6 @@ class App extends React.Component {
           <Route exact={true} path="/" component={Top} />
           <Route exact={true} path="/signup" render={ (routeProps) => <SignIn
             {...routeProps}
-            loggedIn={that.props.loggedIn}
             signIn={that.props.signIn}
             />
           } />
@@ -34,7 +33,6 @@ class App extends React.Component {
               onChangeDescription={that.props.onChangeDescription}
               onChangeUrl={that.props.onChangeUrl}
               onChangeImage={that.props.onChangeImage}
-              onChangeFrom={that.props.onChangeFrom}
               onChangeTo={that.props.onChangeTo}
               onChangeGroup={that.props.onChangeGroup}
               fetchGroups={that.props.fetchGroups}

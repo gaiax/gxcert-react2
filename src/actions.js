@@ -32,12 +32,6 @@ const onChangeImage = (evt) => async (dispatch, getState) => {
   }
   reader.readAsArrayBuffer(file);
 }
-const onChangeFrom = (evt) => async (dispatch, getState) => {
-  dispatch({
-    type: "ON_CHANGE_FROM",
-    payload: evt.target.value,
-  });
-}
 const onChangeTo = (evt) => async (dispatch, getState) => {
   dispatch({
     type: "ON_CHANGE_TO",
@@ -101,12 +95,6 @@ const onChangeProfileImage = (evt) => async (dispatch, getState) => {
   reader.readAsArrayBuffer(file);
 }
 
-const loggedIn = (address) => async (dispatch) => {
-  dispatch({
-    type: "LOGGED_IN",
-    payload: address
-  });
-}
 
 const fetchCertificate = (cid) => async (dispatch) => {
   let gxCert;
@@ -141,6 +129,12 @@ const fetchCertificate = (cid) => async (dispatch) => {
   });
   const group = await gxCert.getGroup(certificate.groupId);
   certificate.from = group.name;
+  dispatch({
+    type: "FETCHED_CERTIFICATE",
+    payload: certificate,
+  });
+  const profile = await gxCert.getProfile(certificate.to);
+  certificate.to = profile.name;
   dispatch({
     type: "FETCHED_CERTIFICATE",
     payload: certificate,
@@ -313,10 +307,6 @@ const sign = () => async (dispatch, getState) => {
     return;
   }
 
-  dispatch({
-    type: "SIGN",
-    payload: null,
-  });
   history.push("/certs");
 }
 
@@ -382,7 +372,6 @@ export {
   onChangeDescription,
   onChangeImage,
   onChangeUrl,
-  onChangeFrom,
   onChangeTo,
   onChangeGroupName,
   onChangeGroupAddress,
@@ -393,7 +382,6 @@ export {
   onChangeProfileImage,
   sign,
   signIn,
-  loggedIn,
   fetchCertificate,
   fetchCertificates,
   fetchCertificateImage,

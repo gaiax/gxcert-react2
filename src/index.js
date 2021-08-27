@@ -12,7 +12,6 @@ import {
   onChangeTitle,
   onChangeDescription,
   onChangeUrl,
-  onChangeFrom,
   onChangeTo,
   onChangeImage,
   onChangeGroupName,
@@ -24,7 +23,6 @@ import {
   onChangeProfileImage,
   sign,
   signIn,
-  loggedIn,
   fetchCertificate,
   fetchCertificates,
   fetchCertificateImage,
@@ -48,9 +46,6 @@ function mapDispatchToProps(dispatch, props) {
     },
     onChangeUrl: (evt) => {
       dispatch(onChangeUrl(evt));
-    },
-    onChangeFrom: (evt) => {
-      dispatch(onChangeFrom(evt));
     },
     onChangeTo: (evt) => {
       dispatch(onChangeTo(evt));
@@ -81,9 +76,6 @@ function mapDispatchToProps(dispatch, props) {
     },
     sign: () => {
       dispatch(sign());
-    },
-    loggedIn: (address) => {
-      dispatch(loggedIn(address));
     },
     fetchCertificate: (cid) => {
       dispatch(fetchCertificate(cid));

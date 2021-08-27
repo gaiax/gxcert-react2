@@ -120,7 +120,7 @@ html, body {
   margin-bottom: 4px;
 }
 
-.registration-form-name, .registration-form-email , .new-cert-form-name, .new-group-form-name, .new-group-form-address, .new-group-form-phone, .new-profile-form-name, .new-profile-form-email{
+.registration-form-name, .registration-form-email , .new-cert-form-group, .new-cert-form-to, .new-cert-form-name, .new-group-form-name, .new-group-form-address, .new-group-form-phone, .new-profile-form-name, .new-profile-form-email{
   height: 34px;
   border-radius: 4px;
   border: 1px solid #49AAFC;
