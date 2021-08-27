@@ -65,6 +65,10 @@ const onChangeGroupPhone = (evt) => async (dispatch, getState) => {
   });
 }
 const onChangeGroup = (evt) => async (dispatch, getState) => {
+  if (evt.target.value === "new") {
+    history.push("/group/new");
+    return;
+  }
   dispatch({
     type: "ON_CHANGE_GROUP",
     payload: evt.target.value,
@@ -192,6 +196,28 @@ const fetchCertificateImage = (cid) => async (dispatch) => {
     payload: imageUrl,
   });
 }
+const fetchGroups = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const address = state.from;
+  let groups;
+  try {
+    groups = await gxCert.getGroups(address);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_GROUPS",
+    payload: groups,
+  });
+}
 
 const signIn = () => async (dispatch) => {
   await torusClient.init();
@@ -217,15 +243,6 @@ const signIn = () => async (dispatch) => {
     return;
   }
 
-  const groups = await gxCert.getGroups(address);
-  dispatch({
-    type: "FETCHED_GROUPS",
-    payload: groups,
-  });
-  if (groups.length === 0) {
-    history.push("/group/new");
-    return;
-  }
   history.push("/certs");
 }
 
@@ -380,6 +397,7 @@ export {
   fetchCertificate,
   fetchCertificates,
   fetchCertificateImage,
+  fetchGroups,
   registerGroup,
   registerProfile,
 

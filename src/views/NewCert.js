@@ -4,6 +4,9 @@ class NewCert extends React.Component {
   constructor() {
     super();
   }
+  componentDidMount() {
+    this.props.fetchGroups();
+  }
   render() {
     return (
       <div className="new-cert">
@@ -26,6 +29,7 @@ class NewCert extends React.Component {
                   <option value={group.groupId.toString()}>{group.name}</option>
                 );
               }) }
+              <option value="new">Create new group</option>
             </select>
             <p className="new-cert-form-title">
               To

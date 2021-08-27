@@ -12,6 +12,10 @@ class Certificates extends React.Component {
     return (
       <div className="certificates">
         <div className="certificates-content">
+          <Link to="/new" className="new-cert-button">
+              新規作成
+          </Link>
+          <br />
           <p className="certificates-title">
             証明書
           </p>

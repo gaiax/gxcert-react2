@@ -37,6 +37,7 @@ class App extends React.Component {
               onChangeFrom={that.props.onChangeFrom}
               onChangeTo={that.props.onChangeTo}
               onChangeGroup={that.props.onChangeGroup}
+              fetchGroups={that.props.fetchGroups}
               sign={that.props.sign}
               from={that.props.state.from}
               groups={that.props.state.groups}

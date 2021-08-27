@@ -302,3 +302,13 @@ html, body {
   border-radius: 70px;
   background-color: #F1F9FF;
 }
+.new-cert-button {
+  background-color: #49AAFC;
+  height: 34px;
+  line-height: 34px;
+  width: 100px;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  float:right;
+}
