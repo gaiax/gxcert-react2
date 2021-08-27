@@ -8,6 +8,14 @@ html, body {
   margin: 0;
 }
 
+.logo {
+  font-weight: bold;
+  color: white;
+  line-height: 40px;
+  font-size: 26px;
+
+}
+
 .App-header {
   background-color: #49AAFC;
   padding: 10px;
