@@ -14,6 +14,9 @@ const initialState = {
   certificates: [],
   groups: [],
   groupId: null,
+  profileName: "",
+  profileEmail: "",
+  profileImage: "",
 }
 
 export default initialState;

@@ -19,6 +19,9 @@ import {
   onChangeGroupAddress,
   onChangeGroupPhone,
   onChangeGroup,
+  onChangeProfileName,
+  onChangeProfileEmail,
+  onChangeProfileImage,
   sign,
   signIn,
   loggedIn,
@@ -26,6 +29,7 @@ import {
   fetchCertificates,
   fetchCertificateImage,
   registerGroup,
+  registerProfile,
 } from "./actions";
 //import CertClient from "./client"
 
@@ -65,6 +69,15 @@ function mapDispatchToProps(dispatch, props) {
     onChangeGroup: (evt) => {
       dispatch(onChangeGroup(evt));
     },
+    onChangeProfileName: (evt) => {
+      dispatch(onChangeProfileName(evt));
+    },
+    onChangeProfileEmail: (evt) => {
+      dispatch(onChangeProfileEmail(evt));
+    },
+    onChangeProfileImage: (evt) => {
+      dispatch(onChangeProfileImage(evt));
+    },
     sign: () => {
       dispatch(sign());
     },
@@ -85,6 +98,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     registerGroup: () => {
       dispatch(registerGroup());
+    },
+    registerProfile: () => {
+      dispatch(registerProfile());
     }
   }
 }

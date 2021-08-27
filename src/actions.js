@@ -71,6 +71,32 @@ const onChangeGroup = (evt) => async (dispatch, getState) => {
   });
 }
 
+const onChangeProfileName = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_PROFILE_NAME",
+    payload: evt.target.value,
+  });
+}
+
+const onChangeProfileEmail = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_PROFILE_EMAIL",
+    payload: evt.target.value,
+  });
+}
+
+const onChangeProfileImage = (evt) => async (dispatch, getState) => {
+  const file = evt.target.files[0];
+  const reader = new FileReader();
+  reader.onload = () => {
+    dispatch({
+      type: "ON_CHANGE_PROFILE_IMAGE",
+      payload: reader.result,
+    });
+  }
+  reader.readAsArrayBuffer(file);
+}
+
 const loggedIn = (address) => async (dispatch) => {
   dispatch({
     type: "LOGGED_IN",
@@ -167,45 +193,31 @@ const fetchCertificateImage = (cid) => async (dispatch) => {
   });
 }
 
-const createProfile = () => async (dispatch, getState) => {
-  const state = getState().state;
-  let gxCert;
-  try {
-    gxCert = getGxCert();
-  } catch(err) {
-    console.error(err);
-    return;
-  }
-  const profile = {
-    name: state.name,
-    email: state.email,
-  }
-  const signedProfile = await gxCert.signProfile(profile, { address: state.from });
-  try {
-    await gxCert.sendSignedProfileToGx(state.from, signedProfile);
-  } catch(err) {
-    console.error(err);
-    alert("Failed to create your profile.");
-    return;
-  }
-  //history.push("/");
-}
-
 const signIn = () => async (dispatch) => {
   await torusClient.init();
   const web3 = await torusClient.login();
   const gxCert = getGxCert(web3);
   await gxCert.init();
   const accounts = await gxCert.web3.eth.getAccounts();
+  const address = accounts[0];
   if (accounts.length === 0) {
     console.log("Failed to login.");
     return;
   }
   dispatch({
     type: "LOGGED_IN",
-    payload: accounts[0],
+    payload: address,
   });
-  const groups = await gxCert.getGroups(accounts[0]);
+  let profile;
+  try {
+    profile = await gxCert.getProfile(address);
+  } catch(err) {
+    console.error(err);
+    history.push("/profile/new");
+    return;
+  }
+
+  const groups = await gxCert.getGroups(address);
   dispatch({
     type: "FETCHED_GROUPS",
     payload: groups,
@@ -214,7 +226,7 @@ const signIn = () => async (dispatch) => {
     history.push("/group/new");
     return;
   }
-  history.push("/new");
+  history.push("/certs");
 }
 
 const sign = () => async (dispatch, getState) => {
@@ -290,6 +302,42 @@ const sign = () => async (dispatch, getState) => {
   });
   history.push("/certs");
 }
+
+const registerProfile = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const name = state.profileName;
+  const email = state.profileEmail;
+  const address = state.from;
+  let signedProfile;
+  try {
+    signedProfile = await gxCert.signProfile({
+      name,
+      email,
+    }, { 
+      address,
+    });
+  } catch(err) {
+    console.error(err);
+    alert("Failed to sign profile.");
+    return;
+  }
+  try {
+    await gxCert.sendSignedProfileToGx(address, signedProfile);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to register profile.");
+    return;
+  }
+  history.push("/certs");
+
+}
 const registerGroup = () => async (dispatch, getState) => {
   let gxCert;
   try {
@@ -323,6 +371,9 @@ export {
   onChangeGroupAddress,
   onChangeGroupPhone,
   onChangeGroup,
+  onChangeProfileName,
+  onChangeProfileEmail,
+  onChangeProfileImage,
   sign,
   signIn,
   loggedIn,
@@ -330,5 +381,6 @@ export {
   fetchCertificates,
   fetchCertificateImage,
   registerGroup,
+  registerProfile,
 
 };

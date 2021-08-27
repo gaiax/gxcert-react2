@@ -43,6 +43,22 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         groupId: parseInt(action.payload),
       });
+    case "ON_CHANGE_PROFILE_NAME":
+      return Object.assign({}, state, {
+        profileName: action.payload,
+      });
+    case "ON_CHANGE_PROFILE_EMAIL":
+      return Object.assign({}, state, {
+        profileEmail: action.payload,
+      });
+    case "ON_CHANGE_PROFILE_EMAIL":
+      return Object.assign({}, state, {
+        profileEmail: action.payload,
+      });
+    case "ON_CHANGE_PROFILE_IMAGE":
+      return Object.assign({}, state, {
+        image: action.payload,
+      });
     case "SIGN":
       const from = state.from;
       const to = state.to;
