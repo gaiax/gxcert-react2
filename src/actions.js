@@ -199,11 +199,11 @@ const signIn = () => async (dispatch) => {
   const gxCert = getGxCert(web3);
   await gxCert.init();
   const accounts = await gxCert.web3.eth.getAccounts();
-  const address = accounts[0];
   if (accounts.length === 0) {
     console.log("Failed to login.");
     return;
   }
+  const address = accounts[0];
   dispatch({
     type: "LOGGED_IN",
     payload: address,
@@ -358,7 +358,7 @@ const registerGroup = () => async (dispatch, getState) => {
     alert("Failed to create group.");
     return;
   }
-  history.push("/group");
+  history.push("/certs");
 }
 export {
   onChangeTitle,
