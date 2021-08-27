@@ -46,6 +46,10 @@ class Certificate extends React.Component {
               <td>URL: </td>
               <td><a href={this.props.certificate.url} target="_blank">{this.props.certificate.url}</a></td>
             </tr>
+            <tr>
+              <td>Description: </td>
+              <td>{this.props.certificate.description}</td>
+            </tr>
           </table>
           <div className="certificate-buttons">
             <div className="certificate-button">
