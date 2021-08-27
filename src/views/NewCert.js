@@ -1,4 +1,5 @@
 import React from "react";
+import { createImageUrlFromUint8Array } from "../util/ipfs";
 
 class NewCert extends React.Component {
   constructor() {
@@ -8,6 +9,12 @@ class NewCert extends React.Component {
     this.props.fetchGroups();
   }
   render() {
+    let imageUrl = "";
+    try {
+      imageUrl = createImageUrlFromUint8Array(this.props.image);
+    } catch(err) {
+      console.error(err);
+    }
     return (
       <div className="new-cert">
         <div className="new-cert-content">
@@ -50,9 +57,8 @@ class NewCert extends React.Component {
             <p className="new-cert-form-title">
               Certificate Image
             </p>
-            <img src="" className="new-cert-form-image" />
+            <img src={imageUrl} className="new-cert-form-image" />
             <div className="new-cert-form-image-file-div">
-              IMAGE_99312.jpg
               <label className="new-cert-form-image-file-label">
                 <input type="file" className="new-cert-form-image-file" onChange={this.props.onChangeImage} />
                 画像選択

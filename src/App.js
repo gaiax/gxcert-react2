@@ -38,6 +38,7 @@ class App extends React.Component {
               fetchGroups={that.props.fetchGroups}
               sign={that.props.sign}
               from={that.props.state.from}
+              image={that.props.state.image}
               groups={that.props.state.groups}
             />
           } />

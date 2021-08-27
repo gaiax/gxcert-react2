@@ -92,4 +92,4 @@ async function getTextOnIpfs(ipfsHash) {
 }
 
 
-export { getImageOnIpfs, getTextOnIpfs, postCertificate, postText };
+export { getImageOnIpfs, getTextOnIpfs, postCertificate, postText, createImageUrlFromUint8Array };
