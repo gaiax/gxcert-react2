@@ -123,7 +123,7 @@ const fetchCertificates = () => async (dispatch, getState) => {
   if (address === "" || !address) {
     history.push("/top");
     return;
-  }
+  
   let gxCert;
   try {
     gxCert = await getGxCertWithoutLogin();
@@ -165,6 +165,30 @@ const fetchCertificateImage = (cid) => async (dispatch) => {
     type: "FETCHED_CERTIFICATE_IMAGE",
     payload: imageUrl,
   });
+}
+
+const createProfile = () => async (dispatch, getState) => {
+  const state = getState().state;
+  let gxCert;
+  try {
+    gxCert = getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const profile = {
+    name: state.name,
+    email: state.email,
+  }
+  const signedProfile = await gxCert.signProfile(profile, { address: state.from });
+  try {
+    await gxCert.sendSignedProfileToGx(state.from, signedProfile);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to create your profile.");
+    return;
+  }
+  //history.push("/");
 }
 
 const signIn = () => async (dispatch) => {
