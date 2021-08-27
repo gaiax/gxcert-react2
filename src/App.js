@@ -7,6 +7,7 @@ import Registration from "./views/Registration";
 import Certificates from "./views/Certificates";
 import Certificate from "./views/Certificate";
 import NewCert from "./views/NewCert";
+import NewProfile from "./views/NewProfile";
 import NewGroup from "./views/NewGroup";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
@@ -61,6 +62,15 @@ class App extends React.Component {
             onChangeGroupName={that.props.onChangeGroupName}
             onChangeGroupAddress={that.props.onChangeGroupAddress}
             onChangeGroupPhone={that.props.onChangeGroupPhone}
+            />
+          } />
+          <Route exact={true} path="/profile/new" render={ (routeProps) => <NewProfile
+            {...routeProps}
+            imageUrl={that.props.state.profileImageUrl}
+            registerProfile={that.props.registerProfile}
+            onChangeProfileName={that.props.onChangeProfileName}
+            onChangeProfileEmail={that.props.onChangeProfileEmail}
+            onChangeProfileImage={that.props.onChangeProfileImage}
             />
           } />
         </Switch>

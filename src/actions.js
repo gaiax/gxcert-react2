@@ -123,7 +123,7 @@ const fetchCertificates = () => async (dispatch, getState) => {
   if (address === "" || !address) {
     history.push("/top");
     return;
-  
+  }
   let gxCert;
   try {
     gxCert = await getGxCertWithoutLogin();
