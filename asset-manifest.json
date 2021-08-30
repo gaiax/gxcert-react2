@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/gxcert-react2/static/css/main.5f8366d3.chunk.css",
+    "main.js": "/gxcert-react2/static/js/main.4bf3ecd3.chunk.js",
+    "main.js.map": "/gxcert-react2/static/js/main.4bf3ecd3.chunk.js.map",
+    "runtime-main.js": "/gxcert-react2/static/js/runtime-main.57c7a965.js",
+    "runtime-main.js.map": "/gxcert-react2/static/js/runtime-main.57c7a965.js.map",
+    "static/js/2.047383d8.chunk.js": "/gxcert-react2/static/js/2.047383d8.chunk.js",
+    "static/js/2.047383d8.chunk.js.map": "/gxcert-react2/static/js/2.047383d8.chunk.js.map",
+    "static/js/3.0f5a77e3.chunk.js": "/gxcert-react2/static/js/3.0f5a77e3.chunk.js",
+    "static/js/3.0f5a77e3.chunk.js.map": "/gxcert-react2/static/js/3.0f5a77e3.chunk.js.map",
+    "index.html": "/gxcert-react2/index.html",
+    "static/css/main.5f8366d3.chunk.css.map": "/gxcert-react2/static/css/main.5f8366d3.chunk.css.map",
+    "static/js/2.047383d8.chunk.js.LICENSE.txt": "/gxcert-react2/static/js/2.047383d8.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/gxcert-react2/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.57c7a965.js",
+    "static/js/2.047383d8.chunk.js",
+    "static/css/main.5f8366d3.chunk.css",
+    "static/js/main.4bf3ecd3.chunk.js"
+  ]
+}
