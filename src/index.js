@@ -27,6 +27,7 @@ import {
   fetchCertificates,
   fetchCertificateImage,
   fetchGroups,
+  fetchGroup,
   registerGroup,
   registerProfile,
 } from "./actions";
@@ -88,6 +89,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     fetchGroups: () => {
       dispatch(fetchGroups());
+    },
+    fetchGroup: (groupId) => {
+      dispatch(fetchGroup(groupId));
     },
     signIn: () => {
       dispatch(signIn());

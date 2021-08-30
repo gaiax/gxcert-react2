@@ -240,6 +240,27 @@ const signIn = () => async (dispatch) => {
   history.push("/certs");
 }
 
+const fetchGroup = (groupId) => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCertWithoutLogin();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  let group;
+  try {
+    group = await gxCert.getGroup(groupId);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_GROUP",
+    payload: group,
+  });
+}
+
 const sign = () => async (dispatch, getState) => {
   let gxCert;
   try {
@@ -386,6 +407,7 @@ export {
   fetchCertificates,
   fetchCertificateImage,
   fetchGroups,
+  fetchGroup,
   registerGroup,
   registerProfile,
 

@@ -12,6 +12,7 @@ const initialState = {
   certificate: {},
   certificateImage: "",
   certificates: [],
+  group: null,
   groups: [],
   groupId: null,
   profileName: "",

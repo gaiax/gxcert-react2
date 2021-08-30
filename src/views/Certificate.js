@@ -1,6 +1,7 @@
 import { getImageOnIpfs } from "../util/ipfs"
 import React from "react";
 
+import { Link } from "react-router-dom";
 
 
 class Certificate extends React.Component {
@@ -32,7 +33,11 @@ class Certificate extends React.Component {
           <table className="certificate-detail">
             <tr>
               <td>From: </td>
-              <td>{this.props.certificate.from}</td>
+              <td>
+                <Link to={"/group/" + this.props.certificate.groupId}>
+                  {this.props.certificate.from}
+                </Link>
+              </td>
             </tr>
             <tr>
               <td>To: </td>

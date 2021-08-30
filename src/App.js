@@ -9,6 +9,7 @@ import Certificate from "./views/Certificate";
 import NewCert from "./views/NewCert";
 import NewProfile from "./views/NewProfile";
 import NewGroup from "./views/NewGroup";
+import GroupMembers from "./views/GroupMembers";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 
@@ -54,6 +55,12 @@ class App extends React.Component {
             {...routeProps}
             certificates={that.props.state.certificates}
             fetchCertificates={that.props.fetchCertificates}
+            />
+          } />
+          <Route exact={true} path="/group/:id" render={ (routeProps) => <GroupMembers
+            {...routeProps}
+            group={that.props.state.group}
+            fetchGroup={that.props.fetchGroup}
             />
           } />
           <Route exact={true} path="/group/new" render={ (routeProps) => <NewGroup
