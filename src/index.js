@@ -30,6 +30,7 @@ import {
   fetchGroup,
   registerGroup,
   registerProfile,
+  inviteMember,
 } from "./actions";
 //import CertClient from "./client"
 
@@ -101,7 +102,10 @@ function mapDispatchToProps(dispatch, props) {
     },
     registerProfile: () => {
       dispatch(registerProfile());
-    }
+    },
+    inviteMember: () => {
+      dispatch(inviteMember());
+    },
   }
 }
 

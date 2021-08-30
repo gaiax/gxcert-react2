@@ -388,6 +388,54 @@ const registerGroup = () => async (dispatch, getState) => {
   }
   history.push("/certs");
 }
+const inviteMember = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const signerAddress = state.from;
+  const groupId = state.group.groupId;
+  const email = state.group.emailToInvite;
+  let address;
+  try {
+    address = await torusClient.getPublicAddressByGoogle(email);
+  } catch(err) {
+    console.error(err);
+    alert("Email is not registered.");
+    return;
+  }
+  let signedMember;
+  try {
+    signedMember = await gxCert.signMemberAddress(address, { address: signerAddress });
+  } catch(err) {
+    console.error(err);
+    alert("Failed to sign for invitation.");
+    return;
+  }
+  try {
+    await gxCert.inviteMemberToGroup(groupId, signedMember);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to send invitation.");
+    return;
+  }
+  let group;
+  try {
+    group = await gxCert.getGroup(groupId);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_GROUP",
+    payload: group,
+  });
+
+}
 export {
   onChangeTitle,
   onChangeDescription,
@@ -410,5 +458,6 @@ export {
   fetchGroup,
   registerGroup,
   registerProfile,
+  inviteMember,
 
 };
