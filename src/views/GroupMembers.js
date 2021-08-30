@@ -31,7 +31,7 @@ class GroupMembers extends React.Component {
                           <p className="group-members-list-cell-name">
                             {member.name} 
                           </p>
-                          <p className="group-members-list-cell-by">
+                          <p className="group-members-list-cell-address">
                             {member.address}
                           </p>
                         </div>

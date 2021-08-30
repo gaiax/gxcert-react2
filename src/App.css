@@ -90,13 +90,13 @@ html, body {
   font-size: 24px;
 }
 
-.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile {
+.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .group-members {
   height: 500px;
   padding: 20px;
   background-color: #F1F9FF;
 }
 
-.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content{
+.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content{
   margin-left: auto;
   margin-right: auto;
   width: 50%;
@@ -159,38 +159,41 @@ html, body {
   border-radius: 4px;
 }
 
-.certificates-title {
+.certificates-title, .group-members-title {
   color: #49AAFC;
   font-weight: bold;
 }
 
-.certificates-list-cell {
+.certificates-list-cell, .group-members-list-cell {
   display: flex;
   border-bottom: 1px #49AAFC solid;
   height: 120px;
 }
 
-.certificates-list-cell-icon {
+.certificates-list-cell-icon, .group-members-list-cell-icon {
   margin-top: 20px;
   width: 80px;
-  height: 60px;
+  height: 80px;
 }
 
-.certificates-list-cell-detail {
+.group-members-list-cell-icon {
+  border-radius: 40px;
+}
+
+.certificates-list-cell-detail, .group-members-list-cell-detail {
   margin-left: 20px;
-  width: 100%;
 }
 
-.certificates-list-cell-title {
+.certificates-list-cell-title, .group-members-list-cell-name {
   font-size: 16px;
   font-weight: bold;
   text-align: left;
 }
-.certificates-list-cell-date {
+.certificates-list-cell-date, .group-members-list-cell-address {
   font-size: 16px;
   text-align: left;
 }
-.certificates-list-cell p {
+.certificates-list-cell p, .group-members-list-cell p {
   color: #49AAFC;
 }
 
@@ -328,4 +331,10 @@ html, body {
   border-radius: 4px;
   text-decoration: none;
   float:right;
+}
+
+.group-members-list-cell-icon {
+  width: 80px;
+  height: 80px;
+  background: #F1F9FF;
 }
