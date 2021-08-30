@@ -22,6 +22,8 @@ class GroupMembers extends React.Component {
             return (
               <div>
                 <p className="group-members-title">{ this.props.group.name }のメンバー</p>
+                <input type="text" className="group-members-invite" />
+                <button className="group-members-invite-button">Invite</button>
                 <div className="group-members-list">
                   { this.props.group.members.map(member => {
                     return (
