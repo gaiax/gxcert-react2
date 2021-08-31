@@ -127,18 +127,28 @@ const fetchCertificate = (cid) => async (dispatch) => {
     type: "FETCHED_CERTIFICATE_IMAGE",
     payload: imageUrl,
   });
-  const group = await gxCert.getGroup(certificate.groupId);
-  certificate.from = group.name;
-  dispatch({
-    type: "FETCHED_CERTIFICATE",
-    payload: certificate,
-  });
-  const profile = await gxCert.getProfile(certificate.to);
-  certificate.to = profile.name;
-  dispatch({
-    type: "FETCHED_CERTIFICATE",
-    payload: certificate,
-  });
+  try {
+    const group = await gxCert.getGroup(certificate.groupId);
+    certificate.group = group;
+    dispatch({
+      type: "FETCHED_CERTIFICATE",
+      payload: certificate,
+    });
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  try {
+    const profile = await gxCert.getProfile(certificate.to);
+    certificate.to = profile.name;
+    dispatch({
+      type: "FETCHED_CERTIFICATE",
+      payload: certificate,
+    });
+  } catch(err) {
+    console.error(err);
+    return;
+  }
 }
 
 const fetchCertificates = () => async (dispatch, getState) => {
@@ -155,41 +165,28 @@ const fetchCertificates = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  let certificates;
+  let userCerts;
   try {
-    certificates = await gxCert.getReceivedCerts(address);
+    userCerts = await gxCert.getReceivedUserCerts(address);
   } catch(err) {
     console.error(err);
     return;
   }
   for (let i = 0; i < certificates.length; i++) {
     getImageOnIpfs(certificates[i].image).then(imageUrl => {
-      certificates[i].imageUrl = imageUrl;
+      userCerts[i].imageUrl = imageUrl;
       dispatch({
         type: "FETCHED_CERTIFICATES",
-        payload: certificates,
+        payload: userCerts,
       });
     });
   }
   dispatch({
     type: "FETCHED_CERTIFICATES",
-    payload: certificates,
+    payload: userCerts,
   });
 }
 
-const fetchCertificateImage = (cid) => async (dispatch) => {
-  let imageUrl;
-  try {
-    imageUrl = await getImageOnIpfs(cid);
-  } catch(err) {
-    console.error(err);
-    return;
-  }
-  dispatch({
-    type: "FETCHED_CERTIFICATE_IMAGE",
-    payload: imageUrl,
-  });
-}
 const fetchGroups = () => async (dispatch, getState) => {
   let gxCert;
   try {

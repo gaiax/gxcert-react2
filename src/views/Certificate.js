@@ -7,15 +7,6 @@ import { Link } from "react-router-dom";
 class Certificate extends React.Component {
   constructor() {
     super();
-    this.state = {
-      from: "",
-      to: "",
-      title: "",
-      description: "",
-      issued_at: new Date(0),
-      url: "",
-      image: "",
-    }
   }
   componentDidMount() {
     const cid = this.props.match.params.id;
@@ -29,27 +20,18 @@ class Certificate extends React.Component {
             {this.props.certificate.title}
           </p>
           <img src={this.props.certificateImage} className="certificate-icon" />
-          {this.state.description}
           <table className="certificate-detail">
             <tr>
-              <td>From: </td>
+              <td>Publisher: </td>
               <td>
-                <Link to={"/group/" + this.props.certificate.groupId}>
-                  {this.props.certificate.from}
-                </Link>
+                {this.props.certificate.group === undefined ? "" : this.props.certificate.group.name }
               </td>
             </tr>
             <tr>
-              <td>To: </td>
-              <td>{this.props.certificate.to}</td>
-            </tr>
-            <tr>
-              <td>Date of issue: </td>
-              <td>{this.props.certificate.issued_at ? (new Date(this.props.certificate.issued_at)).toISOString() : ""}</td>
-            </tr>
-            <tr>
-              <td>URL: </td>
-              <td><a href={this.props.certificate.url} target="_blank">{this.props.certificate.url}</a></td>
+              <td>Title: </td>
+              <td>
+                {this.props.certificate.title}
+              </td>
             </tr>
             <tr>
               <td>Description: </td>
