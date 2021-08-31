@@ -5,9 +5,6 @@ class NewCert extends React.Component {
   constructor() {
     super();
   }
-  componentDidMount() {
-    this.props.fetchGroups();
-  }
   render() {
     let imageUrl = "";
     try {
@@ -24,36 +21,15 @@ class NewCert extends React.Component {
           <p className="new-cert-description">
             証明書を登録してください。証明書は複数登録することができ、それぞれの複数のユーザーに対して発行することができます。
           </p>
-
           <div className="new-cert-form">
             <p className="new-cert-form-title">
-              From
-            </p>
-            <select className="new-cert-form-group" onChange={this.props.onChangeGroup}>
-              <option hidden>Select group</option>
-              { this.props.groups.map(group => {
-                return (
-                  <option value={group.groupId.toString()}>{group.name}</option>
-                );
-              }) }
-              <option value="new">Create new group</option>
-            </select>
-            <p className="new-cert-form-title">
-              To
-            </p>
-            <input type="text" className="new-cert-form-to" onChange={this.props.onChangeTo} />
-            <p className="new-cert-form-title">
-              Name of Certificate
+              Title of Certificate
             </p>
             <input type="text" className="new-cert-form-name" onChange={this.props.onChangeTitle}/>
             <p className="new-cert-form-title">
               Description of Certificate
             </p>
             <textarea className="new-cert-form-description" onChange={this.props.onChangeDescription} ></textarea>
-            <p className="new-cert-form-title">
-              URL
-            </p>
-            <input type="text" className="new-cert-form-name" onChange={this.props.onChangeUrl} />
             <p className="new-cert-form-title">
               Certificate Image
             </p>
