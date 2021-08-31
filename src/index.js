@@ -11,13 +11,10 @@ import history from "./history";
 import {
   onChangeTitle,
   onChangeDescription,
-  onChangeUrl,
-  onChangeTo,
   onChangeImage,
   onChangeGroupName,
   onChangeGroupAddress,
   onChangeGroupPhone,
-  onChangeGroup,
   onChangeProfileName,
   onChangeProfileEmail,
   onChangeProfileImage,
@@ -25,7 +22,6 @@ import {
   signIn,
   fetchCertificate,
   fetchCertificates,
-  fetchCertificateImage,
   fetchGroups,
   fetchGroup,
   registerGroup,
@@ -46,12 +42,6 @@ function mapDispatchToProps(dispatch, props) {
     onChangeDescription: (evt) => {
       dispatch(onChangeDescription(evt));
     },
-    onChangeUrl: (evt) => {
-      dispatch(onChangeUrl(evt));
-    },
-    onChangeTo: (evt) => {
-      dispatch(onChangeTo(evt));
-    },
     onChangeImage: (evt) => {
       dispatch(onChangeImage(evt));
     },
@@ -63,9 +53,6 @@ function mapDispatchToProps(dispatch, props) {
     },
     onChangeGroupPhone: (evt) => {
       dispatch(onChangeGroupPhone(evt));
-    },
-    onChangeGroup: (evt) => {
-      dispatch(onChangeGroup(evt));
     },
     onChangeProfileName: (evt) => {
       dispatch(onChangeProfileName(evt));
@@ -84,9 +71,6 @@ function mapDispatchToProps(dispatch, props) {
     },
     fetchCertificates: () => {
       dispatch(fetchCertificates());
-    },
-    fetchCertificateImage: (cid) => {
-      dispatch(fetchCertificateImage(cid));
     },
     fetchGroups: () => {
       dispatch(fetchGroups());

@@ -29,18 +29,13 @@ class App extends React.Component {
             signIn={that.props.signIn}
             />
           } />
-          <Route exact={true} path="/new" render={ () => <NewCert
+          <Route exact={true} path="/new/:groupId" render={ () => <NewCert
               onChangeTitle={that.props.onChangeTitle}
               onChangeDescription={that.props.onChangeDescription}
-              onChangeUrl={that.props.onChangeUrl}
               onChangeImage={that.props.onChangeImage}
-              onChangeTo={that.props.onChangeTo}
-              onChangeGroup={that.props.onChangeGroup}
-              fetchGroups={that.props.fetchGroups}
               sign={that.props.sign}
               from={that.props.state.from}
               image={that.props.state.image}
-              groups={that.props.state.groups}
             />
           } />
           <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate

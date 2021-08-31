@@ -5,6 +5,10 @@ class NewCert extends React.Component {
   constructor() {
     super();
   }
+  componentDidMount() {
+    this.groupId = parseInt(this.props.match.params.groupId);
+
+  }
   render() {
     let imageUrl = "";
     try {
@@ -40,7 +44,7 @@ class NewCert extends React.Component {
                 画像選択
               </label>
             </div>
-            <div className="register-button" onClick={this.props.sign} >
+            <div className="register-button" onClick={() => this.props.sign(this.groupId)} >
               登録
             </div>
           </div>

@@ -15,12 +15,6 @@ const onChangeDescription = (evt) => async (dispatch, getState) => {
     payload: evt.target.value,
   });
 }
-const onChangeUrl = (evt) => async (dispatch, getState) => {
-  dispatch({
-    type: "ON_CHANGE_URL",
-    payload: evt.target.value,
-  });
-}
 const onChangeImage = (evt) => async (dispatch, getState) => {
   const file = evt.target.files[0];
   const reader = new FileReader();
@@ -31,12 +25,6 @@ const onChangeImage = (evt) => async (dispatch, getState) => {
     });
   }
   reader.readAsArrayBuffer(file);
-}
-const onChangeTo = (evt) => async (dispatch, getState) => {
-  dispatch({
-    type: "ON_CHANGE_TO",
-    payload: evt.target.value,
-  });
 }
 
 const onChangeGroupName = (evt) => async (dispatch, getState) => {
@@ -55,16 +43,6 @@ const onChangeGroupAddress = (evt) => async (dispatch, getState) => {
 const onChangeGroupPhone = (evt) => async (dispatch, getState) => {
   dispatch({
     type: "ON_CHANGE_GROUP_PHONE",
-    payload: evt.target.value,
-  });
-}
-const onChangeGroup = (evt) => async (dispatch, getState) => {
-  if (evt.target.value === "new") {
-    history.push("/group/new");
-    return;
-  }
-  dispatch({
-    type: "ON_CHANGE_GROUP",
     payload: evt.target.value,
   });
 }
@@ -172,8 +150,8 @@ const fetchCertificates = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  for (let i = 0; i < certificates.length; i++) {
-    getImageOnIpfs(certificates[i].image).then(imageUrl => {
+  for (let i = 0; i < userCerts.length; i++) {
+    getImageOnIpfs(userCerts[i].image).then(imageUrl => {
       userCerts[i].imageUrl = imageUrl;
       dispatch({
         type: "FETCHED_CERTIFICATES",
@@ -258,7 +236,7 @@ const fetchGroup = (groupId) => async (dispatch, getState) => {
   });
 }
 
-const sign = () => async (dispatch, getState) => {
+const sign = (groupId) => async (dispatch, getState) => {
   let gxCert;
   try {
     gxCert = getGxCert();
@@ -293,17 +271,12 @@ const sign = () => async (dispatch, getState) => {
     alert("to google email address is invalid.");
     return;
   }
-  const groupId = state.groupId;
   const certificate = {
     context: {},
     title: state.title,
     description: state.description,
-    from: accounts[0],
-    to: to,
-    issued_at: (new Date()).getTime(),
-    url: state.url,
     image: imageCid,
-    groupId: groupId,
+    groupId,
   }
   if (!gxCert.isCertificate(certificate)) {
     alert("Invalid Certificate.");
@@ -318,7 +291,7 @@ const sign = () => async (dispatch, getState) => {
     return;
   }
   try {
-    await gxCert.sendSignedCertificateToGx(signed);
+    await gxCert.createCert(signed);
   } catch(err) {
     console.error(err);
     alert("Failed to post the signed certificate.");
@@ -354,7 +327,7 @@ const registerProfile = () => async (dispatch, getState) => {
     return;
   }
   try {
-    await gxCert.sendSignedProfileToGx(address, signedProfile);
+    await gxCert.createProfile(address, signedProfile);
   } catch(err) {
     console.error(err);
     alert("Failed to register profile.");
@@ -437,12 +410,9 @@ export {
   onChangeTitle,
   onChangeDescription,
   onChangeImage,
-  onChangeUrl,
-  onChangeTo,
   onChangeGroupName,
   onChangeGroupAddress,
   onChangeGroupPhone,
-  onChangeGroup,
   onChangeProfileName,
   onChangeProfileEmail,
   onChangeProfileImage,
@@ -450,7 +420,6 @@ export {
   signIn,
   fetchCertificate,
   fetchCertificates,
-  fetchCertificateImage,
   fetchGroups,
   fetchGroup,
   registerGroup,

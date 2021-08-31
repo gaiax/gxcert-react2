@@ -15,14 +15,6 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         image: action.payload
       });
-    case "ON_CHANGE_URL":
-      return Object.assign({}, state, {
-        url: action.payload
-      });
-    case "ON_CHANGE_TO":
-      return Object.assign({}, state, {
-        to: action.payload
-      });
     case "ON_CHANGE_GROUP_NAME":
       return Object.assign({}, state, {
         groupName: action.payload,
@@ -34,10 +26,6 @@ export default function Reducer(state=initialState, action) {
     case "ON_CHANGE_GROUP_PHONE":
       return Object.assign({}, state, {
         groupPhone: action.payload,
-      });
-    case "ON_CHANGE_GROUP":
-      return Object.assign({}, state, {
-        groupId: parseInt(action.payload),
       });
     case "ON_CHANGE_PROFILE_NAME":
       return Object.assign({}, state, {
