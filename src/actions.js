@@ -111,7 +111,7 @@ const fetchCertificateInIssue = (certId) => async (dispatch) => {
   });
 }
 
-const fetchCertificate = (cid) => async (dispatch) => {
+const fetchCertificate = (userCertId) => async (dispatch) => {
   let gxCert;
   try {
     gxCert = await getGxCertWithoutLogin();
@@ -119,18 +119,18 @@ const fetchCertificate = (cid) => async (dispatch) => {
     console.error(err);
     return;
   }
-  let certificate;
+  let userCert;
   try {
-    certificate = await gxCert.getCertByCid(cid);
+    userCert = await gxCert.getUserCert(userCertId);
   } catch(err) {
     console.error(err);
     return;
   }
   dispatch({
     type: "FETCHED_CERTIFICATE",
-    payload: certificate,
+    payload: userCert,
   });
-  const imageCid = certificate.image;
+  const imageCid = userCert.certificate.image;
   let imageUrl;
   try {
     imageUrl = await getImageOnIpfs(imageCid);
@@ -143,22 +143,22 @@ const fetchCertificate = (cid) => async (dispatch) => {
     payload: imageUrl,
   });
   try {
-    const group = await gxCert.getGroup(certificate.groupId);
-    certificate.group = group;
+    const group = await gxCert.getGroup(userCert.certificate.groupId);
+    userCert.certificate.group = group;
     dispatch({
       type: "FETCHED_CERTIFICATE",
-      payload: certificate,
+      payload: userCert,
     });
   } catch(err) {
     console.error(err);
     return;
   }
   try {
-    const profile = await gxCert.getProfile(certificate.to);
-    certificate.to = profile.name;
+    const profile = await gxCert.getProfile(userCert.certificate.to);
+    userCert.certificate.to = profile.name;
     dispatch({
       type: "FETCHED_CERTIFICATE",
-      payload: certificate,
+      payload: userCert,
     });
   } catch(err) {
     console.error(err);
@@ -187,9 +187,10 @@ const fetchCertificates = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
+  console.log(userCerts);
   for (let i = 0; i < userCerts.length; i++) {
-    getImageOnIpfs(userCerts[i].image).then(imageUrl => {
-      userCerts[i].imageUrl = imageUrl;
+    getImageOnIpfs(userCerts[i].certificate.image).then(imageUrl => {
+      userCerts[i].certificate.imageUrl = imageUrl;
       dispatch({
         type: "FETCHED_CERTIFICATES",
         payload: userCerts,
@@ -427,6 +428,48 @@ const registerGroup = () => async (dispatch, getState) => {
   }
   history.push("/");
 }
+const issue = (certId) => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const from = state.from;
+  const signerAddress = state.from;
+  const toEmail = state.toInIssue;
+  let to;
+  try {
+    to = await torusClient.getPublicAddressByGoogle(toEmail);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to get public address of the Google account.");
+    return;
+  }
+  const userCert = {
+    certId,
+    from,
+    to,
+  }
+  let signed;
+  try {
+    signed = await gxCert.signUserCertificate(userCert, { address: from });
+  } catch(err) {
+    console.error(err);
+    alert("Failed to sign the certificate.");
+    return;
+  }
+  try {
+    await gxCert.createUserCert(signed);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to issue the certificate.");
+    return;
+  }
+  history.push("/");
+}
 const inviteMember = () => async (dispatch, getState) => {
   let gxCert;
   try {
@@ -473,7 +516,6 @@ const inviteMember = () => async (dispatch, getState) => {
     type: "FETCHED_GROUP",
     payload: group,
   });
-
 }
 export {
   onChangeTitle,
@@ -498,5 +540,6 @@ export {
   registerGroup,
   registerProfile,
   inviteMember,
+  issue,
 
 };

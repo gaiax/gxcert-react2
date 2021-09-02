@@ -33,7 +33,7 @@ class App extends React.Component {
             }
             return (<Certificates
               {...routeProps}
-              certificates={that.props.state.certificates}
+              userCerts={that.props.state.certificates}
               fetchCertificates={that.props.fetchCertificates}
             />)
 
@@ -60,12 +60,15 @@ class App extends React.Component {
             groups={that.props.state.groupsInIssuer}
             certificates={that.props.state.certificatesInIssuer}
             fetchCertificates={that.props.fetchCertificatesInIssuer}
+            issue={that.props.issue}
             />
           } />
           <Route exact={true} path="/issue/:certId" render={ (routeProps) => <Issue
             {...routeProps}
             certificate={that.props.state.certificateInIssue}
             fetchCertificate={that.props.fetchCertificateInIssue}
+            onChangeToInIssue={that.props.onChangeToInIssue}
+            issue={that.props.issue}
           />
           } />
           <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate
@@ -74,12 +77,6 @@ class App extends React.Component {
             certificate={that.props.state.certificate}
             certificateImage={that.props.state.certificateImage}
             fetchCertificate={that.props.fetchCertificate}
-            />
-          } />
-          <Route exact={true} path="/certs" render={ (routeProps) => <Certificates
-            {...routeProps}
-            certificates={that.props.state.certificates}
-            fetchCertificates={that.props.fetchCertificates}
             />
           } />
           <Route exact={true} path="/group/new" render={ (routeProps) => <NewGroup

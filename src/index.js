@@ -29,6 +29,7 @@ import {
   fetchGroup,
   fetchGroupsInIssuer,
   fetchCertificateInIssue,
+  issue,
   registerGroup,
   registerProfile,
   inviteMember,
@@ -106,6 +107,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     inviteMember: () => {
       dispatch(inviteMember());
+    },
+    issue: (certId) => {
+      dispatch(issue(certId));
     },
   }
 }

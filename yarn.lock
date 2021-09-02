@@ -7832,7 +7832,7 @@
   "version" "1.3.0"
 
 "gxcert-lib@github:gaiax/gxcert-lib":
-  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#862327b1bf36f843821c19cb7e48f4c372974b16"
+  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#b795fe4c424e9339edde7b93852fad7baa26ceba"
   "version" "1.0.0"
   dependencies:
     "@truffle/hdwallet-provider" "^1.4.2"

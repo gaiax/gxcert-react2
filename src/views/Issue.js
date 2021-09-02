@@ -5,8 +5,8 @@ class Issue extends React.Component {
     super();
   }
   componentDidMount() {
-    const certId = parseInt(this.props.match.params.certId);
-    this.props.fetchCertificate(certId);
+    this.certId = parseInt(this.props.match.params.certId);
+    this.props.fetchCertificate(this.certId);
   }
   render() {
     return (
@@ -23,9 +23,8 @@ class Issue extends React.Component {
             <p className="issue-form-title">Add Address</p>
             <div className="issue-form">
               <input type="text" className="issue-form-to" onChange={this.props.onChangeToInIssue}/>
-              <button className="issue-form-issue">発行</button>
+              <button className="issue-form-issue" onClick={ () => { this.props.issue(this.certId)}}>発行</button>
             </div>
-            
           </div>
         ) }
       </div>

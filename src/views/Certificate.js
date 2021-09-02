@@ -9,8 +9,8 @@ class Certificate extends React.Component {
     super();
   }
   componentDidMount() {
-    const cid = this.props.match.params.id;
-    this.props.fetchCertificate(cid);
+    const userCertId = parseInt(this.props.match.params.id);
+    this.props.fetchCertificate(userCertId);
   }
   render() {
     return (
