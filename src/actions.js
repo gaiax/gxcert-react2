@@ -154,8 +154,8 @@ const fetchCertificate = (userCertId) => async (dispatch) => {
     return;
   }
   try {
-    const profile = await gxCert.getProfile(userCert.certificate.to);
-    userCert.certificate.to = profile.name;
+    const profile = await gxCert.getProfile(userCert.to);
+    userCert.to = profile.name;
     dispatch({
       type: "FETCHED_CERTIFICATE",
       payload: userCert,

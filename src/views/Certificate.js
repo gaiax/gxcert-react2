@@ -28,9 +28,15 @@ class Certificate extends React.Component {
               <img src={this.props.certificateImage} className="certificate-icon" />
               <table className="certificate-detail">
                 <tr>
-                  <td>Publisher: </td>
+                  <td>Issuer: </td>
                   <td>
                     {!this.props.userCert.certificate.group ? "" : this.props.userCert.certificate.group.name }
+                  </td>
+                </tr>
+                <tr>
+                  <td>To: </td>
+                  <td>
+                    { this.props.userCert.to }
                   </td>
                 </tr>
                 <tr>
