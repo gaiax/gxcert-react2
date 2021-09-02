@@ -368,7 +368,7 @@ const sign = () => async (dispatch, getState) => {
     return;
   }
 
-  history.push("/");
+  history.push("/issue");
 }
 
 const registerProfile = () => async (dispatch, getState) => {
