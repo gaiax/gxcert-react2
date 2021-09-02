@@ -23,10 +23,10 @@ import {
   signIn,
   fetchCertificate,
   fetchCertificates,
-  fetchCertificatesInIssue,
+  fetchCertificatesInIssuer,
   fetchGroups,
   fetchGroup,
-  fetchGroupsInIssue,
+  fetchGroupsInIssuer,
   registerGroup,
   registerProfile,
   inviteMember,
@@ -84,8 +84,8 @@ function mapDispatchToProps(dispatch, props) {
     fetchGroup: (groupId) => {
       dispatch(fetchGroup(groupId));
     },
-    fetchCertificatesInIssue: () => {
-      dispatch(fetchCertificatesInIssue());
+    fetchCertificatesInIssuer: () => {
+      dispatch(fetchCertificatesInIssuer());
     },
     signIn: () => {
       dispatch(signIn());

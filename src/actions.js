@@ -222,7 +222,7 @@ const signIn = () => async (dispatch) => {
     return;
   }
 
-  history.push("/certs");
+  history.push("/");
 }
 
 const fetchGroup = (groupId) => async (dispatch, getState) => {
@@ -245,7 +245,7 @@ const fetchGroup = (groupId) => async (dispatch, getState) => {
     payload: group,
   });
 }
-const fetchCertificatesInIssue = () => async (dispatch, getState) => {
+const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
   let gxCert;
   try {
     gxCert = getGxCert();
@@ -274,14 +274,14 @@ const fetchCertificatesInIssue = () => async (dispatch, getState) => {
     }
   }
   dispatch({
-    type: "FETCHED_CERTIFICATES_IN_ISSUE",
+    type: "FETCHED_CERTIFICATES_IN_ISSUER",
     payload: certificates,
   });
   for (let i = 0; i < certificates.length; i++) {
     getImageOnIpfs(certificates[i].image).then(imageUrl => {
       certificates[i].imageUrl = imageUrl;
       dispatch({
-        type: "FETCHED_CERTIFICATES_IN_ISSUE",
+        type: "FETCHED_CERTIFICATES_IN_ISSUER",
         payload: certificates,
       });
     }).catch(err => {
@@ -340,7 +340,7 @@ const sign = () => async (dispatch, getState) => {
     return;
   }
 
-  history.push("/certs");
+  history.push("/");
 }
 
 const registerProfile = () => async (dispatch, getState) => {
@@ -375,7 +375,7 @@ const registerProfile = () => async (dispatch, getState) => {
     alert("Failed to register profile.");
     return;
   }
-  history.push("/certs");
+  history.push("/");
 
 }
 const registerGroup = () => async (dispatch, getState) => {
@@ -398,7 +398,7 @@ const registerGroup = () => async (dispatch, getState) => {
     alert("Failed to create group.");
     return;
   }
-  history.push("/certs");
+  history.push("/");
 }
 const inviteMember = () => async (dispatch, getState) => {
   let gxCert;
@@ -465,7 +465,7 @@ export {
   fetchCertificates,
   fetchGroups,
   fetchGroup,
-  fetchCertificatesInIssue,
+  fetchCertificatesInIssuer,
   registerGroup,
   registerProfile,
   inviteMember,

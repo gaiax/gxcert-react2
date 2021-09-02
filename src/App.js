@@ -10,7 +10,7 @@ import NewCert from "./views/NewCert";
 import NewProfile from "./views/NewProfile";
 import NewGroup from "./views/NewGroup";
 import GroupMembers from "./views/GroupMembers";
-import Issue from "./views/Issue";
+import Issuer from "./views/Issuer";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 
@@ -24,7 +24,19 @@ class App extends React.Component {
       <div className="App">
         <Header></Header>
         <Switch>
-          <Route exact={true} path="/" component={Top} />
+          <Route exact={true} path="/" render={ (routeProps) => {
+            if (that.props.state.from === "") { 
+              return (
+                <Top />
+              );
+            }
+            return (<Certificates
+              {...routeProps}
+              certificates={that.props.state.certificates}
+              fetchCertificates={that.props.fetchCertificates}
+            />)
+
+          } }/>
           <Route exact={true} path="/signup" render={ (routeProps) => <SignIn
             {...routeProps}
             signIn={that.props.signIn}
@@ -42,11 +54,11 @@ class App extends React.Component {
               groups={that.props.state.groups}
             />
           } />
-          <Route exact={true} path="/issue/" render={ (routeProps) => <Issue
+          <Route exact={true} path="/issue/" render={ (routeProps) => <Issuer
             {...routeProps}
-            groups={that.props.state.groupsInIssue}
-            certificates={that.props.state.certificatesInIssue}
-            fetchCertificates={that.props.fetchCertificatesInIssue}
+            groups={that.props.state.groupsInIssuer}
+            certificates={that.props.state.certificatesInIssuer}
+            fetchCertificates={that.props.fetchCertificatesInIssuer}
             />
           } />
           <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate
