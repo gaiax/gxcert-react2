@@ -71,6 +71,10 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         group: action.payload,
       });
+    case "FETCHED_GROUP_IN_ISSUE":
+      return Object.assign({}, state, {
+        groupInIssue: action.payload,
+      });
     default:
       return initialState;
   }

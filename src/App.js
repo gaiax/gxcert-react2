@@ -10,6 +10,7 @@ import NewCert from "./views/NewCert";
 import NewProfile from "./views/NewProfile";
 import NewGroup from "./views/NewGroup";
 import GroupMembers from "./views/GroupMembers";
+import Issue from "./views/Issue";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 
@@ -39,6 +40,15 @@ class App extends React.Component {
               from={that.props.state.from}
               image={that.props.state.image}
               groups={that.props.state.groups}
+            />
+          } />
+          <Route exact={true} path="/issue/:groupId" render={ (routeProps) => <Issue
+            {...routeProps}
+            group={that.props.state.groupInIssue}
+            certificates={that.props.state.certificatesInIssue}
+            fetchGroup={that.props.fetchGroupInIssue}
+
+            
             />
           } />
           <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate
