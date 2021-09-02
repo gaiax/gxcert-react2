@@ -181,6 +181,10 @@ html, body {
   height: 120px;
 }
 
+.issue-certificates-list-cell {
+  justify-content: space-between;
+}
+
 .certificates-list-cell-icon, .group-members-list-cell-icon, .issue-certificates-list-cell-icon {
   margin-top: 20px;
   width: 80px;
@@ -360,4 +364,19 @@ html, body {
   width: 80px;
   height: 80px;
   background: #F1F9FF;
+}
+
+.issue-certificates-list-cell-title {
+  padding-top: 34px;
+}
+
+.issue-certificates-list-cell-issue {
+  width: 44px;
+  height: 30px;
+  line-height: 30px;
+  border: none;
+  background-color: #49AAFC;
+  color: white;
+  border-radius: 4px;
+  margin-top: 46px;
 }

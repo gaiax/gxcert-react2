@@ -20,11 +20,10 @@ class Issue extends React.Component {
                 return (
                   <div className="issue-certificates-list-cell">
                     <img src={certificate.imageUrl} className="issue-certificates-list-cell-icon"/>
-                    <div className="issue-certificates-list-cell-detail">
-                      <p className="issue-certificates-list-cell-title">
-                        {certificate.title} 
-                      </p>
-                    </div>
+                    <p className="issue-certificates-list-cell-title">
+                      {certificate.title} 
+                    </p>
+                    <div className="issue-certificates-list-cell-issue">発行</div>
                   </div>
                 );
               })
