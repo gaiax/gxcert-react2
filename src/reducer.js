@@ -15,6 +15,10 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         image: action.payload
       });
+    case "ON_CHANGE_GROUP":
+      return Object.assign({}, state, {
+        groupId: action.payload
+      });
     case "ON_CHANGE_GROUP_NAME":
       return Object.assign({}, state, {
         groupName: action.payload,

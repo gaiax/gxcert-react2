@@ -5,6 +5,7 @@ const initialState = {
   title: "",
   description: "",
   image: null,
+  groupId: null,
   groupName: "",
   groupAddress: "",
   groupPhone: "",

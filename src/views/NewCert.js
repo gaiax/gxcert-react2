@@ -6,8 +6,7 @@ class NewCert extends React.Component {
     super();
   }
   componentDidMount() {
-    this.groupId = parseInt(this.props.match.params.groupId);
-
+    this.props.fetchGroups();
   }
   render() {
     let imageUrl = "";
@@ -27,6 +26,18 @@ class NewCert extends React.Component {
           </p>
           <div className="new-cert-form">
             <p className="new-cert-form-title">
+              Group
+            </p>
+            <select className="new-cert-form-group" onChange={this.props.onChangeGroup}>
+              <option hidden>Choose group</option>
+              { this.props.groups.map(group => {
+                return (
+                  <option value={group.groupId.toString()}>{group.name}</option>
+                )
+              }) }
+              <option value="new">Create new group</option>
+            </select>
+            <p className="new-cert-form-title">
               Title of Certificate
             </p>
             <input type="text" className="new-cert-form-name" onChange={this.props.onChangeTitle}/>
@@ -44,7 +55,7 @@ class NewCert extends React.Component {
                 画像選択
               </label>
             </div>
-            <div className="register-button" onClick={() => this.props.sign(this.groupId)} >
+            <div className="register-button" onClick={() => this.props.sign()} >
               登録
             </div>
           </div>

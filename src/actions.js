@@ -26,6 +26,16 @@ const onChangeImage = (evt) => async (dispatch, getState) => {
   }
   reader.readAsArrayBuffer(file);
 }
+const onChangeGroup = (evt) => async (dispatch, getState) => {
+  if (evt.target.value === "new") {
+    history.push("/group/new");
+    return;
+  }
+  dispatch({
+    type: "ON_CHANGE_GROUP",
+    payload: parseInt(evt.target.value),
+  });
+}
 
 const onChangeGroupName = (evt) => async (dispatch, getState) => {
   dispatch({
@@ -236,7 +246,7 @@ const fetchGroup = (groupId) => async (dispatch, getState) => {
   });
 }
 
-const sign = (groupId) => async (dispatch, getState) => {
+const sign = () => async (dispatch, getState) => {
   let gxCert;
   try {
     gxCert = getGxCert();
@@ -259,24 +269,12 @@ const sign = (groupId) => async (dispatch, getState) => {
     return;
   }
   const accounts = await gxCert.web3.eth.getAccounts();
-  let to;
-  try {
-    to = await torusClient.getPublicAddressByGoogle(state.to);
-  } catch(err) {
-    console.error(err);
-    alert("to google email address is invalid.");
-    return;
-  }
-  if (!to) {
-    alert("to google email address is invalid.");
-    return;
-  }
   const certificate = {
     context: {},
     title: state.title,
     description: state.description,
     image: imageCid,
-    groupId,
+    groupId: state.groupId,
   }
   if (!gxCert.isCertificate(certificate)) {
     alert("Invalid Certificate.");
@@ -284,7 +282,7 @@ const sign = (groupId) => async (dispatch, getState) => {
   }
   let signed = null;
   try {
-    signed = await gxCert.signCertificate(certificate);
+    signed = await gxCert.signCertificate(certificate, { address: state.from });
   } catch(err) {
     console.error(err);
     alert("Failed to sign the certificate.");
@@ -410,6 +408,7 @@ export {
   onChangeTitle,
   onChangeDescription,
   onChangeImage,
+  onChangeGroup,
   onChangeGroupName,
   onChangeGroupAddress,
   onChangeGroupPhone,

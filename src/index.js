@@ -12,6 +12,7 @@ import {
   onChangeTitle,
   onChangeDescription,
   onChangeImage,
+  onChangeGroup,
   onChangeGroupName,
   onChangeGroupAddress,
   onChangeGroupPhone,
@@ -62,6 +63,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     onChangeProfileImage: (evt) => {
       dispatch(onChangeProfileImage(evt));
+    },
+    onChangeGroup: (evt) => {
+      dispatch(onChangeGroup(evt));
     },
     sign: () => {
       dispatch(sign());

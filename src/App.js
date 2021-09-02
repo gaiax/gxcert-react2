@@ -29,13 +29,16 @@ class App extends React.Component {
             signIn={that.props.signIn}
             />
           } />
-          <Route exact={true} path="/new/:groupId" render={ () => <NewCert
+          <Route exact={true} path="/new/" render={ () => <NewCert
+              fetchGroups={that.props.fetchGroups}
               onChangeTitle={that.props.onChangeTitle}
               onChangeDescription={that.props.onChangeDescription}
               onChangeImage={that.props.onChangeImage}
+              onChangeGroup={that.props.onChangeGroup}
               sign={that.props.sign}
               from={that.props.state.from}
               image={that.props.state.image}
+              groups={that.props.state.groups}
             />
           } />
           <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate
@@ -52,19 +55,19 @@ class App extends React.Component {
             fetchCertificates={that.props.fetchCertificates}
             />
           } />
-          <Route exact={true} path="/group/:id" render={ (routeProps) => <GroupMembers
-            {...routeProps}
-            group={that.props.state.group}
-            fetchGroup={that.props.fetchGroup}
-            inviteMember={that.props.inviteMember}
-            />
-          } />
           <Route exact={true} path="/group/new" render={ (routeProps) => <NewGroup
             {...routeProps}
             registerGroup={that.props.registerGroup}
             onChangeGroupName={that.props.onChangeGroupName}
             onChangeGroupAddress={that.props.onChangeGroupAddress}
             onChangeGroupPhone={that.props.onChangeGroupPhone}
+            />
+          } />
+          <Route exact={true} path="/group/:id" render={ (routeProps) => <GroupMembers
+            {...routeProps}
+            group={that.props.state.group}
+            fetchGroup={that.props.fetchGroup}
+            inviteMember={that.props.inviteMember}
             />
           } />
           <Route exact={true} path="/profile/new" render={ (routeProps) => <NewProfile
