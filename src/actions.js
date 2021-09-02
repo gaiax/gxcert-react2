@@ -15,12 +15,6 @@ const onChangeDescription = (evt) => async (dispatch, getState) => {
     payload: evt.target.value,
   });
 }
-const onChangeUrl = (evt) => async (dispatch, getState) => {
-  dispatch({
-    type: "ON_CHANGE_URL",
-    payload: evt.target.value,
-  });
-}
 const onChangeImage = (evt) => async (dispatch, getState) => {
   const file = evt.target.files[0];
   const reader = new FileReader();
@@ -32,9 +26,20 @@ const onChangeImage = (evt) => async (dispatch, getState) => {
   }
   reader.readAsArrayBuffer(file);
 }
-const onChangeTo = (evt) => async (dispatch, getState) => {
+const onChangeGroup = (evt) => async (dispatch, getState) => {
+  if (evt.target.value === "new") {
+    history.push("/group/new");
+    return;
+  }
   dispatch({
-    type: "ON_CHANGE_TO",
+    type: "ON_CHANGE_GROUP",
+    payload: parseInt(evt.target.value),
+  });
+}
+
+const onChangeToInIssue = (evt) => async (dispatch) => {
+  dispatch({
+    type: "ON_CHANGE_TO_IN_ISSUE",
     payload: evt.target.value,
   });
 }
@@ -55,16 +60,6 @@ const onChangeGroupAddress = (evt) => async (dispatch, getState) => {
 const onChangeGroupPhone = (evt) => async (dispatch, getState) => {
   dispatch({
     type: "ON_CHANGE_GROUP_PHONE",
-    payload: evt.target.value,
-  });
-}
-const onChangeGroup = (evt) => async (dispatch, getState) => {
-  if (evt.target.value === "new") {
-    history.push("/group/new");
-    return;
-  }
-  dispatch({
-    type: "ON_CHANGE_GROUP",
     payload: evt.target.value,
   });
 }
@@ -95,8 +90,7 @@ const onChangeProfileImage = (evt) => async (dispatch, getState) => {
   reader.readAsArrayBuffer(file);
 }
 
-
-const fetchCertificate = (cid) => async (dispatch) => {
+const fetchCertificateInIssue = (certId) => async (dispatch) => {
   let gxCert;
   try {
     gxCert = await getGxCertWithoutLogin();
@@ -106,16 +100,37 @@ const fetchCertificate = (cid) => async (dispatch) => {
   }
   let certificate;
   try {
-    certificate = await gxCert.getCertByCid(cid);
+    certificate = await gxCert.getCert(certId);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_CERTIFICATE_IN_ISSUE",
+    payload: certificate,
+  });
+}
+
+const fetchCertificate = (userCertId) => async (dispatch) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCertWithoutLogin();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  let userCert;
+  try {
+    userCert = await gxCert.getUserCert(userCertId);
   } catch(err) {
     console.error(err);
     return;
   }
   dispatch({
     type: "FETCHED_CERTIFICATE",
-    payload: certificate,
+    payload: userCert,
   });
-  const imageCid = certificate.image;
+  const imageCid = userCert.certificate.image;
   let imageUrl;
   try {
     imageUrl = await getImageOnIpfs(imageCid);
@@ -127,18 +142,28 @@ const fetchCertificate = (cid) => async (dispatch) => {
     type: "FETCHED_CERTIFICATE_IMAGE",
     payload: imageUrl,
   });
-  const group = await gxCert.getGroup(certificate.groupId);
-  certificate.from = group.name;
-  dispatch({
-    type: "FETCHED_CERTIFICATE",
-    payload: certificate,
-  });
-  const profile = await gxCert.getProfile(certificate.to);
-  certificate.to = profile.name;
-  dispatch({
-    type: "FETCHED_CERTIFICATE",
-    payload: certificate,
-  });
+  try {
+    const group = await gxCert.getGroup(userCert.certificate.groupId);
+    userCert.certificate.group = group;
+    dispatch({
+      type: "FETCHED_CERTIFICATE",
+      payload: userCert,
+    });
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  try {
+    const profile = await gxCert.getProfile(userCert.certificate.to);
+    userCert.certificate.to = profile.name;
+    dispatch({
+      type: "FETCHED_CERTIFICATE",
+      payload: userCert,
+    });
+  } catch(err) {
+    console.error(err);
+    return;
+  }
 }
 
 const fetchCertificates = () => async (dispatch, getState) => {
@@ -155,41 +180,29 @@ const fetchCertificates = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  let certificates;
+  let userCerts;
   try {
-    certificates = await gxCert.getReceivedCerts(address);
+    userCerts = await gxCert.getReceivedUserCerts(address);
   } catch(err) {
     console.error(err);
     return;
   }
-  for (let i = 0; i < certificates.length; i++) {
-    getImageOnIpfs(certificates[i].image).then(imageUrl => {
-      certificates[i].imageUrl = imageUrl;
+  console.log(userCerts);
+  for (let i = 0; i < userCerts.length; i++) {
+    getImageOnIpfs(userCerts[i].certificate.image).then(imageUrl => {
+      userCerts[i].certificate.imageUrl = imageUrl;
       dispatch({
         type: "FETCHED_CERTIFICATES",
-        payload: certificates,
+        payload: userCerts,
       });
     });
   }
   dispatch({
     type: "FETCHED_CERTIFICATES",
-    payload: certificates,
+    payload: userCerts,
   });
 }
 
-const fetchCertificateImage = (cid) => async (dispatch) => {
-  let imageUrl;
-  try {
-    imageUrl = await getImageOnIpfs(cid);
-  } catch(err) {
-    console.error(err);
-    return;
-  }
-  dispatch({
-    type: "FETCHED_CERTIFICATE_IMAGE",
-    payload: imageUrl,
-  });
-}
 const fetchGroups = () => async (dispatch, getState) => {
   let gxCert;
   try {
@@ -237,7 +250,7 @@ const signIn = () => async (dispatch) => {
     return;
   }
 
-  history.push("/certs");
+  history.push("/");
 }
 
 const fetchGroup = (groupId) => async (dispatch, getState) => {
@@ -259,6 +272,50 @@ const fetchGroup = (groupId) => async (dispatch, getState) => {
     type: "FETCHED_GROUP",
     payload: group,
   });
+}
+const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const address = state.from;
+  let groups;
+  try {
+    groups = await gxCert.getGroups(address);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to fetch your groups");
+    return;
+  }
+  let certificates = [];
+  for (const group of groups) {
+    const groupId = group.groupId;
+    try {
+      certificates = certificates.concat(await gxCert.getGroupCerts(groupId));
+    } catch(err) {
+      console.error(err);
+      continue;
+    }
+  }
+  dispatch({
+    type: "FETCHED_CERTIFICATES_IN_ISSUER",
+    payload: certificates,
+  });
+  for (let i = 0; i < certificates.length; i++) {
+    getImageOnIpfs(certificates[i].image).then(imageUrl => {
+      certificates[i].imageUrl = imageUrl;
+      dispatch({
+        type: "FETCHED_CERTIFICATES_IN_ISSUER",
+        payload: certificates,
+      });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
 }
 
 const sign = () => async (dispatch, getState) => {
@@ -284,29 +341,12 @@ const sign = () => async (dispatch, getState) => {
     return;
   }
   const accounts = await gxCert.web3.eth.getAccounts();
-  let to;
-  try {
-    to = await torusClient.getPublicAddressByGoogle(state.to);
-  } catch(err) {
-    console.error(err);
-    alert("to google email address is invalid.");
-    return;
-  }
-  if (!to) {
-    alert("to google email address is invalid.");
-    return;
-  }
-  const groupId = state.groupId;
   const certificate = {
     context: {},
     title: state.title,
     description: state.description,
-    from: accounts[0],
-    to: to,
-    issued_at: (new Date()).getTime(),
-    url: state.url,
     image: imageCid,
-    groupId: groupId,
+    groupId: state.groupId,
   }
   if (!gxCert.isCertificate(certificate)) {
     alert("Invalid Certificate.");
@@ -314,21 +354,21 @@ const sign = () => async (dispatch, getState) => {
   }
   let signed = null;
   try {
-    signed = await gxCert.signCertificate(certificate);
+    signed = await gxCert.signCertificate(certificate, { address: state.from });
   } catch(err) {
     console.error(err);
     alert("Failed to sign the certificate.");
     return;
   }
   try {
-    await gxCert.sendSignedCertificateToGx(signed);
+    await gxCert.createCert(signed);
   } catch(err) {
     console.error(err);
     alert("Failed to post the signed certificate.");
     return;
   }
 
-  history.push("/certs");
+  history.push("/issue");
 }
 
 const registerProfile = () => async (dispatch, getState) => {
@@ -357,13 +397,13 @@ const registerProfile = () => async (dispatch, getState) => {
     return;
   }
   try {
-    await gxCert.sendSignedProfileToGx(address, signedProfile);
+    await gxCert.createProfile(address, signedProfile);
   } catch(err) {
     console.error(err);
     alert("Failed to register profile.");
     return;
   }
-  history.push("/certs");
+  history.push("/");
 
 }
 const registerGroup = () => async (dispatch, getState) => {
@@ -386,7 +426,49 @@ const registerGroup = () => async (dispatch, getState) => {
     alert("Failed to create group.");
     return;
   }
-  history.push("/certs");
+  history.push("/new");
+}
+const issue = (certId) => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const from = state.from;
+  const signerAddress = state.from;
+  const toEmail = state.toInIssue;
+  let to;
+  try {
+    to = await torusClient.getPublicAddressByGoogle(toEmail);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to get public address of the Google account.");
+    return;
+  }
+  const userCert = {
+    certId,
+    from,
+    to,
+  }
+  let signed;
+  try {
+    signed = await gxCert.signUserCertificate(userCert, { address: from });
+  } catch(err) {
+    console.error(err);
+    alert("Failed to sign the certificate.");
+    return;
+  }
+  try {
+    await gxCert.createUserCert(signed);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to issue the certificate.");
+    return;
+  }
+  history.push("/");
 }
 const inviteMember = () => async (dispatch, getState) => {
   let gxCert;
@@ -434,30 +516,30 @@ const inviteMember = () => async (dispatch, getState) => {
     type: "FETCHED_GROUP",
     payload: group,
   });
-
 }
 export {
   onChangeTitle,
   onChangeDescription,
   onChangeImage,
-  onChangeUrl,
-  onChangeTo,
+  onChangeGroup,
   onChangeGroupName,
   onChangeGroupAddress,
   onChangeGroupPhone,
-  onChangeGroup,
   onChangeProfileName,
   onChangeProfileEmail,
   onChangeProfileImage,
+  onChangeToInIssue,
   sign,
   signIn,
   fetchCertificate,
+  fetchCertificateInIssue,
   fetchCertificates,
-  fetchCertificateImage,
   fetchGroups,
   fetchGroup,
+  fetchCertificatesInIssuer,
   registerGroup,
   registerProfile,
   inviteMember,
+  issue,
 
 };

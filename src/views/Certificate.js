@@ -7,64 +7,57 @@ import { Link } from "react-router-dom";
 class Certificate extends React.Component {
   constructor() {
     super();
-    this.state = {
-      from: "",
-      to: "",
-      title: "",
-      description: "",
-      issued_at: new Date(0),
-      url: "",
-      image: "",
-    }
   }
   componentDidMount() {
-    const cid = this.props.match.params.id;
-    this.props.fetchCertificate(cid);
+    const userCertId = parseInt(this.props.match.params.id);
+    this.props.fetchCertificate(userCertId);
   }
   render() {
+    console.log(this.props.userCert);
     return (
       <div className="certificate">
-        <div className="certificate-content">
-          <p className="certificate-title">
-            {this.props.certificate.title}
-          </p>
-          <img src={this.props.certificateImage} className="certificate-icon" />
-          {this.state.description}
-          <table className="certificate-detail">
-            <tr>
-              <td>From: </td>
-              <td>
-                <Link to={"/group/" + this.props.certificate.groupId}>
-                  {this.props.certificate.from}
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>To: </td>
-              <td>{this.props.certificate.to}</td>
-            </tr>
-            <tr>
-              <td>Date of issue: </td>
-              <td>{this.props.certificate.issued_at ? (new Date(this.props.certificate.issued_at)).toISOString() : ""}</td>
-            </tr>
-            <tr>
-              <td>URL: </td>
-              <td><a href={this.props.certificate.url} target="_blank">{this.props.certificate.url}</a></td>
-            </tr>
-            <tr>
-              <td>Description: </td>
-              <td>{this.props.certificate.description}</td>
-            </tr>
-          </table>
-          <div className="certificate-buttons">
-            <div className="certificate-button">
-              参照URLの発行
+        { (!this.props.userCert || !this.props.userCert.certificate) ? (
+            <div className="certificate-content">
+              <p className="certificate-not-found">Certificate not found.</p>
             </div>
-            <div className="certificate-button">
-              PDFのダウンロード
+          ) : (
+            <div className="certificate-content">
+              <p className="certificate-title">
+                {this.props.userCert.certificate.title}
+              </p>
+              <img src={this.props.certificateImage} className="certificate-icon" />
+              <table className="certificate-detail">
+                <tr>
+                  <td>Publisher: </td>
+                  <td>
+                    {!this.props.userCert.certificate.group ? "" : this.props.userCert.certificate.group.name }
+                  </td>
+                </tr>
+                <tr>
+                  <td>Title: </td>
+                  <td>
+                    {this.props.userCert.certificate.title}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Description: </td>
+                  <td>{this.props.userCert.certificate.description}</td>
+                </tr>
+                <tr>
+                  <td>Issued at: </td>
+                  <td>{(new Date(parseInt(this.props.userCert.timestamp * 1000))).toISOString()}</td>
+                </tr>
+              </table>
+              <div className="certificate-buttons">
+                <div className="certificate-button">
+                  参照URLの発行
+                </div>
+                <div className="certificate-button">
+                  PDFのダウンロード
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          )}
       </div>
     );
   }

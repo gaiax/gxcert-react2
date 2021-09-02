@@ -12,29 +12,25 @@ class Certificates extends React.Component {
     return (
       <div className="certificates">
         <div className="certificates-content">
-          <Link to="/new" className="new-cert-button">
-              新規作成
-          </Link>
-          <br />
           <p className="certificates-title">
             証明書
           </p>
           <div className="certificates-list">
-            { this.props.certificates.length === 0 ? <p className="certificate-not-found">Certificate not found.</p> : "" }
-            { this.props.certificates.map((certificate, index) => {
+            { this.props.userCerts.length === 0 ? <p className="certificate-not-found">Certificate not found.</p> : "" }
+            { this.props.userCerts.map((userCert, index) => {
               return (
-                <Link to={"/certs/" + certificate.cid}>
+                <Link to={"/certs/" + userCert.userCertId}>
                   <div className="certificates-list-cell">
-                    <img src={certificate.imageUrl} className="certificates-list-cell-icon"/>
+                    <img src={userCert.certificate.imageUrl} className="certificates-list-cell-icon"/>
                     <div className="certificates-list-cell-detail">
                       <p className="certificates-list-cell-title">
-                        {certificate.title} 
+                        {userCert.certificate.title} 
                       </p>
                       <p className="certificates-list-cell-date">
-                        { certificate.issued_at ? (new Date(certificate.issued_at)).toISOString() : "" }
+                        { userCert.certificate.timestamp ? (new Date(userCert.certificate.timestamp)).toISOString() : "" }
                       </p>
                       <p className="certificates-list-cell-by">
-                        {certificate.from}
+                        { userCert.certificate.from}
                       </p>
                     </div>
                   </div>

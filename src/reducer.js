@@ -15,13 +15,9 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         image: action.payload
       });
-    case "ON_CHANGE_URL":
+    case "ON_CHANGE_GROUP":
       return Object.assign({}, state, {
-        url: action.payload
-      });
-    case "ON_CHANGE_TO":
-      return Object.assign({}, state, {
-        to: action.payload
+        groupId: action.payload
       });
     case "ON_CHANGE_GROUP_NAME":
       return Object.assign({}, state, {
@@ -34,10 +30,6 @@ export default function Reducer(state=initialState, action) {
     case "ON_CHANGE_GROUP_PHONE":
       return Object.assign({}, state, {
         groupPhone: action.payload,
-      });
-    case "ON_CHANGE_GROUP":
-      return Object.assign({}, state, {
-        groupId: parseInt(action.payload),
       });
     case "ON_CHANGE_PROFILE_NAME":
       return Object.assign({}, state, {
@@ -55,6 +47,10 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         image: action.payload,
       });
+    case "ON_CHANGE_TO_IN_ISSUE":
+      return Object.assign({}, state, {
+        toInIssue: action.payload,
+      });
     case "LOGGED_IN":
       return Object.assign({}, state, {
         from: action.payload,
@@ -62,6 +58,10 @@ export default function Reducer(state=initialState, action) {
     case "FETCHED_CERTIFICATE":
       return Object.assign({}, state, {
         certificate: action.payload,
+      });
+    case "FETCHED_CERTIFICATE_IN_ISSUE":
+      return Object.assign({}, state, {
+        certificateInIssue: action.payload,
       });
     case "FETCHED_CERTIFICATES":
       return Object.assign({}, state, {
@@ -78,6 +78,10 @@ export default function Reducer(state=initialState, action) {
     case "FETCHED_GROUP":
       return Object.assign({}, state, {
         group: action.payload,
+      });
+    case "FETCHED_CERTIFICATES_IN_ISSUER":
+      return Object.assign({}, state, {
+        certificatesInIssuer: action.payload,
       });
     default:
       return initialState;

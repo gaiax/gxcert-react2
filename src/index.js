@@ -11,13 +11,12 @@ import history from "./history";
 import {
   onChangeTitle,
   onChangeDescription,
-  onChangeUrl,
-  onChangeTo,
   onChangeImage,
+  onChangeToInIssue,
+  onChangeGroup,
   onChangeGroupName,
   onChangeGroupAddress,
   onChangeGroupPhone,
-  onChangeGroup,
   onChangeProfileName,
   onChangeProfileEmail,
   onChangeProfileImage,
@@ -25,9 +24,12 @@ import {
   signIn,
   fetchCertificate,
   fetchCertificates,
-  fetchCertificateImage,
+  fetchCertificatesInIssuer,
   fetchGroups,
   fetchGroup,
+  fetchGroupsInIssuer,
+  fetchCertificateInIssue,
+  issue,
   registerGroup,
   registerProfile,
   inviteMember,
@@ -46,12 +48,6 @@ function mapDispatchToProps(dispatch, props) {
     onChangeDescription: (evt) => {
       dispatch(onChangeDescription(evt));
     },
-    onChangeUrl: (evt) => {
-      dispatch(onChangeUrl(evt));
-    },
-    onChangeTo: (evt) => {
-      dispatch(onChangeTo(evt));
-    },
     onChangeImage: (evt) => {
       dispatch(onChangeImage(evt));
     },
@@ -64,9 +60,6 @@ function mapDispatchToProps(dispatch, props) {
     onChangeGroupPhone: (evt) => {
       dispatch(onChangeGroupPhone(evt));
     },
-    onChangeGroup: (evt) => {
-      dispatch(onChangeGroup(evt));
-    },
     onChangeProfileName: (evt) => {
       dispatch(onChangeProfileName(evt));
     },
@@ -75,6 +68,12 @@ function mapDispatchToProps(dispatch, props) {
     },
     onChangeProfileImage: (evt) => {
       dispatch(onChangeProfileImage(evt));
+    },
+    onChangeGroup: (evt) => {
+      dispatch(onChangeGroup(evt));
+    },
+    onChangeToInIssue: (evt) => {
+      dispatch(onChangeToInIssue(evt));
     },
     sign: () => {
       dispatch(sign());
@@ -85,14 +84,17 @@ function mapDispatchToProps(dispatch, props) {
     fetchCertificates: () => {
       dispatch(fetchCertificates());
     },
-    fetchCertificateImage: (cid) => {
-      dispatch(fetchCertificateImage(cid));
-    },
     fetchGroups: () => {
       dispatch(fetchGroups());
     },
     fetchGroup: (groupId) => {
       dispatch(fetchGroup(groupId));
+    },
+    fetchCertificatesInIssuer: () => {
+      dispatch(fetchCertificatesInIssuer());
+    },
+    fetchCertificateInIssue: (certId) => {
+      dispatch(fetchCertificateInIssue(certId));
     },
     signIn: () => {
       dispatch(signIn());
@@ -105,6 +107,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     inviteMember: () => {
       dispatch(inviteMember());
+    },
+    issue: (certId) => {
+      dispatch(issue(certId));
     },
   }
 }
