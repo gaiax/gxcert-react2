@@ -12,7 +12,9 @@ class Issuer extends React.Component {
     return (
       <div className="issuer">
         <div className="issuer-certificates">
-          <button className="issuer-certificates-new">新規作成</button>
+          <Link to="/new">
+            <div className="issuer-certificates-new">新規作成</div>
+          </Link>
           <br/>
           <p className="issuer-certificates-title">証明書</p>
           <div className="issuer-certificates-list">

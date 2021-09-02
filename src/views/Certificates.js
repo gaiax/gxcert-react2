@@ -19,7 +19,7 @@ class Certificates extends React.Component {
             { this.props.userCerts.length === 0 ? <p className="certificate-not-found">Certificate not found.</p> : "" }
             { this.props.userCerts.map((userCert, index) => {
               return (
-                <Link to={"/certs/" + userCert.certId}>
+                <Link to={"/certs/" + userCert.userCertId}>
                   <div className="certificates-list-cell">
                     <img src={userCert.certificate.imageUrl} className="certificates-list-cell-icon"/>
                     <div className="certificates-list-cell-detail">

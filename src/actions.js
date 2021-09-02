@@ -426,7 +426,7 @@ const registerGroup = () => async (dispatch, getState) => {
     alert("Failed to create group.");
     return;
   }
-  history.push("/");
+  history.push("/new");
 }
 const issue = (certId) => async (dispatch, getState) => {
   let gxCert;
