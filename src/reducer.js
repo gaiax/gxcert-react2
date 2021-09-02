@@ -47,6 +47,10 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         image: action.payload,
       });
+    case "ON_CHANGE_TO_IN_ISSUE":
+      return Object.assign({}, state, {
+        toInIssue: action.payload,
+      });
     case "LOGGED_IN":
       return Object.assign({}, state, {
         from: action.payload,
@@ -54,6 +58,10 @@ export default function Reducer(state=initialState, action) {
     case "FETCHED_CERTIFICATE":
       return Object.assign({}, state, {
         certificate: action.payload,
+      });
+    case "FETCHED_CERTIFICATE_IN_ISSUE":
+      return Object.assign({}, state, {
+        certificateInIssue: action.payload,
       });
     case "FETCHED_CERTIFICATES":
       return Object.assign({}, state, {

@@ -11,6 +11,7 @@ import NewProfile from "./views/NewProfile";
 import NewGroup from "./views/NewGroup";
 import GroupMembers from "./views/GroupMembers";
 import Issuer from "./views/Issuer";
+import Issue from "./views/Issue";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 
@@ -60,6 +61,12 @@ class App extends React.Component {
             certificates={that.props.state.certificatesInIssuer}
             fetchCertificates={that.props.fetchCertificatesInIssuer}
             />
+          } />
+          <Route exact={true} path="/issue/:certId" render={ (routeProps) => <Issue
+            {...routeProps}
+            certificate={that.props.state.certificateInIssue}
+            fetchCertificate={that.props.fetchCertificateInIssue}
+          />
           } />
           <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate
 

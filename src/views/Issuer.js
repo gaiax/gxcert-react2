@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class Issuer extends React.Component {
   constructor() {
@@ -9,21 +10,23 @@ class Issuer extends React.Component {
   }
   render() {
     return (
-      <div className="issue">
-        <div className="issue-certificates">
-          <button className="issue-certificates-new">新規作成</button>
+      <div className="issuer">
+        <div className="issuer-certificates">
+          <button className="issuer-certificates-new">新規作成</button>
           <br/>
-          <p className="issue-certificates-title">証明書</p>
-          <div className="issue-certificates-list">
+          <p className="issuer-certificates-title">証明書</p>
+          <div className="issuer-certificates-list">
             {
               this.props.certificates.map(certificate => {
                 return (
-                  <div className="issue-certificates-list-cell">
-                    <img src={certificate.imageUrl} className="issue-certificates-list-cell-icon"/>
-                    <p className="issue-certificates-list-cell-title">
+                  <div className="issuer-certificates-list-cell">
+                    <img src={certificate.imageUrl} className="issuer-certificates-list-cell-icon"/>
+                    <p className="issuer-certificates-list-cell-title">
                       {certificate.title} 
                     </p>
-                    <div className="issue-certificates-list-cell-issue">発行</div>
+                    <Link to={"/issue/" + certificate.id}>
+                      <div className="issuer-certificates-list-cell-issue">発行</div>
+                    </Link>
                   </div>
                 );
               })

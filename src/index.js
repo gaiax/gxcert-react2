@@ -12,6 +12,7 @@ import {
   onChangeTitle,
   onChangeDescription,
   onChangeImage,
+  onChangeToInIssue,
   onChangeGroup,
   onChangeGroupName,
   onChangeGroupAddress,
@@ -27,6 +28,7 @@ import {
   fetchGroups,
   fetchGroup,
   fetchGroupsInIssuer,
+  fetchCertificateInIssue,
   registerGroup,
   registerProfile,
   inviteMember,
@@ -69,6 +71,9 @@ function mapDispatchToProps(dispatch, props) {
     onChangeGroup: (evt) => {
       dispatch(onChangeGroup(evt));
     },
+    onChangeToInIssue: (evt) => {
+      dispatch(onChangeToInIssue(evt));
+    },
     sign: () => {
       dispatch(sign());
     },
@@ -86,6 +91,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     fetchCertificatesInIssuer: () => {
       dispatch(fetchCertificatesInIssuer());
+    },
+    fetchCertificateInIssue: (certId) => {
+      dispatch(fetchCertificateInIssue(certId));
     },
     signIn: () => {
       dispatch(signIn());

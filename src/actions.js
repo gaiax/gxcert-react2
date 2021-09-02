@@ -37,6 +37,13 @@ const onChangeGroup = (evt) => async (dispatch, getState) => {
   });
 }
 
+const onChangeToInIssue = (evt) => async (dispatch) => {
+  dispatch({
+    type: "ON_CHANGE_TO_IN_ISSUE",
+    payload: evt.target.value,
+  });
+}
+
 const onChangeGroupName = (evt) => async (dispatch, getState) => {
   dispatch({
     type: "ON_CHANGE_GROUP_NAME",
@@ -83,6 +90,26 @@ const onChangeProfileImage = (evt) => async (dispatch, getState) => {
   reader.readAsArrayBuffer(file);
 }
 
+const fetchCertificateInIssue = (certId) => async (dispatch) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCertWithoutLogin();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  let certificate;
+  try {
+    certificate = await gxCert.getCert(certId);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_CERTIFICATE_IN_ISSUE",
+    payload: certificate,
+  });
+}
 
 const fetchCertificate = (cid) => async (dispatch) => {
   let gxCert;
@@ -459,9 +486,11 @@ export {
   onChangeProfileName,
   onChangeProfileEmail,
   onChangeProfileImage,
+  onChangeToInIssue,
   sign,
   signIn,
   fetchCertificate,
+  fetchCertificateInIssue,
   fetchCertificates,
   fetchGroups,
   fetchGroup,
