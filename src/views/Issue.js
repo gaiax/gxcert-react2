@@ -5,23 +5,23 @@ class Issue extends React.Component {
     super();
   }
   componentDidMount() {
-    const groupId = parseInt(this.props.match.params.groupId);
-    this.props.fetchGroup(groupId);
+    this.props.fetchCertificates();
   }
   render() {
     return (
       <div className="issue">
         <div className="issue-certificates">
           <button className="issue-certificates-new">新規作成</button>
-          <p className="issue-certificates-title">{this.props.group ? this.props.group.name : ""}の証明書</p>
+          <br/>
+          <p className="issue-certificates-title">証明書</p>
           <div className="issue-certificates-list">
             {
               this.props.certificates.map(certificate => {
                 return (
                   <div className="issue-certificates-list-cell">
-                    <img src={certificate.imageUrl} className="certificates-list-cell-icon"/>
-                    <div className="certificates-list-cell-detail">
-                      <p className="certificates-list-cell-title">
+                    <img src={certificate.imageUrl} className="issue-certificates-list-cell-icon"/>
+                    <div className="issue-certificates-list-cell-detail">
+                      <p className="issue-certificates-list-cell-title">
                         {certificate.title} 
                       </p>
                     </div>

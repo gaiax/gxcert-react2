@@ -42,13 +42,11 @@ class App extends React.Component {
               groups={that.props.state.groups}
             />
           } />
-          <Route exact={true} path="/issue/:groupId" render={ (routeProps) => <Issue
+          <Route exact={true} path="/issue/" render={ (routeProps) => <Issue
             {...routeProps}
-            group={that.props.state.groupInIssue}
+            groups={that.props.state.groupsInIssue}
             certificates={that.props.state.certificatesInIssue}
-            fetchGroup={that.props.fetchGroupInIssue}
-
-            
+            fetchCertificates={that.props.fetchCertificatesInIssue}
             />
           } />
           <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate

@@ -245,25 +245,49 @@ const fetchGroup = (groupId) => async (dispatch, getState) => {
     payload: group,
   });
 }
-const fetchGroupInIssue = (groupId) => async (dispatch, getState) => {
+const fetchCertificatesInIssue = () => async (dispatch, getState) => {
   let gxCert;
   try {
-    gxCert = await getGxCertWithoutLogin();
+    gxCert = getGxCert();
   } catch(err) {
     console.error(err);
     return;
   }
-  let group;
+  const state = getState().state;
+  const address = state.from;
+  let groups;
   try {
-    group = await gxCert.getGroup(groupId);
+    groups = await gxCert.getGroups(address);
   } catch(err) {
     console.error(err);
+    alert("Failed to fetch your groups");
     return;
+  }
+  let certificates = [];
+  for (const group of groups) {
+    const groupId = group.groupId;
+    try {
+      certificates = certificates.concat(await gxCert.getGroupCerts(groupId));
+    } catch(err) {
+      console.error(err);
+      continue;
+    }
   }
   dispatch({
-    type: "FETCHED_GROUP_IN_ISSUE",
-    payload: group,
+    type: "FETCHED_CERTIFICATES_IN_ISSUE",
+    payload: certificates,
   });
+  for (let i = 0; i < certificates.length; i++) {
+    getImageOnIpfs(certificates[i].image).then(imageUrl => {
+      certificates[i].imageUrl = imageUrl;
+      dispatch({
+        type: "FETCHED_CERTIFICATES_IN_ISSUE",
+        payload: certificates,
+      });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
 }
 
 const sign = () => async (dispatch, getState) => {
@@ -441,7 +465,7 @@ export {
   fetchCertificates,
   fetchGroups,
   fetchGroup,
-  fetchGroupInIssue,
+  fetchCertificatesInIssue,
   registerGroup,
   registerProfile,
   inviteMember,
