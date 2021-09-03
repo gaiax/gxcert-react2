@@ -196,7 +196,9 @@ html, body {
 }
 
 .certificates-list-cell-detail, .group-members-list-cell-detail, .issuer-certificates-list-cell-detail {
+  width: 60%;
   margin-left: 20px;
+  margin-right: 20px;
 }
 
 .certificates-list-cell-title, .group-members-list-cell-name, .issuer-certificates-list-cell-title {
@@ -210,6 +212,7 @@ html, body {
 }
 .certificates-list-cell p, .group-members-list-cell p, .issuer-certificates-list-cell p {
   color: #49AAFC;
+  word-break: break-all;
 }
 
 .certificates-list-cell-by {
