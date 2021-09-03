@@ -96,7 +96,7 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/profile/new" render={ (routeProps) => <NewProfile
             {...routeProps}
-            imageUrl={that.props.state.profileImageUrl}
+            image={that.props.state.profileImage}
             registerProfile={that.props.registerProfile}
             onChangeProfileName={that.props.onChangeProfileName}
             onChangeProfileEmail={that.props.onChangeProfileEmail}

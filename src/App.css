@@ -339,6 +339,12 @@ html, body {
   height: 140px;
   border-radius: 70px;
   background-color: #F1F9FF;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#new-profile-form-image-file {
+  display: none;
 }
 .new-cert-button {
   background-color: #49AAFC;

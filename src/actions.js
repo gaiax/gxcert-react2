@@ -272,6 +272,17 @@ const fetchGroup = (groupId) => async (dispatch, getState) => {
     type: "FETCHED_GROUP",
     payload: group,
   });
+  for (let i = 0; i < group.members.length; i++) {
+    getImageOnIpfs(group.members[i].icon).then(imageUrl => {
+      group.members[i].imageUrl = imageUrl;
+      dispatch({
+        type: "FETCHED_GROUP",
+        payload: group,
+      });
+    }).catch(err => {
+
+    });
+  }
 }
 const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
   let gxCert;
@@ -382,12 +393,23 @@ const registerProfile = () => async (dispatch, getState) => {
   const state = getState().state;
   const name = state.profileName;
   const email = state.profileEmail;
+  const iconImage = state.profileImage;
   const address = state.from;
+
+  let icon;
+  try {
+    icon = await gxCert.uploadImageToIpfs(iconImage);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to upload image to IPFS."); 
+    return;
+  }
   let signedProfile;
   try {
     signedProfile = await gxCert.signProfile({
       name,
       email,
+      icon,
     }, { 
       address,
     });
