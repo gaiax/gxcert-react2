@@ -227,10 +227,7 @@ const fetchGroups = () => async (dispatch, getState) => {
 }
 
 const signIn = () => async (dispatch) => {
-  await torusClient.init();
-  const web3 = await torusClient.login();
-  const gxCert = getGxCert(web3);
-  await gxCert.init();
+  const gxCert = await getGxCert();
   const accounts = await gxCert.web3.eth.getAccounts();
   if (accounts.length === 0) {
     console.log("Failed to login.");
@@ -287,7 +284,7 @@ const fetchGroup = (groupId) => async (dispatch, getState) => {
 const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
   let gxCert;
   try {
-    gxCert = getGxCert();
+    gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
     return;
@@ -332,7 +329,7 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
 const sign = () => async (dispatch, getState) => {
   let gxCert;
   try {
-    gxCert = getGxCert();
+    gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
     return;
@@ -385,7 +382,7 @@ const sign = () => async (dispatch, getState) => {
 const registerProfile = () => async (dispatch, getState) => {
   let gxCert;
   try {
-    gxCert = getGxCert();
+    gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
     return;
@@ -431,7 +428,7 @@ const registerProfile = () => async (dispatch, getState) => {
 const registerGroup = () => async (dispatch, getState) => {
   let gxCert;
   try {
-    gxCert = getGxCert();
+    gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
     return;
@@ -453,7 +450,7 @@ const registerGroup = () => async (dispatch, getState) => {
 const issue = (certId) => async (dispatch, getState) => {
   let gxCert;
   try {
-    gxCert = getGxCert();
+    gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
     return;
@@ -495,7 +492,7 @@ const issue = (certId) => async (dispatch, getState) => {
 const inviteMember = () => async (dispatch, getState) => {
   let gxCert;
   try {
-    gxCert = getGxCert();
+    gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
     return;
