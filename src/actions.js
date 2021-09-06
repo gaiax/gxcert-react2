@@ -442,7 +442,7 @@ const registerGroup = () => async (dispatch, getState) => {
   const groupAddress = state.groupAddress;
   const groupPhone = state.groupPhone;
   try {
-    await gxCert.createGroup(groupName, from);
+    await gxCert.createGroup(groupName, groupAddress, groupPhone, from);
   } catch(err) {
     console.error(err);
     alert("Failed to create group.");
