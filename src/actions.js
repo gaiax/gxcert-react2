@@ -112,6 +112,10 @@ const fetchCertificateInIssue = (certId) => async (dispatch) => {
 }
 
 const fetchCertificate = (userCertId) => async (dispatch) => {
+  dispatch({
+    type: "FETCHED_CERTIFICATE",
+    payload: null,
+  });
   let gxCert;
   try {
     gxCert = await getGxCertWithoutLogin();
@@ -167,6 +171,10 @@ const fetchCertificate = (userCertId) => async (dispatch) => {
 }
 
 const fetchCertificates = () => async (dispatch, getState) => {
+  dispatch({
+    type: "FETCHED_CERTIFICATES",
+    payload: [],
+  });
   const state = getState().state;
   const address = state.from;
   if (address === "" || !address) {
@@ -251,6 +259,10 @@ const signIn = () => async (dispatch) => {
 }
 
 const fetchGroup = (groupId) => async (dispatch, getState) => {
+  dispatch({
+    type: "FETCHED_GROUP",
+    payload: null,
+  });
   let gxCert;
   try {
     gxCert = await getGxCertWithoutLogin();
