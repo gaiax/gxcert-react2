@@ -9,6 +9,7 @@
 html, body {
   padding: 0;
   margin: 0;
+  background-color: #F1F9FF;
 }
 
 .logo {
@@ -91,7 +92,6 @@ html, body {
 }
 
 .sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .group-members, .issuer, .issue{
-  height: 500px;
   padding: 20px;
   background-color: #F1F9FF;
 }
