@@ -31,9 +31,9 @@ class EditProfile extends React.Component {
               <input id="edit-profile-form-image-file" type="file" onChange={this.props.onChangeProfileImage} />
             </div>
             <p className="edit-profile-form-title">Name</p>
-            <input type="text" className="edit-profile-form-name" onChange={this.props.onChangeProfileName} initialValue={this.props.profileName}/>
+            <input type="text" className="edit-profile-form-name" onChange={this.props.onChangeProfileName} />
             <p className="edit-profile-form-title">E-mail</p>
-            <input type="text" className="edit-profile-form-email" onChange={this.props.onChangeProfileEmail} initialValue={this.props.profileEmail }/>
+            <input type="text" className="edit-profile-form-email" onChange={this.props.onChangeProfileEmail} />
             <div className="register-button" onClick={this.props.updateProfile} >
               更新
             </div>

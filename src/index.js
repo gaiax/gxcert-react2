@@ -37,7 +37,7 @@ import {
   fetchGroupsInIssuer,
   fetchCertificateInIssue,
   fetchProfileInEdit,
-
+  updateProfile,
   updateGroup,
   issue,
   registerGroup,
@@ -138,6 +138,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     updateGroup: () => {
       dispatch(updateGroup());
+    },
+    updateProfile: () => {
+      dispatch(updateProfile());
     },
     registerProfile: () => {
       dispatch(registerProfile());

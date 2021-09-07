@@ -118,6 +118,7 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/profile/edit" render={ (routeProps) => <EditProfile
             {...routeProps}
+            image={that.props.state.profileImage}
             updateProfile={that.props.updateProfile}
             profile={that.props.state.profileInEdit}
             profileName={that.props.state.profileNameInEdit}

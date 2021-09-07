@@ -571,6 +571,36 @@ const registerGroup = () => async (dispatch, getState) => {
   }
   history.push("/new");
 }
+const updateProfile = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const name = state.profileNameInEdit;
+  const email = state.profileEmailInEdit;
+  const icon = state.profileImageInEdit;
+  const address = gxCert.address;
+
+  const newProfile = {
+    name,
+    email,
+    icon,
+  }
+
+  const signedProfile = await gxCert.signProfileForUpdating(newProfile, { address });
+  try {
+    await gxCert.updateProfile(signedProfile);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to update your profile.");
+    return;
+  }
+  history.push("/");
+}
 const updateGroup = () => async (dispatch, getState) => {
   let gxCert;
   try {
@@ -723,5 +753,6 @@ export {
   inviteMember,
   issue,
   updateGroup,
+  updateProfile,
 
 };
