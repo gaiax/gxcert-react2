@@ -26,7 +26,7 @@ class EditGroup extends React.Component {
             <input type="text" className="edit-group-form-phone" onChange={this.props.onChangeGroupPhone} />
 
             <div className="register-button" onClick={this.props.registerGroup} >
-              登録
+              更新
             </div>
           </div>
         </div>
