@@ -31,6 +31,22 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         groupPhone: action.payload,
       });
+    case "ON_CHANGE_GROUP_ID_IN_EDIT":
+      return Object.assign({}, state, {
+        groupIdInEdit: action.payload,
+      });
+    case "ON_CHANGE_GROUP_NAME_IN_EDIT":
+      return Object.assign({}, state, {
+        groupNameInEdit: action.payload,
+      });
+    case "ON_CHANGE_GROUP_ADDRESS_IN_EDIT":
+      return Object.assign({}, state, {
+        groupAddressInEdit: action.payload,
+      });
+    case "ON_CHANGE_GROUP_PHONE_IN_EDIT":
+      return Object.assign({}, state, {
+        groupPhoneInEdit: action.payload,
+      });
     case "ON_CHANGE_PROFILE_NAME":
       return Object.assign({}, state, {
         profileName: action.payload,

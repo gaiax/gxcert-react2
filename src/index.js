@@ -26,8 +26,10 @@ import {
   fetchCertificatesInIssuer,
   fetchGroups,
   fetchGroup,
+  fetchGroupInEdit,
   fetchGroupsInIssuer,
   fetchCertificateInIssue,
+  updateGroup,
   issue,
   registerGroup,
   registerProfile,
@@ -89,6 +91,9 @@ function mapDispatchToProps(dispatch, props) {
     fetchGroup: (groupId) => {
       dispatch(fetchGroup(groupId));
     },
+    fetchGroupInEdit: () => {
+      dispatch(fetchGroupInEdit());
+    },
     fetchCertificatesInIssuer: () => {
       dispatch(fetchCertificatesInIssuer());
     },
@@ -100,6 +105,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     registerGroup: () => {
       dispatch(registerGroup());
+    },
+    updateGroup: () => {
+      dispatch(updateGroup());
     },
     registerProfile: () => {
       dispatch(registerProfile());

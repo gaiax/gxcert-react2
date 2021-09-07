@@ -44,6 +44,31 @@ const onChangeToInIssue = (evt) => async (dispatch) => {
   });
 }
 
+const onChangeGroupIdInEdit = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_GROUP_ID_IN_EDIT",
+    payload: evt.target.value,
+  });
+}
+const onChangeGroupNameInEdit = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_GROUP_NAME_IN_EDIT",
+    payload: evt.target.value,
+  });
+}
+const onChangeGroupAddressInEdit = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_GROUP_ADDRESS_IN_EDIT",
+    payload: evt.target.value,
+  });
+}
+const onChangeGroupPhoneInEdit = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_GROUP_PHONE_IN_EDIT",
+    payload: evt.target.value,
+  });
+}
+
 const onChangeGroupName = (evt) => async (dispatch, getState) => {
   dispatch({
     type: "ON_CHANGE_GROUP_NAME",
@@ -292,6 +317,33 @@ const fetchGroup = (groupId) => async (dispatch, getState) => {
     });
   }
 }
+const fetchGroupInEdit = () => async (dispatch, getState) => {
+  dispatch({
+    type: "FETCHED_GROUP_IN_EDIT",
+    payload: null,
+  });
+  let gxCert;
+  try {
+    gxCert = await getGxCertWithoutLogin();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+
+  const state = getState().state;
+  const groupId = state.groupIdInEdit;
+  let group;
+  try {
+    group = await gxCert.getGroup(groupId);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_GROUP_IN_EDIT",
+    payload: group,
+  });
+}
 const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
   let gxCert;
   try {
@@ -457,6 +509,36 @@ const registerGroup = () => async (dispatch, getState) => {
   }
   history.push("/new");
 }
+const updateGroup = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const groupId = state.groupIdInEdit;
+  const name = state.groupNameInEdit;
+  const residence = state.groupAddressInEdit;
+  const phone = state.groupPhoneInEdit;
+  const group = {
+    groupId,
+    name,
+    residence,
+    phone,
+  }
+
+  const signedGroup = await gxCert.signGroup(group, { address: gxCert.address });
+  try {
+    await gxCert.updateGroup(signedGroup);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to update group.");
+    return;
+  }
+  history.push("/");
+}
 const issue = (certId) => async (dispatch, getState) => {
   let gxCert;
   try {
@@ -565,10 +647,12 @@ export {
   fetchCertificates,
   fetchGroups,
   fetchGroup,
+  fetchGroupInEdit,
   fetchCertificatesInIssuer,
   registerGroup,
   registerProfile,
   inviteMember,
   issue,
+  updateGroup,
 
 };

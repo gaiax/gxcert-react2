@@ -93,6 +93,8 @@ class App extends React.Component {
             {...routeProps}
             group={that.props.state.groupInEdit}
             updateGroup={that.props.updateGroup}
+            fetchGroup={that.props.fetchGroupInEdit}
+            onChangeGroupId={that.props.onChangeGroupIdInEdit}
             onChangeGroupName={that.props.onChangeGroupNameInEdit}
             onChangeGroupAddress={that.props.onChangeGroupAddressInEdit}
             onChangeGroupPhone={that.props.onChangeGroupPhone}
