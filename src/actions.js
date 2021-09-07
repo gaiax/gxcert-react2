@@ -245,7 +245,6 @@ const fetchCertificates = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  console.log(userCerts);
   for (let i = 0; i < userCerts.length; i++) {
     getImageOnIpfs(userCerts[i].certificate.image).then(imageUrl => {
       userCerts[i].certificate.imageUrl = imageUrl;
@@ -402,7 +401,7 @@ const fetchProfileInEdit = () => async (dispatch, getState) => {
     payload: profile.name,
   });
   dispatch({
-    type: "ON_CHANGE_PROFILE_NAME_IN_EMAIL",
+    type: "ON_CHANGE_PROFILE_NAME_IN_EDIT",
     payload: profile.email,
   });
 }
