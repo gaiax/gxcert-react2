@@ -114,6 +114,31 @@ const onChangeProfileImage = (evt) => async (dispatch, getState) => {
   }
   reader.readAsArrayBuffer(file);
 }
+const onChangeProfileNameInEdit = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_PROFILE_NAME_IN_EDIT",
+    payload: evt.target.value,
+  });
+}
+
+const onChangeProfileEmailInEdit = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_PROFILE_EMAIL_IN_EDIT",
+    payload: evt.target.value,
+  });
+}
+
+const onChangeProfileImageInEdit = (evt) => async (dispatch, getState) => {
+  const file = evt.target.files[0];
+  const reader = new FileReader();
+  reader.onload = () => {
+    dispatch({
+      type: "ON_CHANGE_PROFILE_IMAGE_IN_EDIT",
+      payload: reader.result,
+    });
+  }
+  reader.readAsArrayBuffer(file);
+}
 
 const fetchCertificateInIssue = (certId) => async (dispatch) => {
   let gxCert;
@@ -334,6 +359,7 @@ const fetchGroupInEdit = (groupId) => async (dispatch, getState) => {
     return;
   }
 
+
   const state = getState().state;
   let group;
   try {
@@ -345,6 +371,39 @@ const fetchGroupInEdit = (groupId) => async (dispatch, getState) => {
   dispatch({
     type: "FETCHED_GROUP_IN_EDIT",
     payload: group,
+  });
+}
+const fetchProfileInEdit = () => async (dispatch, getState) => {
+  dispatch({
+    type: "FETCHED_PROFILE_IN_EDIT",
+    payload: null,
+  });
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  let profile;
+  try {
+    profile = await gxCert.getProfile(gxCert.address);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to fetch profile.");
+    return;
+  }
+  dispatch({
+    type: "FETCHED_PROFILE_IN_EDIT",
+    payload: profile,
+  });
+  dispatch({
+    type: "ON_CHANGE_PROFILE_NAME_IN_EDIT",
+    payload: profile.name,
+  });
+  dispatch({
+    type: "ON_CHANGE_PROFILE_NAME_IN_EMAIL",
+    payload: profile.email,
   });
 }
 const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
@@ -645,9 +704,13 @@ export {
   onChangeProfileName,
   onChangeProfileEmail,
   onChangeProfileImage,
+  onChangeProfileNameInEdit,
+  onChangeProfileEmailInEdit,
+  onChangeProfileImageInEdit,
   onChangeToInIssue,
   sign,
   signIn,
+  fetchProfileInEdit,
   fetchCertificate,
   fetchCertificateInIssue,
   fetchCertificates,

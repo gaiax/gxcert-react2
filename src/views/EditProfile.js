@@ -1,9 +1,13 @@
 import React from "react";
+import { getImageOnIpfs } from "../util/ipfs";
 import { createImageUrlFromUint8Array } from "../util/ipfs";
 
 class EditProfile extends React.Component {
   constructor() {
     super();
+  }
+  componentDidMount() {
+    this.props.fetchProfile();
   }
   render() {
     let imageUrl = "";
@@ -12,6 +16,7 @@ class EditProfile extends React.Component {
     } catch(err) {
       console.error(err);
     }
+    console.log(this.props);
     return (
       <div className="edit-profile">
         <div className="edit-profile-content">
@@ -26,10 +31,10 @@ class EditProfile extends React.Component {
               <input id="edit-profile-form-image-file" type="file" onChange={this.props.onChangeProfileImage} />
             </div>
             <p className="edit-profile-form-title">Name</p>
-            <input type="text" className="edit-profile-form-name" onChange={this.props.onChangeProfileName} />
+            <input type="text" className="edit-profile-form-name" onChange={this.props.onChangeProfileName} initialValue={this.props.profileName}/>
             <p className="edit-profile-form-title">E-mail</p>
-            <input type="text" className="edit-profile-form-email" onChange={this.props.onChangeProfileEmail} />
-            <div className="register-button" onClick={this.props.registerProfile} >
+            <input type="text" className="edit-profile-form-email" onChange={this.props.onChangeProfileEmail} initialValue={this.props.profileEmail }/>
+            <div className="register-button" onClick={this.props.updateProfile} >
               更新
             </div>
           </div>

@@ -91,12 +91,12 @@ html, body {
   font-size: 24px;
 }
 
-.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .group-members, .issuer, .issue, .edit-group{
+.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .group-members, .issuer, .issue, .edit-group, .edit-profile{
   padding: 20px;
   background-color: #F1F9FF;
 }
 
-.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content{
+.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content, .edit-profile-content{
   margin-left: auto;
   margin-right: auto;
   width: 50%;
@@ -112,7 +112,7 @@ html, body {
   font-weight: bold;
 }
 
-.registration-title, .new-cert-title, .new-group-title, .new-profile-title, .issuer-certificates-title, .issue-title, .edit-group-title{
+.registration-title, .new-cert-title, .new-group-title, .new-profile-title, .issuer-certificates-title, .issue-title, .edit-group-title, .edit-profile-title{
   color: #49AAFC;
   font-weight: bold;
 }
@@ -137,7 +137,7 @@ html, body {
   margin-bottom: 4px;
 }
 
-.registration-form-name, .registration-form-email , .new-cert-form-group, .new-cert-form-to, .new-cert-form-name, .new-group-form-name, .new-group-form-address, .new-group-form-phone, .new-profile-form-name, .new-profile-form-email, .group-members-invite, .issue-form-to, .edit-group-form-name, .edit-group-form-address, .edit-group-form-phone{
+.registration-form-name, .registration-form-email , .new-cert-form-group, .new-cert-form-to, .new-cert-form-name, .new-group-form-name, .new-group-form-address, .new-group-form-phone, .new-profile-form-name, .new-profile-form-email, .group-members-invite, .issue-form-to, .edit-group-form-name, .edit-group-form-address, .edit-group-form-phone, .edit-profile-form-name, .edit-profile-form-email {
   height: 34px;
   border-radius: 4px;
   border: 1px solid #49AAFC;
@@ -319,7 +319,7 @@ html, body {
   padding: 8px;
 }
 
-.new-group-form-title, .new-profile-form-title, .issue-form-title, .edit-group-form-title {
+.new-group-form-title, .new-profile-form-title, .issue-form-title, .edit-group-form-title, .edit-profile-form-title {
   text-align: left;
   font-weight: bold;
   color: #49AAFC;
@@ -328,13 +328,13 @@ html, body {
   margin-bottom: 4px;
   margin-top: 0;
 }
-.new-group-form, .new-profile-form, .edit-group-form {
+.new-group-form, .new-profile-form, .edit-group-form, .edit-profile-form {
   width: 60%;
   margin-left: auto;
   margin-right: auto;
 }
 
-.new-profile-form-image {
+.new-profile-form-image, .edit-profile-form-image {
   width: 140px;
   height: 140px;
   border-radius: 70px;
@@ -343,7 +343,7 @@ html, body {
   margin-right: auto;
 }
 
-#new-profile-form-image-file {
+#new-profile-form-image-file, #edit-profile-form-image-file {
   display: none;
 }
 .new-cert-button {

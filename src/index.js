@@ -23,6 +23,9 @@ import {
   onChangeGroupIdInEdit,
   onChangeGroupAddressInEdit,
   onChangeGroupPhoneInEdit,
+  onChangeProfileNameInEdit,
+  onChangeProfileEmailInEdit,
+  onChangeProfileImageInEdit,
   sign,
   signIn,
   fetchCertificate,
@@ -33,6 +36,8 @@ import {
   fetchGroupInEdit,
   fetchGroupsInIssuer,
   fetchCertificateInIssue,
+  fetchProfileInEdit,
+
   updateGroup,
   issue,
   registerGroup,
@@ -83,6 +88,15 @@ function mapDispatchToProps(dispatch, props) {
     onChangeProfileImage: (evt) => {
       dispatch(onChangeProfileImage(evt));
     },
+    onChangeProfileNameInEdit: (evt) => {
+      dispatch(onChangeProfileNameInEdit(evt));
+    },
+    onChangeProfileEmailInEdit: (evt) => {
+      dispatch(onChangeProfileEmailInEdit(evt));
+    },
+    onChangeProfileImageInEdit: (evt) => {
+      dispatch(onChangeProfileImageInEdit(evt));
+    },
     onChangeGroup: (evt) => {
       dispatch(onChangeGroup(evt));
     },
@@ -112,6 +126,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     fetchCertificateInIssue: (certId) => {
       dispatch(fetchCertificateInIssue(certId));
+    },
+    fetchProfileInEdit: () => {
+      dispatch(fetchProfileInEdit());
     },
     signIn: () => {
       dispatch(signIn());

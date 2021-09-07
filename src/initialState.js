@@ -26,6 +26,9 @@ const initialState = {
   profileName: "",
   profileEmail: "",
   profileImage: "",
+  profileNameInEdit: "",
+  profileEmailInEdit: "",
+  profileImageInEdit: "",
 }
 
 export default initialState;
