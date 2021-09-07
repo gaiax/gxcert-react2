@@ -5,6 +5,10 @@ class EditGroup extends React.Component {
     super();
   }
 
+  componentDidMount() {
+    const groupId = parseInt(this.props.match.params.groupId);
+    this.props.fetchGroup(groupId);
+  }
   render() {
     if (!this.props.group) {
       return (
@@ -25,7 +29,7 @@ class EditGroup extends React.Component {
             <p className="edit-group-form-title">Phone</p>
             <input type="text" className="edit-group-form-phone" onChange={this.props.onChangeGroupPhone} />
 
-            <div className="register-button" onClick={this.props.registerGroup} >
+            <div className="register-button" onClick={this.props.updateGroup} >
               更新
             </div>
           </div>

@@ -317,7 +317,11 @@ const fetchGroup = (groupId) => async (dispatch, getState) => {
     });
   }
 }
-const fetchGroupInEdit = () => async (dispatch, getState) => {
+const fetchGroupInEdit = (groupId) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_GROUP_ID_IN_EDIT",
+    payload: groupId,
+  });
   dispatch({
     type: "FETCHED_GROUP_IN_EDIT",
     payload: null,
@@ -331,7 +335,6 @@ const fetchGroupInEdit = () => async (dispatch, getState) => {
   }
 
   const state = getState().state;
-  const groupId = state.groupIdInEdit;
   let group;
   try {
     group = await gxCert.getGroup(groupId);
@@ -636,6 +639,9 @@ export {
   onChangeGroupName,
   onChangeGroupAddress,
   onChangeGroupPhone,
+  onChangeGroupNameInEdit,
+  onChangeGroupAddressInEdit,
+  onChangeGroupPhoneInEdit,
   onChangeProfileName,
   onChangeProfileEmail,
   onChangeProfileImage,

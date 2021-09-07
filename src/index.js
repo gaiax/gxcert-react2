@@ -19,6 +19,10 @@ import {
   onChangeProfileName,
   onChangeProfileEmail,
   onChangeProfileImage,
+  onChangeGroupNameInEdit,
+  onChangeGroupIdInEdit,
+  onChangeGroupAddressInEdit,
+  onChangeGroupPhoneInEdit,
   sign,
   signIn,
   fetchCertificate,
@@ -61,6 +65,15 @@ function mapDispatchToProps(dispatch, props) {
     onChangeGroupPhone: (evt) => {
       dispatch(onChangeGroupPhone(evt));
     },
+    onChangeGroupNameInEdit: (evt) => {
+      dispatch(onChangeGroupNameInEdit(evt));
+    },
+    onChangeGroupAddressInEdit: (evt) => {
+      dispatch(onChangeGroupAddressInEdit(evt));
+    },
+    onChangeGroupPhoneInEdit: (evt) => {
+      dispatch(onChangeGroupPhoneInEdit(evt));
+    },
     onChangeProfileName: (evt) => {
       dispatch(onChangeProfileName(evt));
     },
@@ -91,8 +104,8 @@ function mapDispatchToProps(dispatch, props) {
     fetchGroup: (groupId) => {
       dispatch(fetchGroup(groupId));
     },
-    fetchGroupInEdit: () => {
-      dispatch(fetchGroupInEdit());
+    fetchGroupInEdit: (groupId) => {
+      dispatch(fetchGroupInEdit(groupId));
     },
     fetchCertificatesInIssuer: () => {
       dispatch(fetchCertificatesInIssuer());

@@ -91,6 +91,10 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         group: action.payload,
       });
+    case "FETCHED_GROUP_IN_EDIT":
+      return Object.assign({}, state, {
+        groupInEdit: action.payload,
+      });
     case "FETCHED_CERTIFICATES_IN_ISSUER":
       return Object.assign({}, state, {
         certificatesInIssuer: action.payload,
