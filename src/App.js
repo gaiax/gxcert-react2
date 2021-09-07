@@ -105,6 +105,7 @@ class App extends React.Component {
             group={that.props.state.group}
             fetchGroup={that.props.fetchGroup}
             inviteMember={that.props.inviteMember}
+            onChangeGroupMemberToInvite={that.props.onChangeGroupMemberToInvite}
             />
           } />
           <Route exact={true} path="/profile/new" render={ (routeProps) => <NewProfile

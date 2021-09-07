@@ -9,6 +9,7 @@ const initialState = {
   groupId: null,
   groupInEdit: null,
   groupName: "",
+  groupMemberToInvite: "",
   groupAddress: "",
   groupPhone: "",
   groupIdInEdit: "",

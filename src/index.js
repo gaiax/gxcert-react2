@@ -26,6 +26,7 @@ import {
   onChangeProfileNameInEdit,
   onChangeProfileEmailInEdit,
   onChangeProfileImageInEdit,
+  onChangeGroupMemberToInvite,
   sign,
   signIn,
   fetchCertificate,
@@ -102,6 +103,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     onChangeToInIssue: (evt) => {
       dispatch(onChangeToInIssue(evt));
+    },
+    onChangeGroupMemberToInvite: (evt) => {
+      dispatch(onChangeGroupMemberToInvite(evt));
     },
     sign: () => {
       dispatch(sign());

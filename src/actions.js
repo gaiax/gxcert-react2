@@ -140,6 +140,13 @@ const onChangeProfileImageInEdit = (evt) => async (dispatch, getState) => {
   reader.readAsArrayBuffer(file);
 }
 
+const onChangeGroupMemberToInvite = (evt) => async (dispatch, getState) => {
+  dispatch({
+    type: "ON_CHANGE_GROUP_MEMBER_TO_INVITE",
+    payload: evt.target.value,
+  });
+}
+
 const fetchCertificateInIssue = (certId) => async (dispatch) => {
   let gxCert;
   try {
@@ -683,7 +690,7 @@ const inviteMember = () => async (dispatch, getState) => {
   const state = getState().state;
   const signerAddress = state.from;
   const groupId = state.group.groupId;
-  const email = state.group.emailToInvite;
+  const email = state.groupMemberToInvite;
   let address;
   try {
     address = await torusClient.getPublicAddressByGoogle(email);
@@ -694,7 +701,7 @@ const inviteMember = () => async (dispatch, getState) => {
   }
   let signedMember;
   try {
-    signedMember = await gxCert.signMemberAddress(address, { address: signerAddress });
+    signedMember = await gxCert.signMemberAddressForInviting(address, { address: signerAddress });
   } catch(err) {
     console.error(err);
     alert("Failed to sign for invitation.");
@@ -737,6 +744,7 @@ export {
   onChangeProfileEmailInEdit,
   onChangeProfileImageInEdit,
   onChangeToInIssue,
+  onChangeGroupMemberToInvite,
   sign,
   signIn,
   fetchProfileInEdit,
