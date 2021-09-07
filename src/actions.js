@@ -3,6 +3,13 @@ import { getImageOnIpfs } from "./util/ipfs";
 import torusClient from "./torus";
 import history from "./history";
 
+function wait() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve();
+    }, 6000);
+  });
+}
 const onChangeTitle = (evt) => async (dispatch, getState) => {
   dispatch({
     type: "ON_CHANGE_TITLE",
@@ -270,7 +277,7 @@ const fetchCertificates = () => async (dispatch, getState) => {
 const fetchGroups = () => async (dispatch, getState) => {
   let gxCert;
   try {
-    gxCert = getGxCert();
+    gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
     return;
@@ -505,7 +512,7 @@ const sign = () => async (dispatch, getState) => {
     alert("Failed to post the signed certificate.");
     return;
   }
-
+  await wait();
   history.push("/issue");
 }
 
@@ -575,16 +582,7 @@ const registerGroup = () => async (dispatch, getState) => {
     alert("Failed to create group.");
     return;
   }
-  let groups;
-  try {
-    groups = await gxCert.getGroups(gxCert.address);
-    dispatch({
-      type: "FETCHED_GROUPS",
-      payload: groups,
-    });
-  } catch(err) {
-    console.error(err);
-  }
+  await wait();
   history.push("/new");
 }
 const updateProfile = () => async (dispatch, getState) => {
@@ -687,6 +685,7 @@ const issue = (certId) => async (dispatch, getState) => {
     alert("Failed to issue the certificate.");
     return;
   }
+  await wait();
   history.push("/");
 }
 const inviteMember = () => async (dispatch, getState) => {
