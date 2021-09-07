@@ -726,6 +726,24 @@ const inviteMember = () => async (dispatch, getState) => {
     payload: group,
   });
 }
+
+const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const signedAddress = await gxCert.signMemberAddressForDisabling(address, { address: gxCert.address });
+  try {
+    await gxCert.disableGroupMember(groupId, signedAddress);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+}
 export {
   onChangeTitle,
   onChangeDescription,
@@ -761,5 +779,6 @@ export {
   issue,
   updateGroup,
   updateProfile,
+  disableGroupMember,
 
 };

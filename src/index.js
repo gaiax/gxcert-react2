@@ -44,6 +44,7 @@ import {
   registerGroup,
   registerProfile,
   inviteMember,
+  disableGroupMember,
 } from "./actions";
 //import CertClient from "./client"
 
@@ -154,6 +155,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     issue: (certId) => {
       dispatch(issue(certId));
+    },
+    disableGroupMember: (groupId, address) => {
+      dispatch(disableGroupMember(groupId, address));
     },
   }
 }

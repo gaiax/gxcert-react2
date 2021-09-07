@@ -14,6 +14,7 @@ class GroupMembers extends React.Component {
       <div className="group-members">
         <div className="group-members-content">
           { (() => {
+            const that = this;
             if (!this.props.group) {
               return (
                 <p>Group not found.</p>
@@ -37,6 +38,7 @@ class GroupMembers extends React.Component {
                             {member.address}
                           </p>
                         </div>
+                        <div className="group-members-list-cell-disable" onClick={() => that.props.disableGroupMember(that.props.group.groupId, member.address) }>無効化</div>
                       </div>
                     );
                   }) }
