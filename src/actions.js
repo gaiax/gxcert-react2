@@ -236,19 +236,18 @@ const fetchGroups = () => async (dispatch, getState) => {
 
 const signIn = () => async (dispatch) => {
   const gxCert = await getGxCert();
-  const accounts = await gxCert.web3.eth.getAccounts();
-  if (accounts.length === 0) {
+  if (!gxCert.address) {
     console.log("Failed to login.");
     return;
   }
-  const address = accounts[0];
+  console.log(gxCert.address);
   dispatch({
     type: "LOGGED_IN",
-    payload: address,
+    payload: gxCert.address,
   });
   let profile;
   try {
-    profile = await gxCert.getProfile(address);
+    profile = await gxCert.getProfile(gxCert.address);
   } catch(err) {
     console.error(err);
     history.push("/profile/new");
@@ -302,7 +301,7 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
-  const address = state.from;
+  const address = gxCert.address;
   let groups;
   try {
     groups = await gxCert.getGroups(address);
@@ -360,7 +359,6 @@ const sign = () => async (dispatch, getState) => {
     alert("Failed to post the image to IPFS.");
     return;
   }
-  const accounts = await gxCert.web3.eth.getAccounts();
   const certificate = {
     context: {},
     title: state.title,
@@ -374,7 +372,7 @@ const sign = () => async (dispatch, getState) => {
   }
   let signed = null;
   try {
-    signed = await gxCert.signCertificate(certificate, { address: state.from });
+    signed = await gxCert.signCertificate(certificate, { address: gxCert.address });
   } catch(err) {
     console.error(err);
     alert("Failed to sign the certificate.");

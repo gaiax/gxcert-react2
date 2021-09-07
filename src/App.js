@@ -8,7 +8,9 @@ import Certificates from "./views/Certificates";
 import Certificate from "./views/Certificate";
 import NewCert from "./views/NewCert";
 import NewProfile from "./views/NewProfile";
+import EditProfile from "./views/EditProfile";
 import NewGroup from "./views/NewGroup";
+import EditGroup from "./views/EditGroup";
 import GroupMembers from "./views/GroupMembers";
 import Issuer from "./views/Issuer";
 import Issue from "./views/Issue";
@@ -84,6 +86,15 @@ class App extends React.Component {
             registerGroup={that.props.registerGroup}
             onChangeGroupName={that.props.onChangeGroupName}
             onChangeGroupAddress={that.props.onChangeGroupAddress}
+            onChangeGroupPhone={that.props.onChangeGroupPhone}
+            />
+          } />
+          <Route exact={true} path="/group/edit/:groupId" render={ (routeProps) => <EditGroup
+            {...routeProps}
+            group={that.props.state.groupInEdit}
+            updateGroup={that.props.updateGroup}
+            onChangeGroupName={that.props.onChangeGroupNameInEdit}
+            onChangeGroupAddress={that.props.onChangeGroupAddressInEdit}
             onChangeGroupPhone={that.props.onChangeGroupPhone}
             />
           } />

@@ -35,6 +35,9 @@ async function getGxCert() {
   if (gxCert === null) {
     throw new Error("gxCert is not initialized.");
   }
+  if (!gxCert.address) {
+    await gxCert.getMyAddress();
+  }
   return gxCert;
 }
 
