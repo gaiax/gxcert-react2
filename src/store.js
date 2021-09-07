@@ -6,8 +6,8 @@ import sessionStorage from 'redux-persist/lib/storage/session'
 import initialState from "./initialState";
 
 const persistConfig = {
-    key: "root",
-    storage: sessionStorage,
+  key: "root",
+  storage: sessionStorage,
 }
 
 const persistedReducer = persistReducer(persistConfig, Reducer);
@@ -15,11 +15,11 @@ const persistedReducer = persistReducer(persistConfig, Reducer);
 const storeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-    combineReducers({
-          state: persistedReducer,
-        }),
-    initialState,
-    storeEnhancers(applyMiddleware(thunk))
+  combineReducers({
+    state: persistedReducer,
+  }),
+  initialState,
+  storeEnhancers(applyMiddleware(thunk))
 );
 
 export const persistor = persistStore(store);
