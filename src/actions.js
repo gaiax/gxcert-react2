@@ -575,6 +575,16 @@ const registerGroup = () => async (dispatch, getState) => {
     alert("Failed to create group.");
     return;
   }
+  let groups;
+  try {
+    groups = await gxCert.getGroups(gxCert.address);
+    dispatch({
+      type: "FETCHED_GROUPS",
+      payload: groups,
+    });
+  } catch(err) {
+    console.error(err);
+  }
   history.push("/new");
 }
 const updateProfile = () => async (dispatch, getState) => {
