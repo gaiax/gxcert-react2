@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class EditGroup extends React.Component {
   constructor() {
@@ -18,6 +19,14 @@ class EditGroup extends React.Component {
     }
     return (
       <div className="edit-group">
+        <div className="sidebar">
+          <ul>
+            <li className="sidebar-title">ISSUE</li>
+            <li><Link to="/issue">CERTIFICATE</Link></li>
+            <li>MEMBERS</li>
+            <li>PUBLISHER</li>
+          </ul>
+        </div>
         <div className="edit-group-content">
           <p className="edit-group-title">発行元 {this.props.group.name}の更新</p>
           <p className="edit-group-description">証明書の発行には発行元となる団体（企業、教育機関、NPO法人など）の登録が必要です。</p>

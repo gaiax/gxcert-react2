@@ -91,7 +91,7 @@ html, body {
   font-size: 24px;
 }
 
-.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .group-members, .issuer, .issue, .edit-group, .edit-profile{
+.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .issuer, .issue, .edit-profile{
   padding: 20px;
   background-color: #F1F9FF;
 }
@@ -416,7 +416,7 @@ html, body {
   margin-top: 46px;
 }
 
-.new-cert {
+.new-cert, .group-members, .edit-group {
   display: flex;
 }
 .sidebar {

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class GroupMembers extends React.Component {
 
@@ -12,6 +13,14 @@ class GroupMembers extends React.Component {
   render() {
     return (
       <div className="group-members">
+        <div className="sidebar">
+          <ul>
+            <li className="sidebar-title">ISSUE</li>
+            <li><Link to="/issue">CERTIFICATE</Link></li>
+            <li>MEMBERS</li>
+            <li>PUBLISHER</li>
+          </ul>
+        </div>
         <div className="group-members-content">
           { (() => {
             const that = this;
