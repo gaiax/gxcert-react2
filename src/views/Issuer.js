@@ -39,7 +39,7 @@ class Issuer extends React.Component {
           return (
             <div className="issuer-certificate">
               <p className="issuer-certificate-title">
-                証明書
+                {certificate.title}
               </p>
               <div className="issuer-certificate-list">
                 { certificate.userCerts.map((userCert, index) => {
