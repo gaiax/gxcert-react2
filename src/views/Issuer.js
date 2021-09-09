@@ -35,6 +35,32 @@ class Issuer extends React.Component {
             }
           </div>
         </div>
+        { this.props.certificates.map((certificate) => {
+          return (
+            <div className="issuer-certificate">
+              <p className="issuer-certificate-title">
+                証明書
+              </p>
+              <div className="issuer-certificate-list">
+                { certificate.userCerts.map((userCert, index) => {
+                  return (
+                    <div className="certificates-list-cell">
+                      <img src={userCert.profile ? userCert.profile.imageUrl : ""} className="issuer-certificate-list-cell-icon"/>
+                      <div className="issuer-certificate-list-cell-detail">
+                        <p className="issuer-certificate-list-cell-name">
+                          {userCert.profile ? userCert.profile.name : ""} 
+                        </p>
+                        <p className="certificates-list-cell-date">
+                          { userCert.to }
+                        </p>
+                      </div>
+                    </div>
+                  );
+                }) }
+              </div>
+            </div>
+          );
+        }) }
       </div>
     );
   }

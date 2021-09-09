@@ -96,7 +96,7 @@ html, body {
   background-color: #F1F9FF;
 }
 
-.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content, .edit-profile-content{
+.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content, .edit-profile-content, .issuer-certificate{
   margin-left: auto;
   margin-right: auto;
   width: 50%;
@@ -104,6 +104,7 @@ html, body {
   padding: 20px;
   padding-bottom: 40px;
   background-color: white;
+  margin-bottom: 40px;
 }
 
 .sign-in-message {
@@ -112,7 +113,7 @@ html, body {
   font-weight: bold;
 }
 
-.registration-title, .new-cert-title, .new-group-title, .new-profile-title, .issuer-certificates-title, .issue-title, .edit-group-title, .edit-profile-title{
+.registration-title, .new-cert-title, .new-group-title, .new-profile-title, .issuer-certificates-title, .issue-title, .edit-group-title, .edit-profile-title, .issuer-certificate-title{
   color: #49AAFC;
   font-weight: bold;
 }
@@ -185,23 +186,26 @@ html, body {
   justify-content: space-between;
 }
 
-.certificates-list-cell-icon, .group-members-list-cell-icon, .issuer-certificates-list-cell-icon {
+.certificates-list-cell-icon, .group-members-list-cell-icon, .issuer-certificates-list-cell-icon, .issuer-certificate-list-cell-icon {
   margin-top: 20px;
   width: 80px;
   height: 80px;
 }
 
-.group-members-list-cell-icon {
+.group-members-list-cell-icon, .issuer-certificate-list-cell-icon {
   border-radius: 40px;
+  width: 80px;
+  height: 80px;
+  background: #F1F9FF;
 }
 
-.certificates-list-cell-detail, .group-members-list-cell-detail, .issuer-certificates-list-cell-detail {
+.certificates-list-cell-detail, .group-members-list-cell-detail, .issuer-certificates-list-cell-detail, .issuer-certificate-list-cell-detail {
   width: 60%;
   margin-left: 20px;
   margin-right: 20px;
 }
 
-.certificates-list-cell-title, .group-members-list-cell-name, .issuer-certificates-list-cell-title {
+.certificates-list-cell-title, .group-members-list-cell-name, .issuer-certificates-list-cell-title, .issuer-certificate-list-cell-name {
   font-size: 16px;
   font-weight: bold;
   text-align: left;
@@ -369,11 +373,6 @@ html, body {
 }
 
 
-.group-members-list-cell-icon {
-  width: 80px;
-  height: 80px;
-  background: #F1F9FF;
-}
 
 .issuer-certificates-list-cell-title {
   padding-top: 34px;
