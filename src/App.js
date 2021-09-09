@@ -63,6 +63,7 @@ class App extends React.Component {
             certificates={that.props.state.certificatesInIssuer}
             fetchCertificates={that.props.fetchCertificatesInIssuer}
             issue={that.props.issue}
+            invalidateUserCert={that.props.invalidateUserCert}
             />
           } />
           <Route exact={true} path="/issue/:certId" render={ (routeProps) => <Issue

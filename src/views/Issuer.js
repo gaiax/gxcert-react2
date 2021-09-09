@@ -50,10 +50,11 @@ class Issuer extends React.Component {
                         <p className="issuer-certificate-list-cell-name">
                           {userCert.profile ? userCert.profile.name : ""} 
                         </p>
-                        <p className="certificates-list-cell-date">
+                        <p className="issuer-certificate-list-cell-address">
                           { userCert.to }
                         </p>
                       </div>
+                      <div className="issuer-certificate-list-cell-invalidate" onClick={() => this.props.invalidateUserCert(userCert.userCertId)}>無効化</div>
                     </div>
                   );
                 }) }

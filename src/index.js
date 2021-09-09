@@ -38,6 +38,7 @@ import {
   fetchGroupsInIssuer,
   fetchCertificateInIssue,
   fetchProfileInEdit,
+  invalidateUserCert,
   updateProfile,
   updateGroup,
   issue,
@@ -158,6 +159,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     disableGroupMember: (groupId, address) => {
       dispatch(disableGroupMember(groupId, address));
+    },
+    invalidateUserCert: (userCertId) => {
+      dispatch(invalidateUserCert(userCertId));
     },
   }
 }

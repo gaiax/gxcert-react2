@@ -766,6 +766,74 @@ const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
     return;
   }
 }
+
+const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const signedUserCert = await gxCert.signUserCertForInvalidation(userCertId, { address: gxCert.address });
+  console.log(signedUserCert);
+  try {
+    await gxCert.invalidateUserCert(signedUserCert);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  await wait();
+
+  const state = getState().state;
+  const address = gxCert.address;
+  let groups;
+  try {
+    groups = await gxCert.getGroups(address);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to fetch your groups");
+    return;
+  }
+  let certificates = [];
+  for (const group of groups) {
+    const groupId = group.groupId;
+    try {
+      certificates = certificates.concat(await gxCert.getGroupCerts(groupId));
+    } catch(err) {
+      console.error(err);
+      continue;
+    }
+  }
+  for (let i = 0; i < certificates.length; i++) {
+    certificates[i].userCerts = [];
+  }
+  dispatch({
+    type: "FETCHED_CERTIFICATES_IN_ISSUER",
+    payload: certificates,
+  });
+  for (let i = 0; i < certificates.length; i++) {
+    const userCerts = await gxCert.getIssuedUserCerts(certificates[i].id);
+    certificates[i].userCerts = userCerts;
+    dispatch({
+      type: "FETCHED_CERTIFICATES_IN_ISSUER",
+      payload: certificates,
+    });
+    for (let j = 0; j < userCerts.length; j++) {
+      const profile = await gxCert.getProfile(userCerts[j].to);
+      certificates[i].userCerts[j].profile = profile;
+    }
+    getImageOnIpfs(certificates[i].image).then(imageUrl => {
+      certificates[i].imageUrl = imageUrl;
+      dispatch({
+        type: "FETCHED_CERTIFICATES_IN_ISSUER",
+        payload: certificates,
+      });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+}
 export {
   onChangeTitle,
   onChangeDescription,
@@ -802,5 +870,6 @@ export {
   updateGroup,
   updateProfile,
   disableGroupMember,
+  invalidateUserCert,
 
 };
