@@ -1,5 +1,6 @@
 import React from "react";
 import { createImageUrlFromUint8Array } from "../util/ipfs";
+import { Link } from "react-router-dom";
 
 class NewCert extends React.Component {
   constructor() {
@@ -17,6 +18,14 @@ class NewCert extends React.Component {
     }
     return (
       <div className="new-cert">
+        <div className="sidebar">
+          <ul>
+            <li className="sidebar-title">ISSUE</li>
+            <li><Link to="/issue">CERTIFICATE</Link></li>
+            <li>MEMBERS</li>
+            <li>PUBLISHER</li>
+          </ul>
+        </div>
         <div className="new-cert-content">
           <p className="new-cert-title">
             証明書の登録 

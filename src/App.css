@@ -415,3 +415,29 @@ html, body {
   border-radius: 4px;
   margin-top: 46px;
 }
+
+.new-cert {
+  display: flex;
+}
+.sidebar {
+  width: 240px;
+  background-color: #2699FB;
+}
+
+.sidebar .sidebar-title {
+  font-weight: bold;
+  font-size: 24px;
+}
+.sidebar ul {
+  list-style: none;
+}
+.sidebar ul li {
+  color: white;
+  text-align: left;
+  margin-bottom: 20px;
+
+}
+
+a:visited {
+  color: white;
+}
