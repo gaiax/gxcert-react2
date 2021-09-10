@@ -146,7 +146,7 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/profile/edit" render={ (routeProps) => <EditProfile
             {...routeProps}
-            image={that.props.state.profileImage}
+            image={that.props.state.profileImageInEdit}
             updateProfile={that.props.updateProfile}
             profile={that.props.state.profileInEdit}
             profileName={that.props.state.profileNameInEdit}
@@ -155,7 +155,7 @@ class App extends React.Component {
             fetchProfile={that.props.fetchProfileInEdit}
             onChangeProfileName={that.props.onChangeProfileNameInEdit}
             onChangeProfileEmail={that.props.onChangeProfileEmailInEdit}
-            onChangeProfileIcon={that.props.onChangeProfileImageInEdit}
+            onChangeProfileImage={that.props.onChangeProfileImageInEdit}
             />
           } />
         </Switch>

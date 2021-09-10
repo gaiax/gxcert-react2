@@ -11,12 +11,12 @@ class EditProfile extends React.Component {
   }
   render() {
     let imageUrl = "";
+    console.log(this.props);
     try {
       imageUrl = createImageUrlFromUint8Array(this.props.image);
     } catch(err) {
       console.error(err);
     }
-    console.log(this.props);
     return (
       <div className="edit-profile">
         <div className="edit-profile-content">

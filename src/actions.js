@@ -460,14 +460,7 @@ const fetchProfileInEdit = () => async (dispatch, getState) => {
     type: "FETCHED_PROFILE_IN_EDIT",
     payload: profile,
   });
-  dispatch({
-    type: "ON_CHANGE_PROFILE_NAME_IN_EDIT",
-    payload: profile.name,
-  });
-  dispatch({
-    type: "ON_CHANGE_PROFILE_NAME_IN_EDIT",
-    payload: profile.email,
-  });
+  
 }
 const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
   let gxCert;

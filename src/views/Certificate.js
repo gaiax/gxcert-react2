@@ -27,7 +27,7 @@ class Certificate extends React.Component {
               <img src={this.props.certificateImage} className="certificate-icon" />
               <table className="certificate-detail">
                 <tr>
-                  <td>Issued at: </td>
+                  <td>Issue Date: </td>
                   <td>{(new Date(parseInt(this.props.userCert.timestamp * 1000))).toISOString()}</td>
                 </tr>
                 <tr>
