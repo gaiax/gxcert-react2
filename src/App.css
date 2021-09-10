@@ -108,6 +108,9 @@ html, body {
   margin-bottom: 40px;
 }
 
+.issuer-certificates {
+  margin-top: 40px;
+}
 
 .sign-in-message {
   color: #49AAFC;
@@ -187,11 +190,12 @@ html, body {
 .certificates-list-cell, .group-members-list-cell, .issuer-certificates-list-cell {
   display: flex;
   border-bottom: 1px #49AAFC solid;
-  height: 120px;
+  min-height: 120px;
 }
 
 .issuer-certificates-list-cell {
   justify-content: space-between;
+  min-height: 120px;
 }
 
 .certificates-list-cell-icon, .group-members-list-cell-icon, .issuer-certificates-list-cell-icon, .issuer-certificate-list-cell-icon {
@@ -208,17 +212,20 @@ html, body {
 }
 
 .certificates-list-cell-detail, .group-members-list-cell-detail, .issuer-certificates-list-cell-detail, .issuer-certificate-list-cell-detail {
-  width: 60%;
+  width: 80%;
   margin-left: 20px;
   margin-right: 20px;
 }
 
 .certificates-list-cell-title, .group-members-list-cell-name, .issuer-certificates-list-cell-title, .issuer-certificate-list-cell-name {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   text-align: left;
 }
-.certificates-list-cell-date, .group-members-list-cell-address, .issuer-certificate-list-cell-address {
+.certificates-list-cell-date {
+  text-align: right;
+}
+.group-members-list-cell-address, .issuer-certificate-list-cell-address {
   font-size: 16px;
   text-align: left;
 }
@@ -228,7 +235,7 @@ html, body {
 }
 
 .certificates-list-cell-by {
-  text-align: right;
+  text-align: left;
 }
 
 .certificate-title {
@@ -464,4 +471,8 @@ a:visited {
 
 .edit-profile-button {
   line-height: 44px;
+}
+
+.issuer-certificates-wrapper {
+  width: 100%;
 }
