@@ -29,6 +29,7 @@ import {
   onChangeGroupMemberToInvite,
   sign,
   signIn,
+  signOut,
   fetchCertificate,
   fetchCertificates,
   fetchCertificatesInIssuer,
@@ -163,6 +164,9 @@ function mapDispatchToProps(dispatch, props) {
     invalidateUserCert: (userCertId) => {
       dispatch(invalidateUserCert(userCertId));
     },
+    signOut: () => {
+      dispatch(signOut());
+    }
   }
 }
 

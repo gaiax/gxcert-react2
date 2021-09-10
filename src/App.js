@@ -25,7 +25,10 @@ class App extends React.Component {
     const that = this;
     return (
       <div className="App">
-        <Header></Header>
+        <Header
+          isLoggedIn={that.props.state.from !== ""}
+          signOut={that.props.signOut}
+        ></Header>
         <Switch>
           <Route exact={true} path="/" render={ (routeProps) => {
             if (that.props.state.from === "") { 

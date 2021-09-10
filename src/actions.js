@@ -834,6 +834,13 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     });
   }
 }
+
+const signOut = () => async (dispatch) => {
+  dispatch({
+    type: "SIGN_OUT",
+    payload: null,
+  });
+}
 export {
   onChangeTitle,
   onChangeDescription,
@@ -871,5 +878,6 @@ export {
   updateProfile,
   disableGroupMember,
   invalidateUserCert,
+  signOut,
 
 };
