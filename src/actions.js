@@ -526,6 +526,17 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
     for (let j = 0; j < userCerts.length; j++) {
       const profile = await gxCert.getProfile(userCerts[j].to);
       certificates[i].userCerts[j].profile = profile;
+      getImageOnIpfs(profile.icon).then(imageUrl => {
+        profile.imageUrl = imageUrl;
+        certificates[i].userCerts[j].profile = profile;
+        dispatch({
+          type: "FETCHED_CERTIFICATES_IN_ISSUER",
+          payload: certificates,
+        });
+      }).catch(err => {
+        console.error(err);
+      });
+
     }
     getImageOnIpfs(certificates[i].image).then(imageUrl => {
       certificates[i].imageUrl = imageUrl;
