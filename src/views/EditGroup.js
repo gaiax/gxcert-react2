@@ -25,8 +25,8 @@ class EditGroup extends React.Component {
             </select>
           <ul>
             <li><Link to="/issue">CERTIFICATE</Link></li>
-            <li><Link to={ this.props.groupInSidebar !== null ? "/group/" + this.props.groupInSidebar.groupId.toString() : "#"} >MEMBERS</Link></li>
-            <li><Link to={ this.props.groupInSidebar !== null ? "/group/edit/" + this.props.groupInSidebar.groupId.toString() : "#" }>ISSUER</Link></li>
+            <li><Link to="/group">MEMBERS</Link></li>
+            <li><Link to="/group/edit/">ISSUER</Link></li>
           </ul>
         </div>
         { this.props.groupInSidebar !== null ? (

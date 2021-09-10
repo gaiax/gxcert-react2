@@ -26,6 +26,7 @@ const initialState = {
   certificateInIssue: null,
   group: null,
   groups: [],
+  profileInEdit: null,
   profileName: "",
   profileEmail: "",
   profileImage: "",

@@ -1,5 +1,5 @@
 import { getGxCert, getGxCertWithoutLogin } from "./gxcert-client";
-import { getImageOnIpfs } from "./util/ipfs";
+import { getImageOnIpfs, createImageUrlFromUint8Array } from "./util/ipfs";
 import torusClient from "./torus";
 import history from "./history";
 
@@ -382,19 +382,6 @@ const fetchGroup = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  const state = getState().state;
-  const group = state.groupInSidebar;
-  for (let i = 0; i < group.members.length; i++) {
-    getImageOnIpfs(group.members[i].icon).then(imageUrl => {
-      group.members[i].imageUrl = imageUrl;
-      dispatch({
-        type: "FETCHED_GROUP",
-        payload: group,
-      });
-    }).catch(err => {
-
-    });
-  }
 }
 const fetchGroupInEdit = (groupId) => async (dispatch, getState) => {
   dispatch({
@@ -450,6 +437,16 @@ const fetchProfileInEdit = () => async (dispatch, getState) => {
   dispatch({
     type: "FETCHED_PROFILE_IN_EDIT",
     payload: profile,
+  });
+
+  getImageOnIpfs(profile.icon).then(imageUrl => {
+    profile.imageUrl = imageUrl;
+    dispatch({
+      type: "FETCHED_PROFILE_IN_EDIT",
+      payload: profile,
+    });
+  }).catch(err => {
+    console.error(err);
   });
   
 }
@@ -639,7 +636,10 @@ const updateProfile = () => async (dispatch, getState) => {
   const state = getState().state;
   const name = state.profileNameInEdit;
   const email = state.profileEmailInEdit;
-  const icon = state.profileImageInEdit;
+  const image = state.profileImageInEdit;
+  const icon = await gxCert.uploadImageToIpfs(image);
+
+
   const address = gxCert.address;
 
   const newProfile = {
@@ -647,6 +647,7 @@ const updateProfile = () => async (dispatch, getState) => {
     email,
     icon,
   }
+  console.log(newProfile);
 
   const signedProfile = await gxCert.signProfileForUpdating(newProfile, { address });
   try {

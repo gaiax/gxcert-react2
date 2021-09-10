@@ -27,8 +27,8 @@ class GroupMembers extends React.Component {
             </select>
           <ul>
             <li><Link to="/issue">CERTIFICATE</Link></li>
-            <li><Link to={ this.props.groupInSidebar !== null ? "/group/" + this.props.groupInSidebar.groupId.toString() : "#"} >MEMBERS</Link></li>
-            <li><Link to={ this.props.groupInSidebar !== null ? "/group/edit/" + this.props.groupInSidebar.groupId.toString() : "#" }>ISSUER</Link></li>
+            <li><Link to="/group">MEMBERS</Link></li>
+            <li><Link to="/group/edit/">ISSUER</Link></li>
           </ul>
         </div>
         <div className="group-members-content">
@@ -48,7 +48,7 @@ class GroupMembers extends React.Component {
                   { this.props.groupInSidebar.members.map(member => {
                     return (
                       <div className="group-members-list-cell">
-                        <img src={member.imageUrl} className="group-members-list-cell-icon"/>
+                        <img src={member.icon} className="group-members-list-cell-icon"/>
                         <div className="group-members-list-cell-detail">
                           <p className="group-members-list-cell-name">
                             {member.name} 
