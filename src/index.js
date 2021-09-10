@@ -27,6 +27,7 @@ import {
   onChangeProfileEmailInEdit,
   onChangeProfileImageInEdit,
   onChangeGroupMemberToInvite,
+  onChangeGroupInSidebar,
   sign,
   signIn,
   signOut,
@@ -39,6 +40,7 @@ import {
   fetchGroupsInIssuer,
   fetchCertificateInIssue,
   fetchProfileInEdit,
+  fetchGroupsInSidebar,
   invalidateUserCert,
   updateProfile,
   updateGroup,
@@ -110,6 +112,9 @@ function mapDispatchToProps(dispatch, props) {
     onChangeGroupMemberToInvite: (evt) => {
       dispatch(onChangeGroupMemberToInvite(evt));
     },
+    onChangeGroupInSidebar: (evt) => {
+      dispatch(onChangeGroupInSidebar(evt));
+    },
     sign: () => {
       dispatch(sign());
     },
@@ -133,6 +138,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     fetchCertificateInIssue: (certId) => {
       dispatch(fetchCertificateInIssue(certId));
+    },
+    fetchGroupsInSidebar: () => {
+      dispatch(fetchGroupsInSidebar());
     },
     fetchProfileInEdit: () => {
       dispatch(fetchProfileInEdit());

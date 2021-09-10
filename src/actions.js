@@ -274,6 +274,50 @@ const fetchCertificates = () => async (dispatch, getState) => {
   });
 }
 
+const fetchGroupsInSidebar = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const address = gxCert.address;
+  let groups;
+  try {
+    groups = await gxCert.getGroups(address);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_GROUPS_IN_SIDEBAR",
+    payload: groups,
+  });
+}
+
+const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
+  const state = getState().state;
+  const groupIdStr = evt.target.value;
+  if (groupIdStr === "new") {
+    history.push("/group/new");
+    return;
+  }
+  const groupId = parseInt(groupIdStr);
+  const groups = state.groupsInSidebar;
+  for (const group of groups) {
+    if (group.groupId === groupId) {
+      dispatch({
+        type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+        payload: group,
+      });
+      console.log(group);
+      return;
+    }
+  }
+
+  
+}
 const fetchGroups = () => async (dispatch, getState) => {
   let gxCert;
   try {
@@ -486,6 +530,10 @@ const sign = () => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
+  if (state.groupInSidebar === null) {
+    alert("Please set group on sidebar.");
+    return;
+  }
   const image = state.image;
   if (!image) {
     alert("Image not set.");
@@ -504,7 +552,7 @@ const sign = () => async (dispatch, getState) => {
     title: state.title,
     description: state.description,
     image: imageCid,
-    groupId: state.groupId,
+    groupId: state.groupInSidebar.groupId,
   }
   if (!gxCert.isCertificate(certificate)) {
     alert("Invalid Certificate.");
@@ -860,6 +908,7 @@ export {
   onChangeProfileImageInEdit,
   onChangeToInIssue,
   onChangeGroupMemberToInvite,
+  onChangeGroupInSidebar,
   sign,
   signIn,
   fetchProfileInEdit,
@@ -867,6 +916,7 @@ export {
   fetchCertificateInIssue,
   fetchCertificates,
   fetchGroups,
+  fetchGroupsInSidebar,
   fetchGroup,
   fetchGroupInEdit,
   fetchCertificatesInIssuer,

@@ -138,7 +138,7 @@ html, body {
   margin-bottom: 4px;
 }
 
-.registration-form-name, .registration-form-email , .new-cert-form-group, .new-cert-form-to, .new-cert-form-name, .new-group-form-name, .new-group-form-address, .new-group-form-phone, .new-profile-form-name, .new-profile-form-email, .group-members-invite, .issue-form-to, .edit-group-form-name, .edit-group-form-address, .edit-group-form-phone, .edit-profile-form-name, .edit-profile-form-email {
+.registration-form-name, .registration-form-email , .sidebar-group, .new-cert-form-to, .new-cert-form-name, .new-group-form-name, .new-group-form-address, .new-group-form-phone, .new-profile-form-name, .new-profile-form-email, .group-members-invite, .issue-form-to, .edit-group-form-name, .edit-group-form-address, .edit-group-form-phone, .edit-profile-form-name, .edit-profile-form-email {
   height: 34px;
   border-radius: 4px;
   border: 1px solid #49AAFC;
@@ -149,6 +149,12 @@ html, body {
   margin-bottom: 20px;
 }
 
+.sidebar-group {
+  background-color: #49AAFC;
+  color: white;
+  border: 1px solid white;
+  font-weight: bold;
+}
 .group-members-invite-button {
   width: 60px;
   height: 36px;
@@ -427,6 +433,9 @@ html, body {
 .sidebar .sidebar-title {
   font-weight: bold;
   font-size: 24px;
+  color: white;
+  text-align: left;
+  padding-left: 40px;
 }
 .sidebar ul {
   list-style: none;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
 class Issuer extends React.Component {
   constructor() {
@@ -18,7 +19,7 @@ class Issuer extends React.Component {
           <br/>
           <p className="issuer-certificates-title">証明書</p>
           <div className="issuer-certificates-list">
-            {
+            { this.props.certificates !== null ? 
               this.props.certificates.map(certificate => {
                 return (
                   <div className="issuer-certificates-list-cell">
@@ -31,7 +32,7 @@ class Issuer extends React.Component {
                     </Link>
                   </div>
                 );
-              })
+              }) : <Loader type="Puff" color="#00BFFF" height={100} width={100} /> 
             }
           </div>
         </div>

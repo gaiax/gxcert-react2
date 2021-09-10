@@ -17,6 +17,8 @@ const initialState = {
   groupAddressInEdit: "",
   groupPhoneInEdit: "",
   groupInIssuer: null,
+  groupInSidebar: null,
+  groupsInSidebar: [],
   certificate: {},
   certificateImage: "",
   certificates: [],

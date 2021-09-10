@@ -7,7 +7,7 @@ class NewCert extends React.Component {
     super();
   }
   componentDidMount() {
-    this.props.fetchGroups();
+    this.props.fetchGroupsInSidebar();
   }
   render() {
     let imageUrl = "";
@@ -19,11 +19,20 @@ class NewCert extends React.Component {
     return (
       <div className="new-cert">
         <div className="sidebar">
+            <p className="sidebar-title">ISSUE</p>
+            <select className="sidebar-group" onChange={this.props.onChangeGroupInSidebar} defaultValue={ this.props.groupInSidebar !== null ? this.props.groupInSidebar.groupId.toString() : ""}>
+              <option hidden>Choose group</option>
+              { this.props.groupsInSidebar.map(group => {
+                return (
+                  <option value={group.groupId.toString()}>{group.name}</option>
+                )
+              }) }
+              <option value="new">Create new group</option>
+            </select>
           <ul>
-            <li className="sidebar-title">ISSUE</li>
             <li><Link to="/issue">CERTIFICATE</Link></li>
-            <li>MEMBERS</li>
-            <li>PUBLISHER</li>
+            <li><Link to={ this.props.groupInSidebar !== null ? "/group/" + this.props.groupInSidebar.groupId.toString() : "#"} >MEMBERS</Link></li>
+            <li><Link to={ this.props.groupInSidebar !== null ? "/group/edit/" + this.props.groupInSidebar.groupId.toString() : "#" }>PUBLISHER</Link></li>
           </ul>
         </div>
         <div className="new-cert-content">
@@ -34,18 +43,6 @@ class NewCert extends React.Component {
             証明書を登録してください。証明書は複数登録することができ、それぞれの複数のユーザーに対して発行することができます。
           </p>
           <div className="new-cert-form">
-            <p className="new-cert-form-title">
-              Group
-            </p>
-            <select className="new-cert-form-group" onChange={this.props.onChangeGroup}>
-              <option hidden>Choose group</option>
-              { this.props.groups.map(group => {
-                return (
-                  <option value={group.groupId.toString()}>{group.name}</option>
-                )
-              }) }
-              <option value="new">Create new group</option>
-            </select>
             <p className="new-cert-form-title">
               Title of Certificate
             </p>

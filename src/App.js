@@ -56,10 +56,14 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/new/" render={ () => <NewCert
               fetchGroups={that.props.fetchGroups}
+              fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+              onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
               onChangeTitle={that.props.onChangeTitle}
               onChangeDescription={that.props.onChangeDescription}
               onChangeImage={that.props.onChangeImage}
               onChangeGroup={that.props.onChangeGroup}
+              groupsInSidebar={that.props.state.groupsInSidebar}
+              groupInSidebar={that.props.state.groupInSidebar}
               sign={that.props.sign}
               from={that.props.state.from}
               image={that.props.state.image}
