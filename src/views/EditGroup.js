@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
 class EditGroup extends React.Component {
   constructor() {
@@ -11,12 +12,6 @@ class EditGroup extends React.Component {
     this.props.fetchGroup(groupId);
   }
   render() {
-    if (!this.props.group) {
-      return (
-        <div className="edit-group">
-        </div>
-      );
-    }
     return (
       <div className="edit-group">
         <div className="sidebar">
@@ -36,6 +31,7 @@ class EditGroup extends React.Component {
             <li><Link to={ this.props.groupInSidebar !== null ? "/group/edit/" + this.props.groupInSidebar.groupId.toString() : "#" }>ISSUER</Link></li>
           </ul>
         </div>
+        { this.props.group !== null ? (
         <div className="edit-group-content">
           <p className="edit-group-title">発行元 {this.props.group.name}の更新</p>
           <p className="edit-group-description">証明書の発行には発行元となる団体（企業、教育機関、NPO法人など）の登録が必要です。</p>
@@ -51,7 +47,9 @@ class EditGroup extends React.Component {
               更新
             </div>
           </div>
-        </div>
+        </div>) : ( <div className="edit-group-content">
+          <Loader type="Puff" color="#00BFFF" height={100} width={100} />
+        </div>) }
       </div>
     );
   }

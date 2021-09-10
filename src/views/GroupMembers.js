@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
 class GroupMembers extends React.Component {
 
@@ -35,7 +36,7 @@ class GroupMembers extends React.Component {
             const that = this;
             if (!this.props.group) {
               return (
-                <p>Group not found.</p>
+                <Loader type="Puff" color="#00BFFF" height={100} width={100} /> 
               );
             }
             return (

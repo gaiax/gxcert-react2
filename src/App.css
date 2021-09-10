@@ -453,3 +453,15 @@ html, body {
 a:visited {
   color: white;
 }
+
+.header-right-links {
+  display:flex;
+}
+
+.header-right-links > * {
+  margin-left: 14px;
+}
+
+.edit-profile-button {
+  line-height: 44px;
+}

@@ -17,7 +17,11 @@ function Header(props) {
       </div>
       { !props.isLoggedIn ? (
           <div className="sign-in-button" onClick={() => history.push("/signup")}>SIGN IN</div>) : (
-          <div className="sign-out-button" onClick={props.signOut}>SIGN OUT</div>)
+          <div className="header-right-links">
+            <Link to="/profile/edit" className="edit-profile-button">PROFILE</Link>
+            <div className="sign-out-button" onClick={props.signOut}>SIGN OUT</div>
+          </div>
+          )
       }
     </header>
   );
