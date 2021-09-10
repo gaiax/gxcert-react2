@@ -237,7 +237,7 @@ const fetchCertificate = (userCertId) => async (dispatch) => {
 const fetchCertificates = () => async (dispatch, getState) => {
   dispatch({
     type: "FETCHED_CERTIFICATES",
-    payload: [],
+    payload: null,
   });
   const state = getState().state;
   const address = state.from;

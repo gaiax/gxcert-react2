@@ -16,6 +16,7 @@ import Issuer from "./views/Issuer";
 import Issue from "./views/Issue";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 class App extends React.Component {
   constructor() {

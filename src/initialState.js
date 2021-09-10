@@ -20,7 +20,7 @@ const initialState = {
   certificate: {},
   certificateImage: "",
   certificates: [],
-  certificatesInIssuer: [],
+  certificatesInIssuer: null,
   certificateInIssue: null,
   group: null,
   groups: [],
