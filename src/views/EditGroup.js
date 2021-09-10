@@ -10,6 +10,7 @@ class EditGroup extends React.Component {
   componentDidMount() {
   }
   render() {
+    console.log(this.props.groupInSidebar);
     return (
       <div className="edit-group">
         <div className="sidebar">
@@ -35,11 +36,11 @@ class EditGroup extends React.Component {
           <p className="edit-group-description">証明書の発行には発行元となる団体（企業、教育機関、NPO法人など）の登録が必要です。</p>
           <div className="edit-group-form">
             <p className="edit-group-form-title">Name</p>
-            <input type="text" className="edit-group-form-name" onChange={this.props.onChangeGroupName} />
+            <input type="text" className="edit-group-form-name" onChange={this.props.onChangeGroupName} defaultValue={this.props.groupInSidebar.name} />
             <p className="edit-group-form-title">Address</p>
-            <input type="text" className="edit-group-form-address" onChange={this.props.onChangeGroupAddress} />
+            <input type="text" className="edit-group-form-address" onChange={this.props.onChangeGroupAddress} defaultValue={this.props.groupInSidebar.residence}/>
             <p className="edit-group-form-title">Phone</p>
-            <input type="text" className="edit-group-form-phone" onChange={this.props.onChangeGroupPhone} />
+            <input type="text" className="edit-group-form-phone" onChange={this.props.onChangeGroupPhone} defaultValue={this.props.groupInSidebar.phone} />
 
             <div className="register-button" onClick={this.props.updateGroup} >
               更新

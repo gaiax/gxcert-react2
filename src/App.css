@@ -100,7 +100,7 @@ html, body {
 .sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content, .edit-profile-content, .issuer-certificate{
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 60%;
   min-width: 300px;
   padding: 20px;
   padding-bottom: 40px;
@@ -121,6 +121,10 @@ html, body {
 .registration-title, .new-cert-title, .new-group-title, .new-profile-title, .issuer-certificates-title, .issue-title, .edit-group-title, .edit-profile-title, .issuer-certificate-title{
   color: #49AAFC;
   font-weight: bold;
+}
+
+.issuer-certificates-title {
+  margin-top: 30px;
 }
 
 .registration-icon {
@@ -212,7 +216,7 @@ html, body {
 }
 
 .certificates-list-cell-detail, .group-members-list-cell-detail, .issuer-certificates-list-cell-detail, .issuer-certificate-list-cell-detail {
-  width: 80%;
+  width: 50%;
   margin-left: 20px;
   margin-right: 20px;
 }

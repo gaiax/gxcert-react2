@@ -119,7 +119,7 @@ class App extends React.Component {
             onChangeGroupId={that.props.onChangeGroupIdInEdit}
             onChangeGroupName={that.props.onChangeGroupNameInEdit}
             onChangeGroupAddress={that.props.onChangeGroupAddressInEdit}
-            onChangeGroupPhone={that.props.onChangeGroupPhone}
+            onChangeGroupPhone={that.props.onChangeGroupPhoneInEdit}
             />
           } />
           <Route exact={true} path="/group" render={ (routeProps) => <GroupMembers

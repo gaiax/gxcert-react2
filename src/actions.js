@@ -675,7 +675,11 @@ const updateGroup = () => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
-  const groupId = state.groupIdInEdit;
+  if (state.groupInSidebar === null) {
+    alert("Please choose group on sidebar.");
+    return;
+  }
+  const groupId = state.groupInSidebar.groupId;
   const name = state.groupNameInEdit;
   const residence = state.groupAddressInEdit;
   const phone = state.groupPhoneInEdit;
