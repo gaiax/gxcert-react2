@@ -43,6 +43,11 @@ class App extends React.Component {
             />)
 
           } }/>
+          <Route exact={true} path="/top" render={ (routeProps) => {
+            return (
+              <Top />
+            )
+          } }/>
           <Route exact={true} path="/signup" render={ (routeProps) => <SignIn
             {...routeProps}
             signIn={that.props.signIn}
