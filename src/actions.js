@@ -301,6 +301,7 @@ const fetchGroupsInSidebar = () => async (dispatch, getState) => {
     type: "FETCHED_GROUPS_IN_SIDEBAR",
     payload: groups,
   });
+
 }
 
 const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
@@ -324,6 +325,18 @@ const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
       dispatch({
         type: "ON_CHANGE_GROUP_IN_SIDEBAR",
         payload: group,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_NAME_IN_EDIT",
+        payload: group.name,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_ADDRESS_IN_EDIT",
+        payload: group.residence,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_PHONE_IN_EDIT",
+        payload: group.phone,
       });
       console.log(group);
       continue;
@@ -444,6 +457,14 @@ const fetchProfileInEdit = () => async (dispatch, getState) => {
   dispatch({
     type: "FETCHED_PROFILE_IN_EDIT",
     payload: profile,
+  });
+  dispatch({
+    type: "ON_CHANGE_PROFILE_NAME_IN_EDIT",
+    payload: profile.name,
+  });
+  dispatch({
+    type: "ON_CHANGE_PROFILE_EMAIL_IN_EDIT",
+    payload: profile.email,
   });
 
   getImageOnIpfs(profile.icon).then(imageUrl => {
@@ -644,8 +665,16 @@ const updateProfile = () => async (dispatch, getState) => {
   const name = state.profileNameInEdit;
   const email = state.profileEmailInEdit;
   const image = state.profileImageInEdit;
-  const icon = await gxCert.uploadImageToIpfs(image);
-
+  let icon;
+  if (image === "") {
+    if (state.profileInEdit !== null) {
+      icon = state.profileInEdit.icon;
+    } else {
+      icon = "";
+    }
+  } else {
+    icon = await gxCert.uploadImageToIpfs(image);
+  }
 
   const address = gxCert.address;
 
