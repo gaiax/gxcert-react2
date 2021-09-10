@@ -260,6 +260,13 @@ const fetchCertificates = () => async (dispatch, getState) => {
     return;
   }
   for (let i = 0; i < userCerts.length; i++) {
+    gxCert.getGroup(userCerts[i].certificate.groupId).then(group => {
+      userCerts[i].certificate.groupName = group.name;
+      dispatch({
+        type: "FETCHED_CERTIFICATES",
+        payload: userCerts,
+      });
+    });
     getImageOnIpfs(userCerts[i].certificate.image).then(imageUrl => {
       userCerts[i].certificate.imageUrl = imageUrl;
       dispatch({

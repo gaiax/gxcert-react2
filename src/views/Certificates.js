@@ -27,7 +27,7 @@ class Certificates extends React.Component {
                         {userCert.certificate.title} 
                       </p>
                       <p className="certificates-list-cell-by">
-                        From {userCert.from}
+                        {userCert.certificate.groupName}
                       </p>
                       <p className="certificates-list-cell-date">
                         { (new Date(parseInt(userCert.timestamp) * 1000)).toISOString() }
