@@ -297,6 +297,13 @@ const fetchGroupsInSidebar = () => async (dispatch, getState) => {
 }
 
 const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
   const state = getState().state;
   const groupIdStr = evt.target.value;
   if (groupIdStr === "new") {
@@ -312,11 +319,10 @@ const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
         payload: group,
       });
       console.log(group);
-      return;
+      continue;
     }
   }
-
-  
+  fetchCertificatesInIssuer()(dispatch, getState);
 }
 const fetchGroups = () => async (dispatch, getState) => {
   let gxCert;
@@ -473,23 +479,15 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
   }
   const state = getState().state;
   const address = gxCert.address;
-  let groups;
+  let certificates = [];
+  const group = state.groupInSidebar;
+  const groupId = group.groupId;
   try {
-    groups = await gxCert.getGroups(address);
+    certificates = await gxCert.getGroupCerts(groupId);
   } catch(err) {
     console.error(err);
-    alert("Failed to fetch your groups");
+    alert("Failed to fetch certificates.");
     return;
-  }
-  let certificates = [];
-  for (const group of groups) {
-    const groupId = group.groupId;
-    try {
-      certificates = certificates.concat(await gxCert.getGroupCerts(groupId));
-    } catch(err) {
-      console.error(err);
-      continue;
-    }
   }
   for (let i = 0; i < certificates.length; i++) {
     certificates[i].userCerts = [];

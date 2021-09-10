@@ -20,11 +20,20 @@ class EditGroup extends React.Component {
     return (
       <div className="edit-group">
         <div className="sidebar">
+            <p className="sidebar-title">ISSUE</p>
+            <select className="sidebar-group" onChange={this.props.onChangeGroupInSidebar} defaultValue={ this.props.groupInSidebar !== null ? this.props.groupInSidebar.groupId.toString() : ""}>
+              <option hidden>Choose group</option>
+              { this.props.groupsInSidebar !== null ? this.props.groupsInSidebar.map(group => {
+                return (
+                  <option value={group.groupId.toString()}>{group.name}</option>
+                )
+              }) : "" }
+              <option value="new">Create new group</option>
+            </select>
           <ul>
-            <li className="sidebar-title">ISSUE</li>
             <li><Link to="/issue">CERTIFICATE</Link></li>
-            <li>MEMBERS</li>
-            <li>PUBLISHER</li>
+            <li><Link to={ this.props.groupInSidebar !== null ? "/group/" + this.props.groupInSidebar.groupId.toString() : "#"} >MEMBERS</Link></li>
+            <li><Link to={ this.props.groupInSidebar !== null ? "/group/edit/" + this.props.groupInSidebar.groupId.toString() : "#" }>PUBLISHER</Link></li>
           </ul>
         </div>
         <div className="edit-group-content">

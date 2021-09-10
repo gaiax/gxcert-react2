@@ -57,13 +57,13 @@ class App extends React.Component {
           <Route exact={true} path="/new/" render={ () => <NewCert
               fetchGroups={that.props.fetchGroups}
               fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+              groupsInSidebar={that.props.state.groupsInSidebar}
+              groupInSidebar={that.props.state.groupInSidebar}
               onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
               onChangeTitle={that.props.onChangeTitle}
               onChangeDescription={that.props.onChangeDescription}
               onChangeImage={that.props.onChangeImage}
               onChangeGroup={that.props.onChangeGroup}
-              groupsInSidebar={that.props.state.groupsInSidebar}
-              groupInSidebar={that.props.state.groupInSidebar}
               sign={that.props.sign}
               from={that.props.state.from}
               image={that.props.state.image}
@@ -72,6 +72,10 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/issue/" render={ (routeProps) => <Issuer
             {...routeProps}
+            fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+            groupsInSidebar={that.props.state.groupsInSidebar}
+            groupInSidebar={that.props.state.groupInSidebar}
+            onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
             groups={that.props.state.groupsInIssuer}
             certificates={that.props.state.certificatesInIssuer}
             fetchCertificates={that.props.fetchCertificatesInIssuer}
@@ -105,6 +109,10 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/group/edit/:groupId" render={ (routeProps) => <EditGroup
             {...routeProps}
+            fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+            groupsInSidebar={that.props.state.groupsInSidebar}
+            groupInSidebar={that.props.state.groupInSidebar}
+            onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
             group={that.props.state.groupInEdit}
             updateGroup={that.props.updateGroup}
             fetchGroup={that.props.fetchGroupInEdit}
@@ -116,6 +124,10 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/group/:id" render={ (routeProps) => <GroupMembers
             {...routeProps}
+            fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+            groupsInSidebar={that.props.state.groupsInSidebar}
+            groupInSidebar={that.props.state.groupInSidebar}
+            onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
             group={that.props.state.group}
             fetchGroup={that.props.fetchGroup}
             inviteMember={that.props.inviteMember}

@@ -22,11 +22,11 @@ class NewCert extends React.Component {
             <p className="sidebar-title">ISSUE</p>
             <select className="sidebar-group" onChange={this.props.onChangeGroupInSidebar} defaultValue={ this.props.groupInSidebar !== null ? this.props.groupInSidebar.groupId.toString() : ""}>
               <option hidden>Choose group</option>
-              { this.props.groupsInSidebar.map(group => {
+              { this.props.groupsInSidebar !== null ? this.props.groupsInSidebar.map(group => {
                 return (
                   <option value={group.groupId.toString()}>{group.name}</option>
                 )
-              }) }
+              }) : "" }
               <option value="new">Create new group</option>
             </select>
           <ul>
