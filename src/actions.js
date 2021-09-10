@@ -339,6 +339,17 @@ const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
         payload: group.phone,
       });
       console.log(group);
+      for (let i = 0; i < group.members.length; i++) {
+        getImageOnIpfs(group.members[i].icon).then(imageUrl => {
+          group.members[i].imageUrl = imageUrl;
+          dispatch({
+            type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+            payload: group,
+          });
+        }).catch(err => {
+          console.error(err);
+        });
+      }
       continue;
     }
   }
