@@ -17,7 +17,6 @@ class Certificates extends React.Component {
             証明書
           </p>
           <div className="certificates-list">
-            { this.props.userCerts === null || this.props.userCerts.length === 0 ? <p className="certificate-not-found">Certificate not found.</p> : "" }
             { this.props.userCerts !== null ? this.props.userCerts.map((userCert, index) => {
               return (
                 <Link to={"/certs/" + userCert.userCertId}>
