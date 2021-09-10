@@ -370,7 +370,7 @@ const signIn = () => async (dispatch) => {
   history.push("/");
 }
 
-const fetchGroup = (groupId) => async (dispatch, getState) => {
+const fetchGroup = () => async (dispatch, getState) => {
   dispatch({
     type: "FETCHED_GROUP",
     payload: null,
@@ -382,17 +382,8 @@ const fetchGroup = (groupId) => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  let group;
-  try {
-    group = await gxCert.getGroup(groupId);
-  } catch(err) {
-    console.error(err);
-    return;
-  }
-  dispatch({
-    type: "FETCHED_GROUP",
-    payload: group,
-  });
+  const state = getState().state;
+  const group = state.groupInSidebar;
   for (let i = 0; i < group.members.length; i++) {
     getImageOnIpfs(group.members[i].icon).then(imageUrl => {
       group.members[i].imageUrl = imageUrl;

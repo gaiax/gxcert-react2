@@ -8,8 +8,6 @@ class EditGroup extends React.Component {
   }
 
   componentDidMount() {
-    const groupId = parseInt(this.props.match.params.groupId);
-    this.props.fetchGroup(groupId);
   }
   render() {
     return (
@@ -31,9 +29,9 @@ class EditGroup extends React.Component {
             <li><Link to={ this.props.groupInSidebar !== null ? "/group/edit/" + this.props.groupInSidebar.groupId.toString() : "#" }>ISSUER</Link></li>
           </ul>
         </div>
-        { this.props.group !== null ? (
+        { this.props.groupInSidebar !== null ? (
         <div className="edit-group-content">
-          <p className="edit-group-title">発行元 {this.props.group.name}の更新</p>
+          <p className="edit-group-title">発行元 {this.props.groupInSidebar.name}の更新</p>
           <p className="edit-group-description">証明書の発行には発行元となる団体（企業、教育機関、NPO法人など）の登録が必要です。</p>
           <div className="edit-group-form">
             <p className="edit-group-form-title">Name</p>

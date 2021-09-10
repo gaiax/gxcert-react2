@@ -35,7 +35,7 @@ class Issuer extends React.Component {
               <div className="issuer-certificates-new">新規作成</div>
             </Link>
             <br/>
-            <p className="issuer-certificates-title">証明書</p>
+            <p className="issuer-certificates-title">{this.props.groupInSidebar !== null ? this.props.groupInSidebar.name + "の" : ""}証明書</p>
             { this.props.groupInSidebar === null ? (
               <div className="issuer-certificates-select-group">
                 Choose group on sidebar.

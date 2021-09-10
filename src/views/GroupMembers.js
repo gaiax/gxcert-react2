@@ -8,7 +8,7 @@ class GroupMembers extends React.Component {
     super();
   }
   componentDidMount() {
-    this.props.fetchGroup(parseInt(this.props.match.params.id));
+
   }
 
   render() {
@@ -34,18 +34,18 @@ class GroupMembers extends React.Component {
         <div className="group-members-content">
           { (() => {
             const that = this;
-            if (!this.props.group) {
+            if (!this.props.groupInSidebar) {
               return (
                 <Loader type="Puff" color="#00BFFF" height={100} width={100} /> 
               );
             }
             return (
               <div>
-                <p className="group-members-title">{ this.props.group.name }のメンバー</p>
+                <p className="group-members-title">{ this.props.groupInSidebar.name }のメンバー</p>
                 <input type="text" className="group-members-invite" onChange={this.props.onChangeGroupMemberToInvite} />
                 <button className="group-members-invite-button" onClick={this.props.inviteMember} >Invite</button>
                 <div className="group-members-list">
-                  { this.props.group.members.map(member => {
+                  { this.props.groupInSidebar.members.map(member => {
                     return (
                       <div className="group-members-list-cell">
                         <img src={member.imageUrl} className="group-members-list-cell-icon"/>
@@ -57,7 +57,7 @@ class GroupMembers extends React.Component {
                             {member.address}
                           </p>
                         </div>
-                        <div className="group-members-list-cell-disable" onClick={() => that.props.disableGroupMember(that.props.group.groupId, member.address) }>無効化</div>
+                        <div className="group-members-list-cell-disable" onClick={() => that.props.disableGroupMember(that.props.groupInSidebar.groupId, member.address) }>無効化</div>
                       </div>
                     );
                   }) }
