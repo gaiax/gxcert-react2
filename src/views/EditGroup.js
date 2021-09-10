@@ -33,7 +33,7 @@ class EditGroup extends React.Component {
           <ul>
             <li><Link to="/issue">CERTIFICATE</Link></li>
             <li><Link to={ this.props.groupInSidebar !== null ? "/group/" + this.props.groupInSidebar.groupId.toString() : "#"} >MEMBERS</Link></li>
-            <li><Link to={ this.props.groupInSidebar !== null ? "/group/edit/" + this.props.groupInSidebar.groupId.toString() : "#" }>PUBLISHER</Link></li>
+            <li><Link to={ this.props.groupInSidebar !== null ? "/group/edit/" + this.props.groupInSidebar.groupId.toString() : "#" }>ISSUER</Link></li>
           </ul>
         </div>
         <div className="edit-group-content">
