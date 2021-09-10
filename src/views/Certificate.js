@@ -28,6 +28,10 @@ class Certificate extends React.Component {
               <img src={this.props.certificateImage} className="certificate-icon" />
               <table className="certificate-detail">
                 <tr>
+                  <td>Issued at: </td>
+                  <td>{(new Date(parseInt(this.props.userCert.timestamp * 1000))).toISOString()}</td>
+                </tr>
+                <tr>
                   <td>Issuer: </td>
                   <td>
                     {!this.props.userCert.certificate.group ? "" : this.props.userCert.certificate.group.name }
@@ -48,10 +52,6 @@ class Certificate extends React.Component {
                 <tr>
                   <td>Description: </td>
                   <td>{this.props.userCert.certificate.description}</td>
-                </tr>
-                <tr>
-                  <td>Issued at: </td>
-                  <td>{(new Date(parseInt(this.props.userCert.timestamp * 1000))).toISOString()}</td>
                 </tr>
               </table>
               <div className="certificate-buttons">
