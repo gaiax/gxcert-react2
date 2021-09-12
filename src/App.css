@@ -43,7 +43,7 @@ footer .footer-message, .footer-app {
   margin-left: 10px;
 }
 
-.sign-in-button {
+.sign-in-button, .sign-out-button {
   background: transparent;
   width: 80px;
   height: 40px;
@@ -99,19 +99,25 @@ footer .footer-message, .footer-app {
   font-size: 24px;
 }
 
-.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .group-members, .issuer, .issue, .edit-group, .edit-profile{
+.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .issue, .edit-profile{
   padding: 20px;
   background-color: #F1F9FF;
+  min-height: 1000px;
 }
 
-.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content, .edit-profile-content{
+.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content, .edit-profile-content, .issuer-certificate{
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 60%;
   min-width: 300px;
   padding: 20px;
   padding-bottom: 40px;
   background-color: white;
+  margin-bottom: 40px;
+}
+
+.issuer-certificates {
+  margin-top: 40px;
 }
 
 .sign-in-message {
@@ -120,9 +126,13 @@ footer .footer-message, .footer-app {
   font-weight: bold;
 }
 
-.registration-title, .new-cert-title, .new-group-title, .new-profile-title, .issuer-certificates-title, .issue-title, .edit-group-title, .edit-profile-title{
+.registration-title, .new-cert-title, .new-group-title, .new-profile-title, .issuer-certificates-title, .issue-title, .edit-group-title, .edit-profile-title, .issuer-certificate-title{
   color: #49AAFC;
   font-weight: bold;
+}
+
+.issuer-certificates-title {
+  margin-top: 30px;
 }
 
 .registration-icon {
@@ -145,7 +155,7 @@ footer .footer-message, .footer-app {
   margin-bottom: 4px;
 }
 
-.registration-form-name, .registration-form-email , .new-cert-form-group, .new-cert-form-to, .new-cert-form-name, .new-group-form-name, .new-group-form-address, .new-group-form-phone, .new-profile-form-name, .new-profile-form-email, .group-members-invite, .issue-form-to, .edit-group-form-name, .edit-group-form-address, .edit-group-form-phone, .edit-profile-form-name, .edit-profile-form-email {
+.registration-form-name, .registration-form-email , .sidebar-group, .new-cert-form-to, .new-cert-form-name, .new-group-form-name, .new-group-form-address, .new-group-form-phone, .new-profile-form-name, .new-profile-form-email, .group-members-invite, .issue-form-to, .edit-group-form-name, .edit-group-form-address, .edit-group-form-phone, .edit-profile-form-name, .edit-profile-form-email {
   height: 34px;
   border-radius: 4px;
   border: 1px solid #49AAFC;
@@ -156,6 +166,12 @@ footer .footer-message, .footer-app {
   margin-bottom: 20px;
 }
 
+.sidebar-group {
+  background-color: #49AAFC;
+  color: white;
+  border: 1px solid white;
+  font-weight: bold;
+}
 .group-members-invite-button {
   width: 60px;
   height: 36px;
@@ -186,35 +202,44 @@ footer .footer-message, .footer-app {
 .certificates-list-cell, .group-members-list-cell, .issuer-certificates-list-cell {
   display: flex;
   border-bottom: 1px #49AAFC solid;
-  height: 120px;
+  min-height: 120px;
 }
 
 .issuer-certificates-list-cell {
   justify-content: space-between;
+  min-height: 120px;
 }
 
-.certificates-list-cell-icon, .group-members-list-cell-icon, .issuer-certificates-list-cell-icon {
+.certificates-list-cell-icon, .group-members-list-cell-icon, .issuer-certificates-list-cell-icon, .issuer-certificate-list-cell-icon {
   margin-top: 20px;
   width: 80px;
   height: 80px;
 }
 
-.group-members-list-cell-icon {
+.group-members-list-cell-icon, .issuer-certificate-list-cell-icon {
   border-radius: 40px;
+  width: 80px;
+  height: 80px;
+  background: #F1F9FF;
 }
 
-.certificates-list-cell-detail, .group-members-list-cell-detail, .issuer-certificates-list-cell-detail {
-  width: 60%;
+.certificates-list-cell-detail, .group-members-list-cell-detail, .issuer-certificates-list-cell-detail, .issuer-certificate-list-cell-detail {
+  width: 50%;
   margin-left: 20px;
   margin-right: 20px;
 }
 
-.certificates-list-cell-title, .group-members-list-cell-name, .issuer-certificates-list-cell-title {
-  font-size: 16px;
+.certificates-list-cell-title, .group-members-list-cell-name, .issuer-certificates-list-cell-title, .issuer-certificate-list-cell-name {
+  font-size: 18px;
   font-weight: bold;
   text-align: left;
+  margin-bottom: 8px;
 }
-.certificates-list-cell-date, .group-members-list-cell-address {
+.certificates-list-cell-date {
+  text-align: right;
+  margin-top: 8px;
+}
+.group-members-list-cell-address, .issuer-certificate-list-cell-address {
   font-size: 16px;
   text-align: left;
 }
@@ -224,7 +249,8 @@ footer .footer-message, .footer-app {
 }
 
 .certificates-list-cell-by {
-  text-align: right;
+  text-align: left;
+  margin: 0;
 }
 
 .certificate-title {
@@ -377,11 +403,6 @@ footer .footer-message, .footer-app {
 }
 
 
-.group-members-list-cell-icon {
-  width: 80px;
-  height: 80px;
-  background: #F1F9FF;
-}
 
 .issuer-certificates-list-cell-title {
   padding-top: 34px;
@@ -414,7 +435,7 @@ footer .footer-message, .footer-app {
   margin-right: auto;
 }
 
-.group-members-list-cell-disable {
+.group-members-list-cell-disable, .issuer-certificate-list-cell-invalidate {
   width: 64px;
   height: 30px;
   line-height: 30px;
@@ -423,4 +444,51 @@ footer .footer-message, .footer-app {
   color: white;
   border-radius: 4px;
   margin-top: 46px;
+}
+
+.new-cert, .group-members, .edit-group, .issuer {
+  display: flex;
+  min-height: 1000px;
+}
+.sidebar {
+  width: 240px;
+  background-color: #2699FB;
+}
+
+.sidebar .sidebar-title {
+  font-weight: bold;
+  font-size: 24px;
+  color: white;
+  text-align: left;
+  padding-left: 40px;
+}
+.sidebar ul {
+  list-style: none;
+}
+.sidebar ul li {
+  color: white;
+  text-align: left;
+  margin-bottom: 20px;
+
+}
+
+a:visited {
+  color: white;
+}
+
+.header-right-links {
+  display:flex;
+}
+
+.header-right-links > * {
+  margin-left: 14px;
+}
+
+.edit-profile-button {
+  line-height: 44px;
+}
+
+.issuer-certificates-wrapper {
+  margin-left: auto;
+  margin-right: auto;
 }

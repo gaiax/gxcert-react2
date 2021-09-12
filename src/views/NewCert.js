@@ -1,12 +1,13 @@
 import React from "react";
 import { createImageUrlFromUint8Array } from "../util/ipfs";
+import { Link } from "react-router-dom";
 
 class NewCert extends React.Component {
   constructor() {
     super();
   }
   componentDidMount() {
-    this.props.fetchGroups();
+    this.props.fetchGroupsInSidebar();
   }
   render() {
     let imageUrl = "";
@@ -17,26 +18,31 @@ class NewCert extends React.Component {
     }
     return (
       <div className="new-cert">
+        <div className="sidebar">
+            <p className="sidebar-title">ISSUE</p>
+            <select className="sidebar-group" onChange={this.props.onChangeGroupInSidebar} defaultValue={ this.props.groupInSidebar !== null ? this.props.groupInSidebar.groupId.toString() : ""}>
+              <option hidden>Choose group</option>
+              { this.props.groupsInSidebar !== null ? this.props.groupsInSidebar.map(group => {
+                return (
+                  <option value={group.groupId.toString()}>{group.name}</option>
+                )
+              }) : "" }
+              <option value="new">Create new group</option>
+            </select>
+          <ul>
+            <li><Link to="/issue">CERTIFICATE</Link></li>
+            <li><Link to="/group">MEMBERS</Link></li>
+            <li><Link to="/group/edit/">ISSUER</Link></li>
+          </ul>
+        </div>
         <div className="new-cert-content">
           <p className="new-cert-title">
-            証明書の登録 
+      { this.props.groupInSidebar !== null ? this.props.groupInSidebar.name + "の" : ""}証明書の登録 
           </p>
           <p className="new-cert-description">
             証明書を登録してください。証明書は複数登録することができ、それぞれの複数のユーザーに対して発行することができます。
           </p>
           <div className="new-cert-form">
-            <p className="new-cert-form-title">
-              Group
-            </p>
-            <select className="new-cert-form-group" onChange={this.props.onChangeGroup}>
-              <option hidden>Choose group</option>
-              { this.props.groups.map(group => {
-                return (
-                  <option value={group.groupId.toString()}>{group.name}</option>
-                )
-              }) }
-              <option value="new">Create new group</option>
-            </select>
             <p className="new-cert-form-title">
               Title of Certificate
             </p>

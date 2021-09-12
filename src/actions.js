@@ -1,5 +1,5 @@
 import { getGxCert, getGxCertWithoutLogin } from "./gxcert-client";
-import { getImageOnIpfs } from "./util/ipfs";
+import { getImageOnIpfs, createImageUrlFromUint8Array } from "./util/ipfs";
 import torusClient from "./torus";
 import history from "./history";
 
@@ -237,7 +237,7 @@ const fetchCertificate = (userCertId) => async (dispatch) => {
 const fetchCertificates = () => async (dispatch, getState) => {
   dispatch({
     type: "FETCHED_CERTIFICATES",
-    payload: [],
+    payload: null,
   });
   const state = getState().state;
   const address = state.from;
@@ -260,6 +260,13 @@ const fetchCertificates = () => async (dispatch, getState) => {
     return;
   }
   for (let i = 0; i < userCerts.length; i++) {
+    gxCert.getGroup(userCerts[i].certificate.groupId).then(group => {
+      userCerts[i].certificate.groupName = group.name;
+      dispatch({
+        type: "FETCHED_CERTIFICATES",
+        payload: userCerts,
+      });
+    });
     getImageOnIpfs(userCerts[i].certificate.image).then(imageUrl => {
       userCerts[i].certificate.imageUrl = imageUrl;
       dispatch({
@@ -274,6 +281,80 @@ const fetchCertificates = () => async (dispatch, getState) => {
   });
 }
 
+const fetchGroupsInSidebar = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const address = gxCert.address;
+  let groups;
+  try {
+    groups = await gxCert.getGroups(address);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_GROUPS_IN_SIDEBAR",
+    payload: groups,
+  });
+
+}
+
+const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const groupIdStr = evt.target.value;
+  if (groupIdStr === "new") {
+    history.push("/group/new");
+    return;
+  }
+  const groupId = parseInt(groupIdStr);
+  const groups = state.groupsInSidebar;
+  for (const group of groups) {
+    if (group.groupId === groupId) {
+      dispatch({
+        type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+        payload: group,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_NAME_IN_EDIT",
+        payload: group.name,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_ADDRESS_IN_EDIT",
+        payload: group.residence,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_PHONE_IN_EDIT",
+        payload: group.phone,
+      });
+      console.log(group);
+      for (let i = 0; i < group.members.length; i++) {
+        getImageOnIpfs(group.members[i].icon).then(imageUrl => {
+          group.members[i].imageUrl = imageUrl;
+          dispatch({
+            type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+            payload: group,
+          });
+        }).catch(err => {
+          console.error(err);
+        });
+      }
+      continue;
+    }
+  }
+  fetchCertificatesInIssuer()(dispatch, getState);
+}
 const fetchGroups = () => async (dispatch, getState) => {
   let gxCert;
   try {
@@ -320,7 +401,7 @@ const signIn = () => async (dispatch) => {
   history.push("/");
 }
 
-const fetchGroup = (groupId) => async (dispatch, getState) => {
+const fetchGroup = () => async (dispatch, getState) => {
   dispatch({
     type: "FETCHED_GROUP",
     payload: null,
@@ -331,28 +412,6 @@ const fetchGroup = (groupId) => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     return;
-  }
-  let group;
-  try {
-    group = await gxCert.getGroup(groupId);
-  } catch(err) {
-    console.error(err);
-    return;
-  }
-  dispatch({
-    type: "FETCHED_GROUP",
-    payload: group,
-  });
-  for (let i = 0; i < group.members.length; i++) {
-    getImageOnIpfs(group.members[i].icon).then(imageUrl => {
-      group.members[i].imageUrl = imageUrl;
-      dispatch({
-        type: "FETCHED_GROUP",
-        payload: group,
-      });
-    }).catch(err => {
-
-    });
   }
 }
 const fetchGroupInEdit = (groupId) => async (dispatch, getState) => {
@@ -415,9 +474,20 @@ const fetchProfileInEdit = () => async (dispatch, getState) => {
     payload: profile.name,
   });
   dispatch({
-    type: "ON_CHANGE_PROFILE_NAME_IN_EDIT",
+    type: "ON_CHANGE_PROFILE_EMAIL_IN_EDIT",
     payload: profile.email,
   });
+
+  getImageOnIpfs(profile.icon).then(imageUrl => {
+    profile.imageUrl = imageUrl;
+    dispatch({
+      type: "FETCHED_PROFILE_IN_EDIT",
+      payload: profile,
+    });
+  }).catch(err => {
+    console.error(err);
+  });
+  
 }
 const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
   let gxCert;
@@ -429,29 +499,45 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
   }
   const state = getState().state;
   const address = gxCert.address;
-  let groups;
+  let certificates = [];
+  const group = state.groupInSidebar;
+  const groupId = group.groupId;
   try {
-    groups = await gxCert.getGroups(address);
+    certificates = await gxCert.getGroupCerts(groupId);
   } catch(err) {
     console.error(err);
-    alert("Failed to fetch your groups");
+    alert("Failed to fetch certificates.");
     return;
   }
-  let certificates = [];
-  for (const group of groups) {
-    const groupId = group.groupId;
-    try {
-      certificates = certificates.concat(await gxCert.getGroupCerts(groupId));
-    } catch(err) {
-      console.error(err);
-      continue;
-    }
+  for (let i = 0; i < certificates.length; i++) {
+    certificates[i].userCerts = [];
   }
   dispatch({
     type: "FETCHED_CERTIFICATES_IN_ISSUER",
     payload: certificates,
   });
   for (let i = 0; i < certificates.length; i++) {
+    const userCerts = await gxCert.getIssuedUserCerts(certificates[i].id);
+    certificates[i].userCerts = userCerts;
+    dispatch({
+      type: "FETCHED_CERTIFICATES_IN_ISSUER",
+      payload: certificates,
+    });
+    for (let j = 0; j < userCerts.length; j++) {
+      const profile = await gxCert.getProfile(userCerts[j].to);
+      certificates[i].userCerts[j].profile = profile;
+      getImageOnIpfs(profile.icon).then(imageUrl => {
+        profile.imageUrl = imageUrl;
+        certificates[i].userCerts[j].profile = profile;
+        dispatch({
+          type: "FETCHED_CERTIFICATES_IN_ISSUER",
+          payload: certificates,
+        });
+      }).catch(err => {
+        console.error(err);
+      });
+
+    }
     getImageOnIpfs(certificates[i].image).then(imageUrl => {
       certificates[i].imageUrl = imageUrl;
       dispatch({
@@ -473,6 +559,10 @@ const sign = () => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
+  if (state.groupInSidebar === null) {
+    alert("Please set group on sidebar.");
+    return;
+  }
   const image = state.image;
   if (!image) {
     alert("Image not set.");
@@ -491,7 +581,7 @@ const sign = () => async (dispatch, getState) => {
     title: state.title,
     description: state.description,
     image: imageCid,
-    groupId: state.groupId,
+    groupId: state.groupInSidebar.groupId,
   }
   if (!gxCert.isCertificate(certificate)) {
     alert("Invalid Certificate.");
@@ -596,7 +686,18 @@ const updateProfile = () => async (dispatch, getState) => {
   const state = getState().state;
   const name = state.profileNameInEdit;
   const email = state.profileEmailInEdit;
-  const icon = state.profileImageInEdit;
+  const image = state.profileImageInEdit;
+  let icon;
+  if (image === "") {
+    if (state.profileInEdit !== null) {
+      icon = state.profileInEdit.icon;
+    } else {
+      icon = "";
+    }
+  } else {
+    icon = await gxCert.uploadImageToIpfs(image);
+  }
+
   const address = gxCert.address;
 
   const newProfile = {
@@ -604,6 +705,7 @@ const updateProfile = () => async (dispatch, getState) => {
     email,
     icon,
   }
+  console.log(newProfile);
 
   const signedProfile = await gxCert.signProfileForUpdating(newProfile, { address });
   try {
@@ -624,7 +726,11 @@ const updateGroup = () => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
-  const groupId = state.groupIdInEdit;
+  if (state.groupInSidebar === null) {
+    alert("Please choose group on sidebar.");
+    return;
+  }
+  const groupId = state.groupInSidebar.groupId;
   const name = state.groupNameInEdit;
   const residence = state.groupAddressInEdit;
   const phone = state.groupPhoneInEdit;
@@ -753,6 +859,82 @@ const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
     return;
   }
 }
+
+const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  const signedUserCert = await gxCert.signUserCertForInvalidation(userCertId, { address: gxCert.address });
+  console.log(signedUserCert);
+  try {
+    await gxCert.invalidateUserCert(signedUserCert);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  await wait();
+
+  const state = getState().state;
+  const address = gxCert.address;
+  let groups;
+  try {
+    groups = await gxCert.getGroups(address);
+  } catch(err) {
+    console.error(err);
+    alert("Failed to fetch your groups");
+    return;
+  }
+  let certificates = [];
+  for (const group of groups) {
+    const groupId = group.groupId;
+    try {
+      certificates = certificates.concat(await gxCert.getGroupCerts(groupId));
+    } catch(err) {
+      console.error(err);
+      continue;
+    }
+  }
+  for (let i = 0; i < certificates.length; i++) {
+    certificates[i].userCerts = [];
+  }
+  dispatch({
+    type: "FETCHED_CERTIFICATES_IN_ISSUER",
+    payload: certificates,
+  });
+  for (let i = 0; i < certificates.length; i++) {
+    const userCerts = await gxCert.getIssuedUserCerts(certificates[i].id);
+    certificates[i].userCerts = userCerts;
+    dispatch({
+      type: "FETCHED_CERTIFICATES_IN_ISSUER",
+      payload: certificates,
+    });
+    for (let j = 0; j < userCerts.length; j++) {
+      const profile = await gxCert.getProfile(userCerts[j].to);
+      certificates[i].userCerts[j].profile = profile;
+    }
+    getImageOnIpfs(certificates[i].image).then(imageUrl => {
+      certificates[i].imageUrl = imageUrl;
+      dispatch({
+        type: "FETCHED_CERTIFICATES_IN_ISSUER",
+        payload: certificates,
+      });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+}
+
+const signOut = () => async (dispatch) => {
+  dispatch({
+    type: "SIGN_OUT",
+    payload: null,
+  });
+  history.push("/top");
+}
 export {
   onChangeTitle,
   onChangeDescription,
@@ -772,6 +954,7 @@ export {
   onChangeProfileImageInEdit,
   onChangeToInIssue,
   onChangeGroupMemberToInvite,
+  onChangeGroupInSidebar,
   sign,
   signIn,
   fetchProfileInEdit,
@@ -779,6 +962,7 @@ export {
   fetchCertificateInIssue,
   fetchCertificates,
   fetchGroups,
+  fetchGroupsInSidebar,
   fetchGroup,
   fetchGroupInEdit,
   fetchCertificatesInIssuer,
@@ -789,5 +973,7 @@ export {
   updateGroup,
   updateProfile,
   disableGroupMember,
+  invalidateUserCert,
+  signOut,
 
 };

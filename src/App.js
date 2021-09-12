@@ -17,6 +17,7 @@ import Issuer from "./views/Issuer";
 import Issue from "./views/Issue";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 class App extends React.Component {
   constructor() {
@@ -26,7 +27,10 @@ class App extends React.Component {
     const that = this;
     return (
       <div className="App">
-        <Header></Header>
+        <Header
+          isLoggedIn={that.props.state.from !== ""}
+          signOut={that.props.signOut}
+        ></Header>
         <Switch>
           <Route exact={true} path="/" render={ (routeProps) => {
             if (that.props.state.from === "") { 
@@ -41,6 +45,11 @@ class App extends React.Component {
             />)
 
           } }/>
+          <Route exact={true} path="/top" render={ (routeProps) => {
+            return (
+              <Top />
+            )
+          } }/>
           <Route exact={true} path="/signup" render={ (routeProps) => <SignIn
             {...routeProps}
             signIn={that.props.signIn}
@@ -48,6 +57,10 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/new/" render={ () => <NewCert
               fetchGroups={that.props.fetchGroups}
+              fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+              groupsInSidebar={that.props.state.groupsInSidebar}
+              groupInSidebar={that.props.state.groupInSidebar}
+              onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
               onChangeTitle={that.props.onChangeTitle}
               onChangeDescription={that.props.onChangeDescription}
               onChangeImage={that.props.onChangeImage}
@@ -60,10 +73,15 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/issue/" render={ (routeProps) => <Issuer
             {...routeProps}
+            fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+            groupsInSidebar={that.props.state.groupsInSidebar}
+            groupInSidebar={that.props.state.groupInSidebar}
+            onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
             groups={that.props.state.groupsInIssuer}
             certificates={that.props.state.certificatesInIssuer}
             fetchCertificates={that.props.fetchCertificatesInIssuer}
             issue={that.props.issue}
+            invalidateUserCert={that.props.invalidateUserCert}
             />
           } />
           <Route exact={true} path="/issue/:certId" render={ (routeProps) => <Issue
@@ -90,19 +108,27 @@ class App extends React.Component {
             onChangeGroupPhone={that.props.onChangeGroupPhone}
             />
           } />
-          <Route exact={true} path="/group/edit/:groupId" render={ (routeProps) => <EditGroup
+          <Route exact={true} path="/group/edit" render={ (routeProps) => <EditGroup
             {...routeProps}
+            fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+            groupsInSidebar={that.props.state.groupsInSidebar}
+            groupInSidebar={that.props.state.groupInSidebar}
+            onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
             group={that.props.state.groupInEdit}
             updateGroup={that.props.updateGroup}
             fetchGroup={that.props.fetchGroupInEdit}
             onChangeGroupId={that.props.onChangeGroupIdInEdit}
             onChangeGroupName={that.props.onChangeGroupNameInEdit}
             onChangeGroupAddress={that.props.onChangeGroupAddressInEdit}
-            onChangeGroupPhone={that.props.onChangeGroupPhone}
+            onChangeGroupPhone={that.props.onChangeGroupPhoneInEdit}
             />
           } />
-          <Route exact={true} path="/group/:id" render={ (routeProps) => <GroupMembers
+          <Route exact={true} path="/group" render={ (routeProps) => <GroupMembers
             {...routeProps}
+            fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+            groupsInSidebar={that.props.state.groupsInSidebar}
+            groupInSidebar={that.props.state.groupInSidebar}
+            onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
             group={that.props.state.group}
             fetchGroup={that.props.fetchGroup}
             inviteMember={that.props.inviteMember}
@@ -121,7 +147,7 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/profile/edit" render={ (routeProps) => <EditProfile
             {...routeProps}
-            image={that.props.state.profileImage}
+            image={that.props.state.profileImageInEdit}
             updateProfile={that.props.updateProfile}
             profile={that.props.state.profileInEdit}
             profileName={that.props.state.profileNameInEdit}
@@ -130,7 +156,7 @@ class App extends React.Component {
             fetchProfile={that.props.fetchProfileInEdit}
             onChangeProfileName={that.props.onChangeProfileNameInEdit}
             onChangeProfileEmail={that.props.onChangeProfileEmailInEdit}
-            onChangeProfileIcon={that.props.onChangeProfileImageInEdit}
+            onChangeProfileImage={that.props.onChangeProfileImageInEdit}
             />
           } />
         </Switch>

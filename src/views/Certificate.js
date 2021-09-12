@@ -2,6 +2,7 @@ import { getImageOnIpfs } from "../util/ipfs"
 import React from "react";
 
 import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
 
 class Certificate extends React.Component {
@@ -17,9 +18,7 @@ class Certificate extends React.Component {
     return (
       <div className="certificate">
         { (!this.props.userCert || !this.props.userCert.certificate) ? (
-            <div className="certificate-content">
-              <p className="certificate-not-found">Certificate not found.</p>
-            </div>
+            <Loader type="Puff" color="#00BFFF" height={100} width={100} />
           ) : (
             <div className="certificate-content">
               <p className="certificate-title">
@@ -27,6 +26,10 @@ class Certificate extends React.Component {
               </p>
               <img src={this.props.certificateImage} className="certificate-icon" />
               <table className="certificate-detail">
+                <tr>
+                  <td>Issue Date: </td>
+                  <td>{(new Date(parseInt(this.props.userCert.timestamp * 1000))).toISOString()}</td>
+                </tr>
                 <tr>
                   <td>Issuer: </td>
                   <td>
@@ -48,10 +51,6 @@ class Certificate extends React.Component {
                 <tr>
                   <td>Description: </td>
                   <td>{this.props.userCert.certificate.description}</td>
-                </tr>
-                <tr>
-                  <td>Issued at: </td>
-                  <td>{(new Date(parseInt(this.props.userCert.timestamp * 1000))).toISOString()}</td>
                 </tr>
               </table>
               <div className="certificate-buttons">

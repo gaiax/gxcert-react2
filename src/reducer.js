@@ -27,6 +27,11 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         groupAddress: action.payload,
       });
+    case "ON_CHANGE_GROUP_IN_SIDEBAR":
+      console.log(action.payload);
+      return Object.assign({}, state, {
+        groupInSidebar: action.payload,
+      });
     case "ON_CHANGE_GROUP_PHONE":
       return Object.assign({}, state, {
         groupPhone: action.payload,
@@ -92,6 +97,11 @@ export default function Reducer(state=initialState, action) {
         certificateInIssue: action.payload,
       });
     case "FETCHED_CERTIFICATES":
+      if (action.payload === null) {
+        return Object.assign({}, state, {
+          certificates: null,
+        });
+      }
       return Object.assign({}, state, {
         certificates: action.payload,
       });
@@ -102,6 +112,10 @@ export default function Reducer(state=initialState, action) {
     case "FETCHED_GROUPS":
       return Object.assign({}, state, {
         groups: action.payload,
+      });
+    case "FETCHED_GROUPS_IN_SIDEBAR":
+      return Object.assign({}, state, {
+        groupsInSidebar: action.payload,
       });
     case "FETCHED_GROUP":
       return Object.assign({}, state, {
