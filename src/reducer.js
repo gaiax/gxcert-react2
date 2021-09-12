@@ -133,6 +133,10 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         profileInEdit: action.payload,
       });
+    case "LOADING":
+      return Object.assign({}, state, {
+        isLoading: action.payload
+      });
     default:
       return initialState;
   }

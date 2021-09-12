@@ -15,6 +15,7 @@ import EditGroup from "./views/EditGroup";
 import GroupMembers from "./views/GroupMembers";
 import Issuer from "./views/Issuer";
 import Issue from "./views/Issue";
+import Loading from "./Loading";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -161,6 +162,7 @@ class App extends React.Component {
           } />
         </Switch>
         <Footer />
+        { this.props.state.isLoading ? <Loading /> : "" }
       </div>
     );
   }

@@ -551,21 +551,37 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
 }
 
 const sign = () => async (dispatch, getState) => {
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   const state = getState().state;
   if (state.groupInSidebar === null) {
     alert("Please set group on sidebar.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   const image = state.image;
   if (!image) {
     alert("Image not set.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   let imageCid;
@@ -574,6 +590,10 @@ const sign = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to post the image to IPFS.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   const certificate = {
@@ -585,6 +605,10 @@ const sign = () => async (dispatch, getState) => {
   }
   if (!gxCert.isCertificate(certificate)) {
     alert("Invalid Certificate.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   let signed = null;
@@ -593,6 +617,10 @@ const sign = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to sign the certificate.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   try {
@@ -600,18 +628,34 @@ const sign = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to post the signed certificate.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   await wait();
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
   history.push("/issue");
 }
 
 const registerProfile = () => async (dispatch, getState) => {
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   const state = getState().state;
@@ -626,6 +670,10 @@ const registerProfile = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to upload image to IPFS."); 
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   let signedProfile;
@@ -640,6 +688,10 @@ const registerProfile = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to sign profile.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   try {
@@ -647,17 +699,33 @@ const registerProfile = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to register profile.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
+  dispatch({
+    type: "LOADING",
+    payload: false,
+  });
   history.push("/");
 
 }
 const registerGroup = () => async (dispatch, getState) => {
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   const state = getState().state;
@@ -670,17 +738,33 @@ const registerGroup = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to create group.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   await wait();
+  dispatch({
+    type: "LOADING",
+    payload: false,
+  });
   history.push("/new");
 }
 const updateProfile = () => async (dispatch, getState) => {
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   const state = getState().state;
@@ -713,21 +797,41 @@ const updateProfile = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to update your profile.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
+  dispatch({
+    type: "LOADING",
+    payload: false,
+  });
   history.push("/");
 }
 const updateGroup = () => async (dispatch, getState) => {
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   const state = getState().state;
   if (state.groupInSidebar === null) {
     alert("Please choose group on sidebar.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   const groupId = state.groupInSidebar.groupId;
@@ -747,16 +851,32 @@ const updateGroup = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to update group.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
+  dispatch({
+    type: "LOADING",
+    payload: false,
+  });
   history.push("/");
 }
 const issue = (certId) => async (dispatch, getState) => {
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   const state = getState().state;
@@ -769,6 +889,10 @@ const issue = (certId) => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to get public address of the Google account.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   const userCert = {
@@ -782,6 +906,10 @@ const issue = (certId) => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to sign the certificate.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   try {
@@ -789,9 +917,17 @@ const issue = (certId) => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to issue the certificate.");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
   await wait();
+  dispatch({
+    type: "LOADING",
+    payload: false,
+  });
   history.push("/");
 }
 const inviteMember = () => async (dispatch, getState) => {
