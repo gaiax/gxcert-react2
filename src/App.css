@@ -29,6 +29,14 @@ html, body {
   justify-content: space-between;
 }
 
+footer {
+  background-color: #49AAFC;
+  padding: 34px;
+}
+
+footer .footer-message, .footer-app {
+  color: white;
+}
 .header-left-link {
   color: white;
   font-size: 16px;

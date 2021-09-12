@@ -1,6 +1,7 @@
 import React from "react";
 import logo from './logo.svg';
 import Header from "./Header";
+import Footer from "./Footer";
 import Top from "./views/Top";
 import SignIn from "./views/SignIn";
 import Registration from "./views/Registration";
@@ -133,6 +134,7 @@ class App extends React.Component {
             />
           } />
         </Switch>
+        <Footer />
       </div>
     );
   }
