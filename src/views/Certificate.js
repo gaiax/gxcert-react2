@@ -96,7 +96,10 @@ class Certificate extends React.Component {
               </table>
               <a id="cert-link" download="cert.png" href="" ></a>
               <div className="certificate-buttons">
-                <div className="certificate-button" onClick={() => copyToClipboard(window.location.href)} >
+                <div className="certificate-button" onClick={() => {
+                  copyToClipboard(window.location.href)
+                  alert("コピーしました");
+                }} >
                   参照URLの発行
                 </div>
                 <div className="certificate-button" onClick={() => {
