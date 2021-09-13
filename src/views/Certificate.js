@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import domtoimage from "dom-to-image";
+import { copyToClipboard } from "../util/clipboard";
 
 
 class Certificate extends React.Component {
@@ -95,7 +96,7 @@ class Certificate extends React.Component {
               </table>
               <a id="cert-link" download="cert.png" href="" ></a>
               <div className="certificate-buttons">
-                <div className="certificate-button">
+                <div className="certificate-button" onClick={() => copyToClipboard(window.location.href)} >
                   参照URLの発行
                 </div>
                 <div className="certificate-button" onClick={() => {
@@ -104,7 +105,8 @@ class Certificate extends React.Component {
                       document.getElementById("cert-link").href = dataUrl;
                       document.getElementById("cert-link").click();
                     }).catch(err => {
-                      
+                      console.error(err);
+                      alert("証明書の書き出しに失敗しました");
                     });
                 }}>
                   PDFのダウンロード
