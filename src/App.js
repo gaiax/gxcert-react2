@@ -17,6 +17,8 @@ import Issuer from "./views/Issuer";
 import Issue from "./views/Issue";
 import Loading from "./Loading";
 import Group from "./views/Group";
+import User from "./views/User";
+import NotFound from "./views/NotFound";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -167,6 +169,7 @@ class App extends React.Component {
             onChangeProfileImage={that.props.onChangeProfileImageInEdit}
             />
           } />
+          <Route component={NotFound} />
         </Switch>
         <Footer />
         { this.props.state.isLoading ? <Loading /> : "" }

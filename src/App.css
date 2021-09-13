@@ -99,13 +99,13 @@ footer .footer-message, .footer-app {
   font-size: 24px;
 }
 
-.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .issue, .edit-profile, .group{
+.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .issue, .edit-profile, .group, .not-found{
   padding: 20px;
   background-color: #F1F9FF;
   min-height: 1000px;
 }
 
-.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content, .edit-profile-content, .issuer-certificate, .group-content{
+.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content, .edit-profile-content, .issuer-certificate, .group-content, .not-found-content{
   margin-left: auto;
   margin-right: auto;
   width: 60%;
@@ -114,6 +114,13 @@ footer .footer-message, .footer-app {
   padding-bottom: 40px;
   background-color: white;
   margin-bottom: 40px;
+}
+
+.not-found-message {
+  font-size: 30px;
+}
+.not-found-message-sub {
+  font-size: 20px;
 }
 
 .issuer-certificates {
@@ -378,7 +385,7 @@ footer .footer-message, .footer-app {
   margin-right: auto;
 }
 
-.new-profile-form-image, .edit-profile-form-image {
+.new-profile-form-image, .edit-profile-form-image, .show-profile-image {
   width: 140px;
   height: 140px;
   border-radius: 70px;

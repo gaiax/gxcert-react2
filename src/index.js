@@ -41,6 +41,7 @@ import {
   fetchGroupsInIssuer,
   fetchCertificateInIssue,
   fetchProfileInEdit,
+  fetchProfileInShow,
   fetchGroupsInSidebar,
   invalidateUserCert,
   updateProfile,
@@ -148,6 +149,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     fetchProfileInEdit: () => {
       dispatch(fetchProfileInEdit());
+    },
+    fetchProfileInShow: (address) => {
+      dispatch(fetchProfileInShow(address));
     },
     signIn: () => {
       dispatch(signIn());

@@ -29,6 +29,7 @@ const initialState = {
   group: null,
   groups: [],
   profileInEdit: null,
+  profileInShow: null,
   profileName: "",
   profileEmail: "",
   profileImage: "",

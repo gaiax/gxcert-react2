@@ -470,6 +470,41 @@ const fetchGroupInEdit = (groupId) => async (dispatch, getState) => {
     payload: group,
   });
 }
+const fetchProfileInShow = (address) => async (dispatch, getState) => {
+  dispatch({
+    type: "FETCHED_PROFILE_IN_SHOW",
+    payload: null,
+  });
+  let gxCert;
+  try {
+    gxCert = await getGxCertWithoutLogin();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  let profile;
+  try {
+    profile = await gxCert.getProfile(address);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_PROFILE_IN_SHOW",
+    payload: profile,
+  });
+
+  getImageOnIpfs(profile.icon).then(imageUrl => {
+    profile.imageUrl = imageUrl;
+    dispatch({
+      type: "FETCHED_PROFILE_IN_SHOW",
+      payload: profile,
+    });
+  }).catch(err => {
+    console.error(err);
+  });
+  
+}
 const fetchProfileInEdit = () => async (dispatch, getState) => {
   dispatch({
     type: "FETCHED_PROFILE_IN_EDIT",
@@ -1140,6 +1175,7 @@ export {
   sign,
   signIn,
   fetchProfileInEdit,
+  fetchProfileInShow,
   fetchCertificate,
   fetchCertificateInIssue,
   fetchCertificates,

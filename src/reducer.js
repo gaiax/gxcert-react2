@@ -133,6 +133,10 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         profileInEdit: action.payload,
       });
+    case "FETCHED_PROFILE_IN_SHOW":
+      return Object.assign({}, state, {
+        profileInShow: action.payload,
+      });
     case "FETCHED_GROUP_IN_SHOW":
       return Object.assign({}, state, {
         groupInShow: action.payload,
