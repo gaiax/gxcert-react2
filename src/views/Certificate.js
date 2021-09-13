@@ -113,7 +113,7 @@ class Certificate extends React.Component {
                       alert("証明書の書き出しに失敗しました");
                     });
                 }}>
-                  PDFのダウンロード
+                  証明書のダウンロード
                 </div>
               </div>
             </div>
