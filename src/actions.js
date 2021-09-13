@@ -566,6 +566,13 @@ const sign = () => async (dispatch, getState) => {
     });
     return;
   }
+  if (!window.confirm("この操作には0.01MATICが必要です。続けますか？")) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    return;
+  }
   const state = getState().state;
   if (state.groupInSidebar === null) {
     alert("Please set group on sidebar.");
@@ -637,7 +644,7 @@ const sign = () => async (dispatch, getState) => {
   await wait();
   dispatch({
     type: "LOADING",
-    payload: true,
+    payload: false,
   });
   history.push("/issue");
 }
@@ -722,6 +729,13 @@ const registerGroup = () => async (dispatch, getState) => {
     gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    return;
+  }
+  if (!window.confirm("この操作には0.01MATICが必要です。続けますか？")) {
     dispatch({
       type: "LOADING",
       payload: false,
@@ -873,6 +887,13 @@ const issue = (certId) => async (dispatch, getState) => {
     gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    return;
+  }
+  if (!window.confirm("この操作には0.01MATICが必要です。続けますか？")) {
     dispatch({
       type: "LOADING",
       payload: false,
