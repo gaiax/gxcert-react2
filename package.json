@@ -10,6 +10,7 @@
     "@toruslabs/torus-embed": "^1.12.1",
     "axios": "^0.21.1",
     "connected-react-router": "^6.9.1",
+    "dom-to-image": "^2.6.0",
     "gh-pages": "^3.2.3",
     "gxcert-lib": "github:gaiax/gxcert-lib",
     "ipfs-http-client": "^49.0.1",

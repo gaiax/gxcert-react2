@@ -6007,6 +6007,11 @@
   "resolved" "https://registry.npmjs.org/dom-storage/-/dom-storage-2.1.0.tgz"
   "version" "2.1.0"
 
+"dom-to-image@^2.6.0":
+  "integrity" "sha1-ilA2CAiMh7HCL5A0rgMuGJiVWGc="
+  "resolved" "https://registry.npmjs.org/dom-to-image/-/dom-to-image-2.6.0.tgz"
+  "version" "2.6.0"
+
 "dom-walk@^0.1.0":
   "integrity" "sha512-6QvTW9mrGeIegrFXdtQi9pk7O/nSK6lSdXW2eqUspN5LWD7UTji2Fqw5V2YLjBpHEoU9Xl/eUWNpDeZvoyOv2w=="
   "resolved" "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.2.tgz"
