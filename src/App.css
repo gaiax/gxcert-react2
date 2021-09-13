@@ -277,11 +277,17 @@ footer .footer-message, .footer-app {
   height: 20px;
   border-bottom: solid 1px #49AAFC;
 }
-.certificate-detail td, .group-detail td{
+.certificate-detail td, .group-detail td {
   font-size: 12px;
   color: #49AAFC;
   text-align: left;
   padding-left: 10px;
+}
+
+.certificate-detail td a{
+  font-size: 12px;
+  color: #49AAFC;
+  text-align: left;
 }
 
 .certificate-buttons {

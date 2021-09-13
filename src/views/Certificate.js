@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import domtoimage from "dom-to-image";
 import { copyToClipboard } from "../util/clipboard";
+import config from "../config";
 
 
 class Certificate extends React.Component {
@@ -74,7 +75,7 @@ class Certificate extends React.Component {
                 <tr>
                   <td>Issuer: </td>
                   <td>
-                    {!this.props.userCert.certificate.group ? "" : this.props.userCert.certificate.group.name }
+                    {!this.props.userCert.certificate.group ? "" : <a href={config.host + "/group/" + this.props.userCert.certificate.group.groupId}>{this.props.userCert.certificate.group.name}</a> }
                   </td>
                 </tr>
                 <tr>
