@@ -214,12 +214,14 @@ footer .footer-message, .footer-app {
   margin-top: 20px;
   width: 80px;
   height: 80px;
+  object-fit: cover;
 }
 
 .group-members-list-cell-icon, .issuer-certificate-list-cell-icon {
   border-radius: 40px;
   width: 80px;
   height: 80px;
+  object-fit: cover;
   background: #F1F9FF;
 }
 
