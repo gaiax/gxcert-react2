@@ -37,6 +37,7 @@ import {
   fetchGroups,
   fetchGroup,
   fetchGroupInEdit,
+  fetchGroupInShow,
   fetchGroupsInIssuer,
   fetchCertificateInIssue,
   fetchProfileInEdit,
@@ -129,6 +130,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     fetchGroup: (groupId) => {
       dispatch(fetchGroup(groupId));
+    },
+    fetchGroupInShow: (groupId) => {
+      dispatch(fetchGroupInShow(groupId));
     },
     fetchGroupInEdit: (groupId) => {
       dispatch(fetchGroupInEdit(groupId));

@@ -16,6 +16,7 @@ import GroupMembers from "./views/GroupMembers";
 import Issuer from "./views/Issuer";
 import Issue from "./views/Issue";
 import Loading from "./Loading";
+import Group from "./views/Group";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -135,6 +136,12 @@ class App extends React.Component {
             inviteMember={that.props.inviteMember}
             onChangeGroupMemberToInvite={that.props.onChangeGroupMemberToInvite}
             disableGroupMember={that.props.disableGroupMember}
+            />
+          } />
+          <Route exact={true} path="/group/:groupId" render={ (routeProps) => <Group
+            {...routeProps}
+            group={that.props.state.groupInShow}
+            fetchGroup={that.props.fetchGroupInShow}
             />
           } />
           <Route exact={true} path="/profile/new" render={ (routeProps) => <NewProfile

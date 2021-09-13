@@ -304,6 +304,31 @@ const fetchGroupsInSidebar = () => async (dispatch, getState) => {
 
 }
 
+const fetchGroupInShow = (groupId) => async (dispatch, getState) => {
+  dispatch({
+    type: "FETCHED_GROUP_IN_SHOW",
+    payload: null,
+  });
+  let gxCert;
+  try {
+    gxCert = await getGxCertWithoutLogin();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  let group;
+  try {
+    group = await gxCert.getGroup(groupId);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_GROUP_IN_SHOW",
+    payload: group,
+  });
+}
+
 const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
   let gxCert;
   try {
@@ -1121,6 +1146,7 @@ export {
   fetchGroups,
   fetchGroupsInSidebar,
   fetchGroup,
+  fetchGroupInShow,
   fetchGroupInEdit,
   fetchCertificatesInIssuer,
   registerGroup,

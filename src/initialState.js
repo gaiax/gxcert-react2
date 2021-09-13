@@ -14,6 +14,7 @@ const initialState = {
   groupAddress: "",
   groupPhone: "",
   groupIdInEdit: "",
+  groupInShow: null,
   groupNameInEdit: "",
   groupAddressInEdit: "",
   groupPhoneInEdit: "",
