@@ -13,32 +13,32 @@ class Issuer extends React.Component {
     return (
       <div className="issuer">
         <div className="sidebar">
-            <p className="sidebar-title">ISSUE</p>
+            <p className="sidebar-title">証明書発行</p>
             <select className="sidebar-group" onChange={this.props.onChangeGroupInSidebar} defaultValue={ this.props.groupInSidebar !== null ? this.props.groupInSidebar.groupId.toString() : ""}>
-              <option hidden>Choose group</option>
+              <option hidden>発行元を選択</option>
               { this.props.groupsInSidebar !== null ? this.props.groupsInSidebar.map(group => {
                 return (
                   <option value={group.groupId.toString()}>{group.name}</option>
                 )
               }) : "" }
-              <option value="new">Create new group</option>
+              <option value="new">発行元の登録</option>
             </select>
           <ul>
-            <li><Link to="/issue">CERTIFICATE</Link></li>
-            <li><Link to="/group">MEMBERS</Link></li>
-            <li><Link to="/group/edit/">ISSUER</Link></li>
+            <li><Link to="/issue">証明書</Link></li>
+            <li><Link to="/group">メンバー設定</Link></li>
+            <li><Link to="/group/edit/">発行元設定</Link></li>
           </ul>
         </div>
         <div className="issuer-certificates-wrapper">
           <div className="issuer-certificates">
             <Link to="/new">
-              <div className="issuer-certificates-new">新規作成</div>
+              <div className="issuer-certificates-new">証明書登録</div>
             </Link>
             <br/>
-            <p className="issuer-certificates-title">{this.props.groupInSidebar !== null ? this.props.groupInSidebar.name + "の" : ""}証明書</p>
+            <p className="issuer-certificates-title">登録済証明書</p>
             { this.props.groupInSidebar === null ? (
               <div className="issuer-certificates-select-group">
-                Choose group on sidebar.
+                左メニューから発行元を選択、または発行元を登録してください。
               </div>
             ) : (
               <div className="issuer-certificates-list">
@@ -79,7 +79,7 @@ class Issuer extends React.Component {
                             { userCert.to }
                           </p>
                         </div>
-                        <div className="issuer-certificate-list-cell-invalidate" onClick={() => this.props.invalidateUserCert(userCert.userCertId)}>無効化</div>
+                        <div className="issuer-certificate-list-cell-invalidate" onClick={() => this.props.invalidateUserCert(userCert.userCertId)}>取消</div>
                       </div>
                     );
                   }) }
