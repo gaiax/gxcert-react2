@@ -1,6 +1,7 @@
 import React from "react";
 import { createImageUrlFromUint8Array } from "../util/ipfs";
 import { Link } from "react-router-dom";
+import placeholder from "../images/Video-1@2x.png";
 
 class NewCert extends React.Component {
   constructor() {
@@ -10,11 +11,13 @@ class NewCert extends React.Component {
     this.props.fetchGroupsInSidebar();
   }
   render() {
-    let imageUrl = "";
-    try {
-      imageUrl = createImageUrlFromUint8Array(this.props.image);
-    } catch(err) {
-      console.error(err);
+    let imageUrl = placeholder;
+    if (this.props.image) {
+      try {
+        imageUrl = createImageUrlFromUint8Array(this.props.image);
+      } catch(err) {
+        console.error(err);
+      }
     }
     return (
       <div className="new-cert">
@@ -44,15 +47,15 @@ class NewCert extends React.Component {
           </p>
           <div className="new-cert-form">
             <p className="new-cert-form-title">
-              Title of Certificate
+              証明書名
             </p>
             <input type="text" className="new-cert-form-name" onChange={this.props.onChangeTitle}/>
             <p className="new-cert-form-title">
-              Description of Certificate
+              説明
             </p>
             <textarea className="new-cert-form-description" onChange={this.props.onChangeDescription} ></textarea>
             <p className="new-cert-form-title">
-              Certificate Image
+              証明書画像
             </p>
             <img src={imageUrl} className="new-cert-form-image" />
             <div className="new-cert-form-image-file-div">
