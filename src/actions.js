@@ -626,7 +626,7 @@ const sign = () => async (dispatch, getState) => {
     });
     return;
   }
-  if (!window.confirm("この操作には0.01MATICが必要です。続けますか？")) {
+  if (!window.confirm("グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。")) {
     dispatch({
       type: "LOADING",
       payload: false,
@@ -795,7 +795,7 @@ const registerGroup = () => async (dispatch, getState) => {
     });
     return;
   }
-  if (!window.confirm("この操作には0.01MATICが必要です。続けますか？")) {
+  if (!window.confirm("グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。")) {
     dispatch({
       type: "LOADING",
       payload: false,
@@ -953,7 +953,7 @@ const issue = (certId) => async (dispatch, getState) => {
     });
     return;
   }
-  if (!window.confirm("この操作には0.01MATICが必要です。続けますか？")) {
+  if (!window.confirm("グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。")) {
     dispatch({
       type: "LOADING",
       payload: false,
