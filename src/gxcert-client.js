@@ -32,7 +32,7 @@ async function getGxCert() {
       throw new Error("gxCert is not initialized.");
     }
   }
-  if (gxCert === null) {
+  if (!gxCert) {
     throw new Error("gxCert is not initialized.");
   }
   if (!gxCert.address) {
