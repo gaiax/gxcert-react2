@@ -1009,7 +1009,7 @@ const issue = (certId) => async (dispatch, getState) => {
     type: "LOADING",
     payload: false,
   });
-  history.push("/");
+  history.push("/issue");
 }
 const inviteMember = () => async (dispatch, getState) => {
   let gxCert;
