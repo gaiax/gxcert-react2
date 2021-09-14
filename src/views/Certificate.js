@@ -55,6 +55,18 @@ class Certificate extends React.Component {
                   {!this.props.userCert.certificate.group ? "" : this.props.userCert.certificate.group.name }
                 </td>
               </tr>
+              <tr>
+                <td>発行元住所: </td>
+                <td>
+                  {!this.props.userCert.certificate.group ? "" : this.props.userCert.certificate.group.residence }
+                </td>
+              </tr>
+              <tr>
+                <td>発行元電話番号: </td>
+                <td>
+                  {!this.props.userCert.certificate.group ? "" : this.props.userCert.certificate.group.phone }
+                </td>
+              </tr>
             </table>
             <a id="cert-link" download="cert.png" href="" ></a>
           </div>
@@ -93,6 +105,18 @@ class Certificate extends React.Component {
                   <td>発行元: </td>
                   <td>
                     {!this.props.userCert.certificate.group ? "" : <a href={config.host + "/group/" + this.props.userCert.certificate.group.groupId}>{this.props.userCert.certificate.group.name}</a> }
+                  </td>
+                </tr>
+                <tr>
+                  <td>発行元住所: </td>
+                  <td>
+                    {!this.props.userCert.certificate.group ? "" : this.props.userCert.certificate.group.residence }
+                  </td>
+                </tr>
+                <tr>
+                  <td>発行元電話番号: </td>
+                  <td>
+                    {!this.props.userCert.certificate.group ? "" : this.props.userCert.certificate.group.phone }
                   </td>
                 </tr>
               </table>
