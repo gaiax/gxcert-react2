@@ -33,8 +33,8 @@ footer {
   background-color: #49AAFC;
   height: 84px;
   width: 100%;
-  padding: 10px;
-  position: absolute;
+  padding: 3px;
+  position: fixed;
   bottom: 0;
 }
 
