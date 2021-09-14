@@ -26,6 +26,38 @@ async function getImageOnIpfsOrCache(cid, dispatch, getState) {
 
 
 }
+
+async function getUserCert(userCertId, dispatch, getState) {
+
+}
+
+async function getProfile(address, dispatch, getState) {
+  const state = getState().state;
+  let profileCache = state.profileCache;
+  if (address in profileCache) {
+    return profileCache[address];
+  }
+  let gxCert;
+  try {
+    gxCert = await getGxCertWithoutLogin();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  let profile;
+  try {
+    profile = gxCert.getProfile(address);
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  profileCache = state.profileCache;
+  profileCache[address] = profile;
+  dispatch({
+    type: "UPDATE_PROFILE_CACHE",
+    payload: profileCache,
+  });
+}
 function wait() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -748,7 +780,7 @@ const sign = () => async (dispatch, getState) => {
           clearInterval(timer);
           resolve();
         }
-      }, 3000);
+      }, 6000);
     });
   })();
   dispatch({
@@ -878,7 +910,7 @@ const registerGroup = () => async (dispatch, getState) => {
           clearInterval(timer);
           resolve();
         }
-      }, 3000);
+      }, 6000);
     });
   })();
   dispatch({
@@ -1067,7 +1099,36 @@ const issue = (certId) => async (dispatch, getState) => {
     });
     return;
   }
-  await wait();
+  let certIndex = null;
+  console.log(state.certificatesInIssuer);
+  for (let i = 0; i < state.certificatesInIssuer.length; i++) {
+    if (parseInt(state.certificatesInIssuer[i].id) === certId) {
+      certIndex = i;
+      continue;
+    }
+  }
+  if (certIndex === null || !state.certificatesInIssuer[certIndex].userCerts) {
+    console.log("2");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    history.push("/issue");
+    return;
+  }
+  const prevLength = state.certificatesInIssuer[certIndex].userCerts.length;
+  await (() => {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        await fetchCertificatesInIssuer()(dispatch, getState);
+        const state = getState().state;
+        if (prevLength < state.certificatesInIssuer[certIndex].userCerts.length) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 6000);
+    });
+  })();
   dispatch({
     type: "LOADING",
     payload: false,

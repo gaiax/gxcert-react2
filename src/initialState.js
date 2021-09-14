@@ -37,6 +37,7 @@ const initialState = {
   profileEmailInEdit: "",
   profileImageInEdit: "",
   imageCache: {},
+  profileCache: {},
 }
 
 export default initialState;
