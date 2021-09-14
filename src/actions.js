@@ -985,6 +985,8 @@ const updateProfile = () => async (dispatch, getState) => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
         const profile = await gxCert.getProfile(gxCert.address);
+        console.log(profile);
+        console.log(newProfile);
         if (profile.name === newProfile.name && profile.email === newProfile.email && profile.icon === newProfile.icon) {
           clearInterval(timer);
           resolve();
