@@ -608,8 +608,23 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
       type: "FETCHED_CERTIFICATES_IN_ISSUER",
       payload: certificates,
     });
+    getImageOnIpfsOrCache(certificates[i].image, dispatch, getState).then(imageUrl => {
+      certificates[i].imageUrl = imageUrl;
+      dispatch({
+        type: "FETCHED_CERTIFICATES_IN_ISSUER",
+        payload: certificates,
+      });
+    }).catch(err => {
+      console.error(err);
+    });
     for (let j = 0; j < userCerts.length; j++) {
-      const profile = await gxCert.getProfile(userCerts[j].to);
+      let profile;
+      try {
+        profile = await gxCert.getProfile(userCerts[j].to);
+      } catch(err) {
+        console.error(err);
+        continue;
+      }
       certificates[i].userCerts[j].profile = profile;
       getImageOnIpfsOrCache(profile.icon, dispatch, getState).then(imageUrl => {
         profile.imageUrl = imageUrl;
@@ -623,15 +638,6 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
       });
 
     }
-    getImageOnIpfsOrCache(certificates[i].image, dispatch, getState).then(imageUrl => {
-      certificates[i].imageUrl = imageUrl;
-      dispatch({
-        type: "FETCHED_CERTIFICATES_IN_ISSUER",
-        payload: certificates,
-      });
-    }).catch(err => {
-      console.error(err);
-    });
   }
 }
 

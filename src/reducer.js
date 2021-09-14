@@ -126,6 +126,7 @@ export default function Reducer(state=initialState, action) {
         groupInEdit: action.payload,
       });
     case "FETCHED_CERTIFICATES_IN_ISSUER":
+      console.log(action.payload);
       return Object.assign({}, state, {
         certificatesInIssuer: action.payload,
       });

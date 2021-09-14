@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import Sidebar from "./Sidebar";
 import placeholder from "../images/User-1@2x.png";
+import noCertImage from "../images/Video-1@2x.png";
 
 class Issuer extends React.Component {
   constructor() {
@@ -36,7 +37,7 @@ class Issuer extends React.Component {
                   this.props.certificates.map(certificate => {
                     return (
                       <div className="issuer-certificates-list-cell">
-                        <img src={certificate.imageUrl} className="issuer-certificates-list-cell-icon"/>
+                        <img src={certificate.imageUrl ? certificate.imageUrl : noCertImage} className="issuer-certificates-list-cell-icon"/>
                         <p className="issuer-certificates-list-cell-title">
                           {certificate.title} 
                         </p>
