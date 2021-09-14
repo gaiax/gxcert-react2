@@ -37,7 +37,7 @@ class Issuer extends React.Component {
                   this.props.certificates.map(certificate => {
                     return (
                       <div className="issuer-certificates-list-cell">
-                        <img src={certificate.imageUrl} className="issuer-certificates-list-cell-icon"/>
+                        <img src={certificate.imageUrl ? certificate.imageUrl : noCertImage} className="issuer-certificates-list-cell-icon"/>
                         <p className="issuer-certificates-list-cell-title">
                           {certificate.title} 
                         </p>
