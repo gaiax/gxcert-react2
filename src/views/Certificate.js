@@ -29,30 +29,30 @@ class Certificate extends React.Component {
             <img src={this.props.certificateImage} className="certificate-icon" />
             <table className="certificate-detail">
               <tr>
-                <td>Issue Date: </td>
+                <td>発行日: </td>
                 <td>{(new Date(parseInt(this.props.userCert.timestamp * 1000))).toISOString()}</td>
               </tr>
               <tr>
-                <td>Issuer: </td>
-                <td>
-                  {!this.props.userCert.certificate.group ? "" : this.props.userCert.certificate.group.name }
-                </td>
-              </tr>
-              <tr>
-                <td>To: </td>
+                <td>発行先: </td>
                 <td>
                   { this.props.userCert.to }
                 </td>
               </tr>
               <tr>
-                <td>Title: </td>
+                <td>証明書名: </td>
                 <td>
                   {this.props.userCert.certificate.title}
                 </td>
               </tr>
               <tr>
-                <td>Description: </td>
+                <td>説明: </td>
                 <td>{this.props.userCert.certificate.description}</td>
+              </tr>
+              <tr>
+                <td>発行元: </td>
+                <td>
+                  {!this.props.userCert.certificate.group ? "" : this.props.userCert.certificate.group.name }
+                </td>
               </tr>
             </table>
             <a id="cert-link" download="cert.png" href="" ></a>
@@ -69,30 +69,30 @@ class Certificate extends React.Component {
               <img src={this.props.certificateImage} className="certificate-icon" />
               <table className="certificate-detail">
                 <tr>
-                  <td>Issue Date: </td>
+                  <td>発行日: </td>
                   <td>{(new Date(parseInt(this.props.userCert.timestamp * 1000))).toISOString()}</td>
                 </tr>
                 <tr>
-                  <td>Issuer: </td>
-                  <td>
-                    {!this.props.userCert.certificate.group ? "" : <a href={config.host + "/group/" + this.props.userCert.certificate.group.groupId}>{this.props.userCert.certificate.group.name}</a> }
-                  </td>
-                </tr>
-                <tr>
-                  <td>To: </td>
+                  <td>発行先: </td>
                   <td>
                     { this.props.userCert.to }
                   </td>
                 </tr>
                 <tr>
-                  <td>Title: </td>
+                  <td>証明書名: </td>
                   <td>
                     {this.props.userCert.certificate.title}
                   </td>
                 </tr>
                 <tr>
-                  <td>Description: </td>
+                  <td>説明: </td>
                   <td>{this.props.userCert.certificate.description}</td>
+                </tr>
+                <tr>
+                  <td>発行元: </td>
+                  <td>
+                    {!this.props.userCert.certificate.group ? "" : <a href={config.host + "/group/" + this.props.userCert.certificate.group.groupId}>{this.props.userCert.certificate.group.name}</a> }
+                  </td>
                 </tr>
               </table>
               <a id="cert-link" download="cert.png" href="" ></a>
