@@ -1006,6 +1006,7 @@ const issue = (certId) => async (dispatch, getState) => {
     from,
     to,
   }
+  console.log(userCert);
   let signed;
   try {
     signed = await gxCert.signUserCertificate(userCert, { address: from });

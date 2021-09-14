@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import Sidebar from "./Sidebar";
+import placeholder from "../images/User-1@2x.png";
 
 class Issuer extends React.Component {
   constructor() {
@@ -59,7 +60,7 @@ class Issuer extends React.Component {
                   { certificate.userCerts.map((userCert, index) => {
                     return (
                       <div className="certificates-list-cell">
-                        <img src={userCert.profile ? userCert.profile.imageUrl : ""} className="issuer-certificate-list-cell-icon"/>
+                        <img src={userCert.profile ? userCert.profile.imageUrl : placeholder} className="issuer-certificate-list-cell-icon"/>
                         <div className="issuer-certificate-list-cell-detail">
                           <p className="issuer-certificate-list-cell-name">
                             {userCert.profile ? userCert.profile.name : ""} 
