@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
+import Sidebar from "./Sidebar";
 
 class EditGroup extends React.Component {
   constructor() {
@@ -13,23 +14,12 @@ class EditGroup extends React.Component {
     console.log(this.props.groupInSidebar);
     return (
       <div className="edit-group">
-        <div className="sidebar">
-            <p className="sidebar-title">ISSUE</p>
-            <select className="sidebar-group" onChange={this.props.onChangeGroupInSidebar} defaultValue={ this.props.groupInSidebar !== null ? this.props.groupInSidebar.groupId.toString() : ""}>
-              <option hidden>Choose group</option>
-              { this.props.groupsInSidebar !== null ? this.props.groupsInSidebar.map(group => {
-                return (
-                  <option value={group.groupId.toString()}>{group.name}</option>
-                )
-              }) : "" }
-              <option value="new">Create new group</option>
-            </select>
-          <ul>
-            <li><Link to="/issue">CERTIFICATE</Link></li>
-            <li><Link to="/group">MEMBERS</Link></li>
-            <li><Link to="/group/edit/">ISSUER</Link></li>
-          </ul>
-        </div>
+        <Sidebar
+          onChangeGroupInSidebar={this.props.onChangeGroupInSidebar}
+          groupInSidebar={this.props.groupInSidebar}
+          groupsInSidebar={this.props.groupsInSidebar}
+          fetchGroupsInSidebar={this.props.fetchGroupsInSidebar}
+        />
         { this.props.groupInSidebar !== null ? (
         <div className="edit-group-content">
           <p className="edit-group-title">発行元 {this.props.groupInSidebar.name}の更新</p>

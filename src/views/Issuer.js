@@ -1,34 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
+import Sidebar from "./Sidebar";
 
 class Issuer extends React.Component {
   constructor() {
     super();
   }
   componentDidMount() {
-    this.props.fetchGroupsInSidebar();
   }
   render() {
     return (
       <div className="issuer">
-        <div className="sidebar">
-            <p className="sidebar-title">証明書発行</p>
-            <select className="sidebar-group" onChange={this.props.onChangeGroupInSidebar} defaultValue={ this.props.groupInSidebar !== null ? this.props.groupInSidebar.groupId.toString() : ""}>
-              <option hidden>発行元を選択</option>
-              { this.props.groupsInSidebar !== null ? this.props.groupsInSidebar.map(group => {
-                return (
-                  <option value={group.groupId.toString()}>{group.name}</option>
-                )
-              }) : "" }
-              <option value="new">発行元の登録</option>
-            </select>
-          <ul>
-            <li><Link to="/issue">証明書</Link></li>
-            <li><Link to="/group">メンバー設定</Link></li>
-            <li><Link to="/group/edit/">発行元設定</Link></li>
-          </ul>
-        </div>
+        <Sidebar
+          onChangeGroupInSidebar={this.props.onChangeGroupInSidebar}
+          groupInSidebar={this.props.groupInSidebar}
+          groupsInSidebar={this.props.groupsInSidebar}
+          fetchGroupsInSidebar={this.props.fetchGroupsInSidebar}
+        />
         <div className="issuer-certificates-wrapper">
           <div className="issuer-certificates">
             <Link to="/new">

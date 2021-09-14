@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
+import Sidebar from "./Sidebar";
 
 class GroupMembers extends React.Component {
 
@@ -14,23 +15,12 @@ class GroupMembers extends React.Component {
   render() {
     return (
       <div className="group-members">
-        <div className="sidebar">
-            <p className="sidebar-title">ISSUE</p>
-            <select className="sidebar-group" onChange={this.props.onChangeGroupInSidebar} defaultValue={ this.props.groupInSidebar !== null ? this.props.groupInSidebar.groupId.toString() : ""}>
-              <option hidden>Choose group</option>
-              { this.props.groupsInSidebar !== null ? this.props.groupsInSidebar.map(group => {
-                return (
-                  <option value={group.groupId.toString()}>{group.name}</option>
-                )
-              }) : "" }
-              <option value="new">Create new group</option>
-            </select>
-          <ul>
-            <li><Link to="/issue">CERTIFICATE</Link></li>
-            <li><Link to="/group">MEMBERS</Link></li>
-            <li><Link to="/group/edit/">ISSUER</Link></li>
-          </ul>
-        </div>
+        <Sidebar
+          onChangeGroupInSidebar={this.props.onChangeGroupInSidebar}
+          groupInSidebar={this.props.groupInSidebar}
+          groupsInSidebar={this.props.groupsInSidebar}
+          fetchGroupsInSidebar={this.props.fetchGroupsInSidebar}
+        />
         <div className="group-members-content">
           { (() => {
             const that = this;
