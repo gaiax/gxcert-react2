@@ -8,10 +8,10 @@ class Footer extends React.Component {
     return (
       <footer>
         <div className="footer-message">
-          このアプリケーションは、通貨MATICの寄付により、データの書き込み・変更ができます。
+        グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。<br/>書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。
         </div>
         <div className="footer-app">
-          Copyright Gaiax inc.
+        Copyright © Gaiax Co.Ltd. All Rights Reserved.
         </div>
       </footer>
     );
