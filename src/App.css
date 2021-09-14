@@ -74,9 +74,11 @@ footer .footer-message, .footer-app {
 
 }
 
-.top-left, .top-right {
+.top-right {
   width: 50%;
   height: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .top-left {
