@@ -1,6 +1,7 @@
 import React from "react";
 import { createImageUrlFromUint8Array } from "../util/ipfs";
 import { Link } from "react-router-dom";
+import placeholder from "../images/Video-1@2x.png";
 
 class NewCert extends React.Component {
   constructor() {
@@ -10,11 +11,13 @@ class NewCert extends React.Component {
     this.props.fetchGroupsInSidebar();
   }
   render() {
-    let imageUrl = "";
-    try {
-      imageUrl = createImageUrlFromUint8Array(this.props.image);
-    } catch(err) {
-      console.error(err);
+    let imageUrl = placeholder;
+    if (this.props.image) {
+      try {
+        imageUrl = createImageUrlFromUint8Array(this.props.image);
+      } catch(err) {
+        console.error(err);
+      }
     }
     return (
       <div className="new-cert">
