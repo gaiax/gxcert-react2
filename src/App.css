@@ -31,7 +31,11 @@ html, body {
 
 footer {
   background-color: #49AAFC;
-  padding: 34px;
+  height: 84px;
+  width: 100%;
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
 }
 
 footer .footer-message, .footer-app {
