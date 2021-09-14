@@ -825,13 +825,14 @@ const registerProfile = () => async (dispatch, getState) => {
     });
     return;
   }
+  const newProfile = {
+    name,
+    email,
+    icon,
+  }
   let signedProfile;
   try {
-    signedProfile = await gxCert.signProfile({
-      name,
-      email,
-      icon,
-    }, { 
+    signedProfile = await gxCert.signProfile(newProfile, { 
       address,
     });
   } catch(err) {
@@ -854,6 +855,19 @@ const registerProfile = () => async (dispatch, getState) => {
     });
     return;
   }
+  await (() => {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        const profile = await gxCert.getProfile(gxCert.address);
+        console.log(profile);
+        console.log(newProfile);
+        if (profile.name === newProfile.name && profile.email === newProfile.email && profile.icon === newProfile.icon) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 6000);
+    });
+  })();
   dispatch({
     type: "LOADING",
     payload: false,
