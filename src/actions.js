@@ -422,7 +422,14 @@ const fetchGroups = () => async (dispatch, getState) => {
 }
 
 const signIn = () => async (dispatch) => {
-  const gxCert = await getGxCert();
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    alert("Please log with Google");
+    return;
+  }
   if (!gxCert.address) {
     console.log("Failed to login.");
     return;
