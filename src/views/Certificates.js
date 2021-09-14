@@ -14,7 +14,7 @@ class Certificates extends React.Component {
       <div className="certificates">
         <div className="certificates-content">
           <p className="certificates-title">
-            証明書
+            取得証明書
           </p>
           <div className="certificates-list">
             { this.props.userCerts !== null ? this.props.userCerts.map((userCert, index) => {
