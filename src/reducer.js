@@ -145,6 +145,10 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         isLoading: action.payload
       });
+    case "UPDATE_IMAGE_CACHE":
+      return Object.assign({}, state, {
+        imageCache: action.payload,
+      });
     default:
       return initialState;
   }

@@ -3,6 +3,24 @@ import { getImageOnIpfs, createImageUrlFromUint8Array } from "./util/ipfs";
 import torusClient from "./torus";
 import history from "./history";
 
+
+async function getImageOnIpfsOrCache(cid, dispatch, getState) {
+  const state = getState().state;
+  let imageCache = state.imageCache;
+  if (cid in imageCache) {
+    return imageCache[cid];
+  }
+  const imageUrl = await getImageOnIpfs(cid);
+  imageCache = getState().state.imageCache;
+  imageCache[cid] = imageUrl;
+  dispatch({
+    type: "UPDATE_IMAGE_CACHE",
+    payload: imageCache,
+  });
+  return imageUrl;
+
+
+}
 function wait() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -175,7 +193,7 @@ const fetchCertificateInIssue = (certId) => async (dispatch) => {
   });
 }
 
-const fetchCertificate = (userCertId) => async (dispatch) => {
+const fetchCertificate = (userCertId) => async (dispatch, getState) => {
   dispatch({
     type: "FETCHED_CERTIFICATE",
     payload: null,
@@ -201,7 +219,7 @@ const fetchCertificate = (userCertId) => async (dispatch) => {
   const imageCid = userCert.certificate.image;
   let imageUrl;
   try {
-    imageUrl = await getImageOnIpfs(imageCid);
+    imageUrl = await getImageOnIpfsOrCache(imageCid, dispatch, getState);
   } catch(err) {
     console.error(err);
     return;
@@ -267,7 +285,7 @@ const fetchCertificates = () => async (dispatch, getState) => {
         payload: userCerts,
       });
     });
-    getImageOnIpfs(userCerts[i].certificate.image).then(imageUrl => {
+    getImageOnIpfsOrCache(userCerts[i].certificate.image, dispatch, getState).then(imageUrl => {
       userCerts[i].certificate.imageUrl = imageUrl;
       dispatch({
         type: "FETCHED_CERTIFICATES",
@@ -365,7 +383,7 @@ const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
       });
       console.log(group);
       for (let i = 0; i < group.members.length; i++) {
-        getImageOnIpfs(group.members[i].icon).then(imageUrl => {
+        getImageOnIpfsOrCache(group.members[i].icon, dispatch, getState).then(imageUrl => {
           group.members[i].imageUrl = imageUrl;
           dispatch({
             type: "ON_CHANGE_GROUP_IN_SIDEBAR",
@@ -494,7 +512,7 @@ const fetchProfileInShow = (address) => async (dispatch, getState) => {
     payload: profile,
   });
 
-  getImageOnIpfs(profile.icon).then(imageUrl => {
+  getImageOnIpfsOrCache(profile.icon, dispatch, getState).then(imageUrl => {
     profile.imageUrl = imageUrl;
     dispatch({
       type: "FETCHED_PROFILE_IN_SHOW",
@@ -538,7 +556,7 @@ const fetchProfileInEdit = () => async (dispatch, getState) => {
     payload: profile.email,
   });
 
-  getImageOnIpfs(profile.icon).then(imageUrl => {
+  getImageOnIpfsOrCache(profile.icon, dispatch, getState).then(imageUrl => {
     profile.imageUrl = imageUrl;
     dispatch({
       type: "FETCHED_PROFILE_IN_EDIT",
@@ -586,7 +604,7 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
     for (let j = 0; j < userCerts.length; j++) {
       const profile = await gxCert.getProfile(userCerts[j].to);
       certificates[i].userCerts[j].profile = profile;
-      getImageOnIpfs(profile.icon).then(imageUrl => {
+      getImageOnIpfsOrCache(profile.icon, dispatch, getState).then(imageUrl => {
         profile.imageUrl = imageUrl;
         certificates[i].userCerts[j].profile = profile;
         dispatch({
@@ -598,7 +616,7 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
       });
 
     }
-    getImageOnIpfs(certificates[i].image).then(imageUrl => {
+    getImageOnIpfsOrCache(certificates[i].image, dispatch, getState).then(imageUrl => {
       certificates[i].imageUrl = imageUrl;
       dispatch({
         type: "FETCHED_CERTIFICATES_IN_ISSUER",
@@ -1133,7 +1151,7 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
       const profile = await gxCert.getProfile(userCerts[j].to);
       certificates[i].userCerts[j].profile = profile;
     }
-    getImageOnIpfs(certificates[i].image).then(imageUrl => {
+    getImageOnIpfsOrCache(certificates[i].image, dispatch, getState).then(imageUrl => {
       certificates[i].imageUrl = imageUrl;
       dispatch({
         type: "FETCHED_CERTIFICATES_IN_ISSUER",
