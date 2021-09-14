@@ -21,7 +21,7 @@ class Issuer extends React.Component {
         <div className="issuer-certificates-wrapper">
           <div className="issuer-certificates">
             <Link to="/new">
-              <div className="issuer-certificates-new">証明書登録</div>
+              { this.props.groupInSidebar ? (<div className="issuer-certificates-new">証明書登録</div>) : ""}
             </Link>
             <br/>
             <p className="issuer-certificates-title">登録済証明書</p>
