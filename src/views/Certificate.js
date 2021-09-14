@@ -6,6 +6,7 @@ import Loader from "react-loader-spinner";
 import domtoimage from "dom-to-image";
 import { copyToClipboard } from "../util/clipboard";
 import config from "../config";
+import { dateToString } from "../util/date";
 
 
 class Certificate extends React.Component {
@@ -30,7 +31,7 @@ class Certificate extends React.Component {
             <table className="certificate-detail">
               <tr>
                 <td>発行日: </td>
-                <td>{(new Date(parseInt(this.props.userCert.timestamp * 1000))).toISOString()}</td>
+                <td>{dateToString(new Date(parseInt(this.props.userCert.timestamp * 1000)))}</td>
               </tr>
               <tr>
                 <td>発行先: </td>
@@ -70,7 +71,7 @@ class Certificate extends React.Component {
               <table className="certificate-detail">
                 <tr>
                   <td>発行日: </td>
-                  <td>{(new Date(parseInt(this.props.userCert.timestamp * 1000))).toISOString()}</td>
+                  <td>{dateToString(new Date(parseInt(this.props.userCert.timestamp * 1000)))}</td>
                 </tr>
                 <tr>
                   <td>発行先: </td>

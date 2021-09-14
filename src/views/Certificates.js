@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
+import { dateToString } from "../util/date";
 
 class Certificates extends React.Component {
   constructor() {
@@ -30,7 +31,7 @@ class Certificates extends React.Component {
                         {userCert.certificate.groupName}
                       </p>
                       <p className="certificates-list-cell-date">
-                        { (new Date(parseInt(userCert.timestamp) * 1000)).toISOString() }
+                        { dateToString(new Date(parseInt(userCert.timestamp) * 1000)) }
                       </p>
                     </div>
                   </div>
