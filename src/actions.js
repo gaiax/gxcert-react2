@@ -4,6 +4,11 @@ import torusClient from "./torus";
 import history from "./history";
 
 
+function doNTimes(callback, n, ms) {
+  for (let i = 0; i < n; i++) {
+    setTimeout(callback, i * ms);
+  }
+}
 async function getImageOnIpfsOrCache(cid, dispatch, getState) {
   const state = getState().state;
   let imageCache = state.imageCache;
@@ -665,6 +670,7 @@ const sign = () => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
+  const certificates = state.certificatesInIssuer;
   if (state.groupInSidebar === null) {
     alert("Please set group on sidebar.");
     dispatch({
@@ -732,11 +738,24 @@ const sign = () => async (dispatch, getState) => {
     });
     return;
   }
-  await wait();
+  let prevLength = certificates.length;
+  await (() => {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        await fetchCertificatesInIssuer()(dispatch, getState);
+        const state = getState().state;
+        if (prevLength < state.certificatesInIssuer.length) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 3000);
+    });
+  })();
   dispatch({
     type: "LOADING",
     payload: false,
   });
+
   history.push("/issue");
 }
 
@@ -849,7 +868,19 @@ const registerGroup = () => async (dispatch, getState) => {
     });
     return;
   }
-  await wait();
+  const prevLength = state.groupsInSidebar.length;
+  await (() => {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        await fetchGroupsInSidebar()(dispatch, getState);
+        const state = getState().state;
+        if (prevLength < state.groupsInSidebar.length) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 3000);
+    });
+  })();
   dispatch({
     type: "LOADING",
     payload: false,
