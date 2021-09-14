@@ -1,6 +1,7 @@
 import React from "react";
 import { getImageOnIpfs } from "../util/ipfs";
 import { createImageUrlFromUint8Array } from "../util/ipfs";
+import placeholder from "../images/User-1@2x.png";
 
 class EditProfile extends React.Component {
   constructor() {
@@ -14,6 +15,8 @@ class EditProfile extends React.Component {
     let initialImageUrl = null;
     if (this.props.profile !== null) {
       initialImageUrl = this.props.profile.imageUrl;
+    } else {
+      initialImageUrl = placeholder;
     }
     if (this.props.image) {
       try {
