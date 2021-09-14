@@ -44,15 +44,15 @@ class NewCert extends React.Component {
           </p>
           <div className="new-cert-form">
             <p className="new-cert-form-title">
-              Title of Certificate
+              証明書名
             </p>
             <input type="text" className="new-cert-form-name" onChange={this.props.onChangeTitle}/>
             <p className="new-cert-form-title">
-              Description of Certificate
+              説明
             </p>
             <textarea className="new-cert-form-description" onChange={this.props.onChangeDescription} ></textarea>
             <p className="new-cert-form-title">
-              Certificate Image
+              証明書画像
             </p>
             <img src={imageUrl} className="new-cert-form-image" />
             <div className="new-cert-form-image-file-div">

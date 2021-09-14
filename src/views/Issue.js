@@ -20,7 +20,7 @@ class Issue extends React.Component {
             <p className="issue-title">
               {this.props.certificate.title}の発行
             </p>
-            <p className="issue-form-title">Add Address</p>
+            <p className="issue-form-title">発行先メールアドレス</p>
             <div className="issue-form">
               <input type="text" className="issue-form-to" onChange={this.props.onChangeToInIssue}/>
               <button className="issue-form-issue" onClick={ () => { this.props.issue(this.certId)}}>発行</button>
