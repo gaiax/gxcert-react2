@@ -25,9 +25,9 @@ class NewProfile extends React.Component {
               </label>
               <input id="new-profile-form-image-file" type="file" onChange={this.props.onChangeProfileImage} />
             </div>
-            <p className="new-profile-form-title">Name</p>
+            <p className="new-profile-form-title">氏名</p>
             <input type="text" className="new-profile-form-name" onChange={this.props.onChangeProfileName} />
-            <p className="new-profile-form-title">E-mail</p>
+            <p className="new-profile-form-title">メールアドレス</p>
             <input type="text" className="new-profile-form-email" onChange={this.props.onChangeProfileEmail} />
             <div className="register-button" onClick={this.props.registerProfile} >
               登録
