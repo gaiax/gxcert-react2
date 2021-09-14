@@ -958,8 +958,18 @@ const updateProfile = () => async (dispatch, getState) => {
     icon,
   }
   console.log(newProfile);
-
-  const signedProfile = await gxCert.signProfileForUpdating(newProfile, { address });
+  let signedProfile;
+  try {
+    signedProfile = await gxCert.signProfileForUpdating(newProfile, { address });
+  } catch(err) {
+    console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    alert("プロフィールを更新するには署名を許可する必要があります。");
+    return;
+  }
   try {
     await gxCert.updateProfile(signedProfile);
   } catch(err) {
@@ -1025,7 +1035,18 @@ const updateGroup = () => async (dispatch, getState) => {
     phone,
   }
 
-  const signedGroup = await gxCert.signGroup(newGroup, { address: gxCert.address });
+  let signedGroup;
+  try {
+    signedGroup = await gxCert.signGroup(newGroup, { address: gxCert.address });
+  } catch(err) {
+    console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    alert("発行元情報を更新するには、署名を許可する必要があります。");
+    return;
+  }
   try {
     await gxCert.updateGroup(signedGroup);
   } catch(err) {
