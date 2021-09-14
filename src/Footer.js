@@ -8,7 +8,7 @@ class Footer extends React.Component {
     return (
       <footer>
         <div className="footer-message">
-          グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。<br/>書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。
+          発行元の登録、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。<br/>書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。
         </div>
         <div className="footer-app">
           Copyright © Gaiax Co.Ltd. All Rights Reserved.
