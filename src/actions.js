@@ -971,6 +971,18 @@ const updateProfile = () => async (dispatch, getState) => {
     });
     return;
   }
+  await (() => {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        const profile = await gxCert.getProfile(gxCert.address);
+        if (profile.name === newProfile.name && profile.email === newProfile.email && profile.icon === newProfile.icon) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 6000);
+    });
+  })();
+
   dispatch({
     type: "LOADING",
     payload: false,
@@ -1006,14 +1018,14 @@ const updateGroup = () => async (dispatch, getState) => {
   const name = state.groupNameInEdit;
   const residence = state.groupAddressInEdit;
   const phone = state.groupPhoneInEdit;
-  const group = {
+  const newGroup = {
     groupId,
     name,
     residence,
     phone,
   }
 
-  const signedGroup = await gxCert.signGroup(group, { address: gxCert.address });
+  const signedGroup = await gxCert.signGroup(newGroup, { address: gxCert.address });
   try {
     await gxCert.updateGroup(signedGroup);
   } catch(err) {
@@ -1025,11 +1037,23 @@ const updateGroup = () => async (dispatch, getState) => {
     });
     return;
   }
+  await (() => {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        const group = await gxCert.getGroup(groupId);
+        if (group.name === newGroup.name && group.residence === newGroup.residence && group.phone === newGroup.phone) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 6000);
+    });
+  })();
+
   dispatch({
     type: "LOADING",
     payload: false,
   });
-  history.push("/");
+  history.push("/issue");
 }
 const issue = (certId) => async (dispatch, getState) => {
   dispatch({
