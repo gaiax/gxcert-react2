@@ -43,7 +43,7 @@ class GroupMembers extends React.Component {
               <div>
                 <p className="group-members-title">{ this.props.groupInSidebar.name }のメンバー</p>
                 <input type="text" className="group-members-invite" onChange={this.props.onChangeGroupMemberToInvite} />
-                <button className="group-members-invite-button" onClick={this.props.inviteMember} >Invite</button>
+                <button className="group-members-invite-button" onClick={this.props.inviteMember} >招待</button>
                 <div className="group-members-list">
                   { this.props.groupInSidebar.members.map(member => {
                     return (
@@ -57,7 +57,7 @@ class GroupMembers extends React.Component {
                             {member.address}
                           </p>
                         </div>
-                        <div className="group-members-list-cell-disable" onClick={() => that.props.disableGroupMember(that.props.groupInSidebar.groupId, member.address) }>無効化</div>
+                        <div className="group-members-list-cell-disable" onClick={() => that.props.disableGroupMember(that.props.groupInSidebar.groupId, member.address) }>削除</div>
                       </div>
                     );
                   }) }
