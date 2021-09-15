@@ -2,6 +2,8 @@ import { getGxCert, getGxCertWithoutLogin } from "./gxcert-client";
 import { getImageOnIpfs, createImageUrlFromUint8Array } from "./util/ipfs";
 import torusClient from "./torus";
 import history from "./history";
+import QRCode from "qrcode";
+import config from "./config";
 
 
 function doNTimes(callback, n, ms) {
@@ -287,6 +289,13 @@ const fetchCertificate = (userCertId) => async (dispatch, getState) => {
     console.error(err);
     return;
   }
+  QRCode.toDataURL(config.host + "/certs/" + userCert.userCertId, (err, url) => {
+    userCert.qr = url;
+    dispatch({
+      type: "FETCHED_CERTIFICATE",
+      payload: userCert,
+    });
+  });
 }
 
 const fetchCertificates = () => async (dispatch, getState) => {

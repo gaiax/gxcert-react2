@@ -68,6 +68,7 @@ class Certificate extends React.Component {
                 </td>
               </tr>
             </table>
+              <img src={this.props.userCert.qr} width="100" height="100" />
             <a id="cert-link" download="cert.png" href="" ></a>
           </div>
         </div>
@@ -120,6 +121,7 @@ class Certificate extends React.Component {
                   </td>
                 </tr>
               </table>
+              <img src={this.props.userCert.qr} width="100" height="100" />
               <a id="cert-link" download="cert.png" href="" ></a>
               <div className="certificate-buttons">
                 <div className="certificate-button" onClick={() => {
