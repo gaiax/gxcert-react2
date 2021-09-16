@@ -158,6 +158,10 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         usersToIssue: action.payload,
       });
+    case "MY_PROFILE":
+      return Object.assign({}, state, {
+        myProfile: action.payload,
+      });
     case "SET_TO_COUNT_IN_ISSUE":
       return Object.assign({}, state, {
         toCountInIssue: action.payload,

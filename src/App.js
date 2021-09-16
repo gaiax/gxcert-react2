@@ -32,7 +32,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header
-          isLoggedIn={that.props.state.from !== ""}
+          isLoggedIn={that.props.state.from !== "" && that.props.state.myProfile !== null}
           signOut={that.props.signOut}
         ></Header>
         <Switch>

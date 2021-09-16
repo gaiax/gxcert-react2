@@ -40,6 +40,7 @@ const initialState = {
   profileCache: {},
   usersToIssue: [],
   toList: [],
+  myProfile: null,
 
 }
 

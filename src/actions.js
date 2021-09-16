@@ -493,6 +493,10 @@ const signIn = () => async (dispatch) => {
     history.push("/profile/new");
     return;
   }
+  dispatch({
+    type: "MY_PROFILE",
+    payload: profile,
+  });
 
   history.push("/");
 }
@@ -872,10 +876,11 @@ const registerProfile = () => async (dispatch, getState) => {
     });
     return;
   }
+  let profile;
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
-        const profile = await gxCert.getProfile(gxCert.address);
+        profile = await gxCert.getProfile(gxCert.address);
         console.log(profile);
         console.log(newProfile);
         if (profile.name === newProfile.name && profile.email === newProfile.email && profile.icon === newProfile.icon) {
@@ -885,6 +890,10 @@ const registerProfile = () => async (dispatch, getState) => {
       }, 6000);
     });
   })();
+  dispatch({
+    type: "MY_PROFILE",
+    payload: profile,
+  });
   dispatch({
     type: "LOADING",
     payload: false,
