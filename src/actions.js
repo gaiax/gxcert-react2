@@ -935,15 +935,16 @@ const registerGroup = () => async (dispatch, getState) => {
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
-        let groups;
+        let groupIds;
         try {
-          groups = await gxCert.getGroups(gxCert.address);
+          groupIds = await gxCert.getGroupIds(gxCert.address);
         } catch(err) {
           console.error(err);
+          resolve();
           return;
         }
         const state = getState().state;
-        if (prevLength < groups.length) {
+        if (prevLength < groupIds.length) {
           clearInterval(timer);
           resolve();
         }
@@ -1022,7 +1023,14 @@ const updateProfile = () => async (dispatch, getState) => {
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
-        const profile = await gxCert.getProfile(gxCert.address);
+        let profile;
+        try {
+          profile = await gxCert.getProfile(gxCert.address);
+        } catch(err) {
+          console.error(err);
+          resolve();
+          return;
+        }
         console.log(profile);
         console.log(newProfile);
         if (profile.name === newProfile.name && profile.email === newProfile.email && profile.icon === newProfile.icon) {
@@ -1101,7 +1109,14 @@ const updateGroup = () => async (dispatch, getState) => {
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
-        const group = await gxCert.getGroup(groupId);
+        let group;
+        try {
+          group = await gxCert.getGroup(groupId);
+        } catch(err) {
+          console.error(err);
+          resolve();
+          return;
+        }
         if (group.name === newGroup.name && group.residence === newGroup.residence && group.phone === newGroup.phone) {
           clearInterval(timer);
           resolve();
@@ -1206,6 +1221,7 @@ const issue = (certId) => async (dispatch, getState) => {
           userCerts = await gxCert.getIssuedUserCerts(certId);
         } catch(err) {
           console.error(err);
+          resolve();
           return;
         }
         if (prevLength < userCerts.length) {
