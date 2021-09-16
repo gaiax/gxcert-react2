@@ -168,7 +168,7 @@ footer .footer-message, .footer-app {
   margin-bottom: 4px;
 }
 
-.registration-form-name, .registration-form-email , .sidebar-group, .new-cert-form-to, .new-cert-form-name, .new-group-form-name, .new-group-form-address, .new-group-form-phone, .new-profile-form-name, .new-profile-form-email, .group-members-invite, .issue-form-to, .edit-group-form-name, .edit-group-form-address, .edit-group-form-phone, .edit-profile-form-name, .edit-profile-form-email {
+.registration-form-name, .registration-form-email , .sidebar-group, .new-cert-form-to, .new-cert-form-name, .new-group-form-name, .new-group-form-address, .new-group-form-phone, .new-profile-form-name, .new-profile-form-email, .group-members-invite, .issue-form-to, .edit-group-form-name, .edit-group-form-address, .edit-group-form-phone, .edit-profile-form-name, .edit-profile-form-email, .list-input-element {
   height: 34px;
   border-radius: 4px;
   border: 1px solid #49AAFC;
@@ -185,7 +185,7 @@ footer .footer-message, .footer-app {
   border: 1px solid white;
   font-weight: bold;
 }
-.group-members-invite-button {
+.group-members-invite-button, .list-input-remove {
   width: 60px;
   height: 36px;
   background-color: #F1F9FF;
@@ -199,6 +199,7 @@ footer .footer-message, .footer-app {
 .register-button {
   background-color: #49AAFC;
   height: 34px;
+  width: 70%;
   line-height: 34px;
   margin-left: 30px;
   margin-right: 30px;
@@ -206,6 +207,19 @@ footer .footer-message, .footer-app {
   font-weight: bold;
   border-radius: 4px;
 }
+.list-input-add {
+  background-color: #F1F9FF;
+  height: 34px;
+  border: 1px #49AAFC solid;
+  width: 70%;
+  line-height: 34px;
+  margin-left: 30px;
+  margin-right: 30px;
+  color: #49AAFC;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
 
 .certificates-title, .group-members-title {
   color: #49AAFC;
@@ -551,3 +565,4 @@ a:visited {
 .sign-in-image {
   width: 140px;
 }
+

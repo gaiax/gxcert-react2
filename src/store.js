@@ -10,6 +10,7 @@ const persistConfig = {
   storage: sessionStorage,
   blacklist: [
     "isLoading",
+    "toCountInIssue",
   ],
 }
 

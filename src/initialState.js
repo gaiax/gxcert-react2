@@ -39,6 +39,7 @@ const initialState = {
   imageCache: {},
   profileCache: {},
   toCountInIssue: 1,
+  toList: [],
 }
 
 export default initialState;

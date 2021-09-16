@@ -150,6 +150,18 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         imageCache: action.payload,
       });
+    case "ON_CHANGE_TO_LIST":
+      return Object.assign({}, state, {
+        toList: action.payload,
+      });
+    case "ADD_TO":
+      return Object.assign({}, state, {
+        toCountInIssue: action.payload,
+      });
+    case "SET_TO_COUNT_IN_ISSUE":
+      return Object.assign({}, state, {
+        toCountInIssue: action.payload,
+      });
     default:
       return initialState;
   }
