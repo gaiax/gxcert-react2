@@ -39,6 +39,7 @@ footer {
 }
 
 footer .footer-message, .footer-app {
+  padding-top: 6px;
   color: white;
   font-size: 14px;
 }
