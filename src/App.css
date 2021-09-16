@@ -201,10 +201,10 @@ footer .footer-message, .footer-app {
 .register-button {
   background-color: #49AAFC;
   height: 34px;
-  width: 70%;
+  width: 260px;
   line-height: 34px;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-left: auto;
+  margin-right: auto;
   color: white;
   font-weight: bold;
   border-radius: 4px;
@@ -350,14 +350,15 @@ footer .footer-message, .footer-app {
   text-align: left;
   font-weight: bold;
   color: #49AAFC;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: 260px;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 4px;
 }
 
 .new-cert-form-description {
   height: 200px;
-  width: 100%;
+  width: 260px;
   border-radius: 4px;
   border: 1px solid #49AAFC;
   background: #F1F9FF;
@@ -365,7 +366,7 @@ footer .footer-message, .footer-app {
   padding: 4px;
 }
 .new-cert-form-image {
-  width: 100%;
+  width: 260px;
   height: 200px;
   padding: 20px;
   margin-bottom: 10px;
@@ -393,8 +394,9 @@ footer .footer-message, .footer-app {
   text-align: left;
   font-weight: bold;
   color: #49AAFC;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: 260px;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 4px;
   margin-top: 0;
 }
