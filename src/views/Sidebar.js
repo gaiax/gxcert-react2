@@ -18,11 +18,13 @@ class Sidebar extends React.Component {
             }) : "" }
             <option value="new">発行元の登録</option>
           </select>
-        <ul>
-          <li><Link to="/issue">証明書</Link></li>
-          <li><Link to="/group">メンバー設定</Link></li>
-          <li><Link to="/group/edit/">発行元設定</Link></li>
-        </ul>
+        { this.props.groupInSidebar ? (
+          <ul>
+            <li><Link to="/issue">証明書</Link></li>
+            <li><Link to="/group">メンバー設定</Link></li>
+            <li><Link to="/group/edit/">発行元設定</Link></li>
+          </ul>
+        ) : ""}
       </div>
     )
   }
