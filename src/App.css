@@ -31,7 +31,7 @@ html, body {
 
 footer {
   background-color: #49AAFC;
-  height: 84px;
+  height: 80px;
   width: 100%;
   padding: 3px;
   position: fixed;
@@ -40,6 +40,7 @@ footer {
 
 footer .footer-message, .footer-app {
   color: white;
+  font-size: 14px;
 }
 .header-left-link {
   color: white;
