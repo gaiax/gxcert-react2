@@ -8,6 +8,9 @@ import initialState from "./initialState";
 const persistConfig = {
   key: "root",
   storage: sessionStorage,
+  blacklist: [
+    "isLoading",
+  ],
 }
 
 const persistedReducer = persistReducer(persistConfig, Reducer);
