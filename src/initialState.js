@@ -38,6 +38,7 @@ const initialState = {
   profileImageInEdit: "",
   imageCache: {},
   profileCache: {},
+  toCountInIssue: 1,
 }
 
 export default initialState;
