@@ -1262,7 +1262,7 @@ const inviteMember = () => async (dispatch, getState) => {
   }
   const state = getState().state;
   const signerAddress = state.from;
-  const groupId = state.group.groupId;
+  const groupId = state.groupInSidebar.groupId;
   const email = state.groupMemberToInvite;
   let address;
   try {
