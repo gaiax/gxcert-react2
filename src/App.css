@@ -107,7 +107,7 @@ footer .footer-message, .footer-app {
   font-size: 24px;
 }
 
-.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .issue, .edit-profile, .group, .not-found{
+.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .edit-profile, .group, .not-found{
   padding: 20px;
   background-color: #F1F9FF;
   min-height: 1000px;
@@ -484,7 +484,7 @@ footer .footer-message, .footer-app {
   margin-top: 46px;
 }
 
-.new-cert, .group-members, .edit-group, .issuer {
+.new-cert, .group-members, .edit-group, .issuer, .issue {
   display: flex;
   min-height: 1000px;
 }

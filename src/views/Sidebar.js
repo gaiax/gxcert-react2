@@ -9,9 +9,14 @@ class Sidebar extends React.Component {
     return (
       <div className="sidebar">
           <p className="sidebar-title">証明書発行</p>
-          <select className="sidebar-group" onChange={this.props.onChangeGroupInSidebar} defaultValue={ this.props.groupInSidebar ? this.props.groupInSidebar.groupId.toString() : ""}>
+          <select className="sidebar-group" onChange={this.props.onChangeGroupInSidebar}>
             <option hidden>発行元を選択</option>
             { this.props.groupsInSidebar ? this.props.groupsInSidebar.map(group => {
+              if (this.props.groupInSidebar && group.groupId === this.props.groupInSidebar.groupId) {
+                return (
+                  <option value={group.groupId.toString()} selected>{group.name}</option>
+                )
+              }
               return (
                 <option value={group.groupId.toString()}>{group.name}</option>
               )

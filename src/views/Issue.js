@@ -1,5 +1,6 @@
 import React from "react";
 import ListInput from "./ListInput";
+import Sidebar from "./Sidebar";
 
 class Issue extends React.Component {
   constructor() {
@@ -12,6 +13,12 @@ class Issue extends React.Component {
   render() {
     return (
       <div className="issue">
+        <Sidebar
+          onChangeGroupInSidebar={this.props.onChangeGroupInSidebar}
+          groupInSidebar={this.props.groupInSidebar}
+          groupsInSidebar={this.props.groupsInSidebar}
+          fetchGroupsInSidebar={this.props.fetchGroupsInSidebar}
+        />
         { !this.props.certificate ? (
           <div className="issue-content">
             <p className="certificate-not-found">Certificate not found.</p> 

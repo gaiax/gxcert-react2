@@ -932,10 +932,10 @@ const registerGroup = () => async (dispatch, getState) => {
     return;
   }
   const prevLength = state.groupsInSidebar.length;
+  let groupIds;
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
-        let groupIds;
         try {
           groupIds = await gxCert.getGroupIds(gxCert.address);
         } catch(err) {
@@ -951,6 +951,11 @@ const registerGroup = () => async (dispatch, getState) => {
       }, 6000);
     });
   })();
+  const group = await gxCert.getGroup(groupIds[groupIds.length - 1]);
+  dispatch({
+    type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+    payload: group,
+  });
   await fetchGroupsInSidebar()(dispatch, getState);
   dispatch({
     type: "LOADING",

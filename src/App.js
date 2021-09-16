@@ -90,6 +90,10 @@ class App extends React.Component {
           } />
           <Route exact={true} path="/issue/:certId" render={ (routeProps) => <Issue
             {...routeProps}
+            fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+            groupsInSidebar={that.props.state.groupsInSidebar}
+            groupInSidebar={that.props.state.groupInSidebar}
+            onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
             certificate={that.props.state.certificateInIssue}
             fetchCertificate={that.props.fetchCertificateInIssue}
             usersToIssue={that.props.state.usersToIssue}
