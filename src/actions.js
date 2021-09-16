@@ -1140,28 +1140,20 @@ const issue = (certId) => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
-  const from = state.from;
-  const toList = state.toList;
-  const signerAddress = state.from;
-  const tos = [];
-  for (const email of toList) {
-    if (email.trim() === "") {
-      continue;
-    }
-    let to;
-    try {
-      to = await torusClient.getPublicAddressByGoogle(email);
-    } catch(err) {
-      console.error(err);
-      alert("メールアドレスが不正です: " + email);
-      dispatch({
-        type: "LOADING",
-        payload: false,
-      });
-      return;
-    }
-    tos.push(to);
+  const users = state.usersToIssue;
+  if (users.length === 0) {
+    alert("発行先のユーザーを指定してください");
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    return;
   }
+  const from = state.from;
+  const signerAddress = state.from;
+  const tos = users.map(user => {
+    return user.address;
+  });
   let signed;
   try {
     signed = await gxCert.signUserCertificates(certId, from, tos, { address: from });
@@ -1186,11 +1178,7 @@ const issue = (certId) => async (dispatch, getState) => {
     return;
   }
   dispatch({
-    type: "SET_TO_COUNT_IN_ISSUE",
-    payload: 1,
-  });
-  dispatch({
-    type: "ON_CHANGE_TO_LIST",
+    type: "ADD_TO",
     payload: [],
   });
   let certIndex = null;
@@ -1384,11 +1372,74 @@ const signOut = () => async (dispatch) => {
 }
 
 const addTo = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCertWithoutLogin();
+  } catch(err) {
+    console.error(err);
+    alert("発行先の登録に失敗しました");
+    return;
+  }
   const state = getState().state;
+  const email = state.toInIssue;
+  let to;
+  try {
+    to = await torusClient.getPublicAddressByGoogle(email);
+  } catch(err) {
+    console.error(err);
+    alert("発行先の登録に失敗しました");
+    return;
+  }
+  const usersToIssue = state.usersToIssue;
+  for (const user of usersToIssue) {
+    if (user.address === to) {
+      return;
+    }
+  }
+  let profile;
+  try {
+    profile = await gxCert.getProfile(to);
+  } catch(err) {
+    console.error(err);
+    alert("発行先の登録に失敗しました");
+    return;
+  }
+  profile.address = to;
+  usersToIssue.push(profile);
+  console.log(usersToIssue);
   dispatch({
     type: "ADD_TO",
-    payload: state.toCountInIssue + 1,
+    payload: usersToIssue,
   });
+  getImageOnIpfsOrCache(profile.icon, dispatch, getState).then(imageUrl => {
+    const usersToIssue = getState().state.usersToIssue;
+    for (let i = 0; i < usersToIssue.length; i++) {
+      if (usersToIssue[i].address === profile.address) {
+        usersToIssue[i].imageUrl = imageUrl;
+      }
+      dispatch({
+        type: "ADD_TO",
+        payload: usersToIssue,
+      });
+    }
+  }).catch(err => {
+    console.error(err);
+  });
+}
+
+const removeUserInIssue = (address) => async (dispatch, getState) => {
+  const state = getState().state;
+  const users = state.usersToIssue;
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].address === address) {
+      users.splice(i, 1);
+      dispatch({
+        type: "ADD_TO",
+        payload: users,
+      });
+      return;
+    }
+  }
 }
 export {
   onChangeTitle,
@@ -1434,5 +1485,6 @@ export {
   signOut,
   onChangeToList,
   addTo,
+  removeUserInIssue,
 
 };

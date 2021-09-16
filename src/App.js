@@ -92,10 +92,10 @@ class App extends React.Component {
             {...routeProps}
             certificate={that.props.state.certificateInIssue}
             fetchCertificate={that.props.fetchCertificateInIssue}
+            usersToIssue={that.props.state.usersToIssue}
+            removeUserInIssue={that.props.removeUserInIssue}
             onChangeToInIssue={that.props.onChangeToInIssue}
             issue={that.props.issue}
-            toCountInIssue={that.props.state.toCountInIssue}
-            onChangeToList={that.props.onChangeToList}
             addTo={that.props.addTo}
           />
           } />

@@ -4,7 +4,6 @@ import ListInput from "./ListInput";
 class Issue extends React.Component {
   constructor() {
     super();
-    this.listRef = React.createRef();
   }
   componentDidMount() {
     this.certId = parseInt(this.props.match.params.certId);
@@ -24,7 +23,12 @@ class Issue extends React.Component {
             </p>
             <p className="issue-form-title">発行先メールアドレス</p>
             <div className="issue-form">
-              <ListInput ref={this.listRef} count={this.props.toCountInIssue}  onChange={this.props.onChangeToList} addTo={this.props.addTo} />
+              <ListInput 
+                usersToIssue={this.props.usersToIssue}
+                addTo={this.props.addTo} 
+                removeUserInIssue={this.props.removeUserInIssue}
+                onChangeToInIssue={this.props.onChangeToInIssue}
+              />
               <button className="issue-form-issue" onClick={ () => { this.props.issue(this.certId)}}>発行</button>
             </div>
           </div>

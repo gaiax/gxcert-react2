@@ -185,7 +185,7 @@ footer .footer-message, .footer-app {
   border: 1px solid white;
   font-weight: bold;
 }
-.group-members-invite-button, .list-input-remove {
+.group-members-invite-button, .list-input-remove, .list-input-add {
   width: 60px;
   height: 36px;
   background-color: #F1F9FF;
@@ -204,18 +204,6 @@ footer .footer-message, .footer-app {
   margin-left: 30px;
   margin-right: 30px;
   color: white;
-  font-weight: bold;
-  border-radius: 4px;
-}
-.list-input-add {
-  background-color: #F1F9FF;
-  height: 34px;
-  border: 1px #49AAFC solid;
-  width: 70%;
-  line-height: 34px;
-  margin-left: 30px;
-  margin-right: 30px;
-  color: #49AAFC;
   font-weight: bold;
   border-radius: 4px;
 }
