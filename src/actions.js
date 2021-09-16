@@ -783,15 +783,23 @@ const sign = () => async (dispatch, getState) => {
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
-        await fetchCertificatesInIssuer()(dispatch, getState);
+        let certificates;
+        try {
+          certificates = await gxCert.getGroupCerts(certificate.groupId);
+        } catch(err) {
+          console.error(err);
+          alert("Failed to fetch certificates.");
+          return;
+        }
         const state = getState().state;
-        if (prevLength < state.certificatesInIssuer.length) {
+        if (prevLength < certificates.length) {
           clearInterval(timer);
           resolve();
         }
       }, 6000);
     });
   })();
+  await fetchCertificatesInIssuer()(dispatch, getState);
   dispatch({
     type: "LOADING",
     payload: false,
@@ -927,15 +935,22 @@ const registerGroup = () => async (dispatch, getState) => {
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
-        await fetchGroupsInSidebar()(dispatch, getState);
+        let groups;
+        try {
+          groups = await gxCert.getGroups(gxCert.address);
+        } catch(err) {
+          console.error(err);
+          return;
+        }
         const state = getState().state;
-        if (prevLength < state.groupsInSidebar.length) {
+        if (prevLength < groups.length) {
           clearInterval(timer);
           resolve();
         }
       }, 6000);
     });
   })();
+  await fetchGroupsInSidebar()(dispatch, getState);
   dispatch({
     type: "LOADING",
     payload: false,
@@ -1126,29 +1141,30 @@ const issue = (certId) => async (dispatch, getState) => {
   }
   const state = getState().state;
   const from = state.from;
+  const toList = state.toList;
   const signerAddress = state.from;
-  const toEmail = state.toInIssue;
-  let to;
-  try {
-    to = await torusClient.getPublicAddressByGoogle(toEmail);
-  } catch(err) {
-    console.error(err);
-    alert("Failed to get public address of the Google account.");
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
+  const tos = [];
+  for (const email of toList) {
+    if (email.trim() === "") {
+      continue;
+    }
+    let to;
+    try {
+      to = await torusClient.getPublicAddressByGoogle(email);
+    } catch(err) {
+      console.error(err);
+      alert("メールアドレスが不正です: " + email);
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
+      return;
+    }
+    tos.push(to);
   }
-  const userCert = {
-    certId,
-    from,
-    to,
-  }
-  console.log(userCert);
   let signed;
   try {
-    signed = await gxCert.signUserCertificate(userCert, { address: from });
+    signed = await gxCert.signUserCertificates(certId, from, tos, { address: from });
   } catch(err) {
     console.error(err);
     alert("Failed to sign the certificate.");
@@ -1159,7 +1175,7 @@ const issue = (certId) => async (dispatch, getState) => {
     return;
   }
   try {
-    await gxCert.createUserCert(signed);
+    await gxCert.createUserCerts(signed);
   } catch(err) {
     console.error(err);
     alert("Failed to issue the certificate.");
@@ -1169,6 +1185,14 @@ const issue = (certId) => async (dispatch, getState) => {
     });
     return;
   }
+  dispatch({
+    type: "SET_TO_COUNT_IN_ISSUE",
+    payload: 1,
+  });
+  dispatch({
+    type: "ON_CHANGE_TO_LIST",
+    payload: [],
+  });
   let certIndex = null;
   console.log(state.certificatesInIssuer);
   for (let i = 0; i < state.certificatesInIssuer.length; i++) {
@@ -1178,7 +1202,6 @@ const issue = (certId) => async (dispatch, getState) => {
     }
   }
   if (certIndex === null || !state.certificatesInIssuer[certIndex].userCerts) {
-    console.log("2");
     dispatch({
       type: "LOADING",
       payload: false,
@@ -1190,15 +1213,21 @@ const issue = (certId) => async (dispatch, getState) => {
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
-        await fetchCertificatesInIssuer()(dispatch, getState);
-        const state = getState().state;
-        if (prevLength < state.certificatesInIssuer[certIndex].userCerts.length) {
+        let userCerts;
+        try {
+          userCerts = await gxCert.getIssuedUserCerts(certId);
+        } catch(err) {
+          console.error(err);
+          return;
+        }
+        if (prevLength < userCerts.length) {
           clearInterval(timer);
           resolve();
         }
       }, 6000);
     });
   })();
+  await fetchCertificatesInIssuer()(dispatch, getState);
   dispatch({
     type: "LOADING",
     payload: false,
@@ -1339,12 +1368,27 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
   }
 }
 
+const onChangeToList = (values) => async (dispatch) => {
+  dispatch({
+    type: "ON_CHANGE_TO_LIST",
+    payload: values,
+  });
+}
+
 const signOut = () => async (dispatch) => {
   dispatch({
     type: "SIGN_OUT",
     payload: null,
   });
   history.push("/top");
+}
+
+const addTo = () => async (dispatch, getState) => {
+  const state = getState().state;
+  dispatch({
+    type: "ADD_TO",
+    payload: state.toCountInIssue + 1,
+  });
 }
 export {
   onChangeTitle,
@@ -1388,5 +1432,7 @@ export {
   disableGroupMember,
   invalidateUserCert,
   signOut,
+  onChangeToList,
+  addTo,
 
 };

@@ -51,6 +51,8 @@ import {
   registerProfile,
   inviteMember,
   disableGroupMember,
+  onChangeToList,
+  addTo,
 } from "./actions";
 //import CertClient from "./client"
 
@@ -117,6 +119,9 @@ function mapDispatchToProps(dispatch, props) {
     onChangeGroupInSidebar: (evt) => {
       dispatch(onChangeGroupInSidebar(evt));
     },
+    onChangeToList: (values) => {
+      dispatch(onChangeToList(values));
+    },
     sign: () => {
       dispatch(sign());
     },
@@ -182,7 +187,10 @@ function mapDispatchToProps(dispatch, props) {
     },
     signOut: () => {
       dispatch(signOut());
-    }
+    },
+    addTo: () => {
+      dispatch(addTo());
+    },
   }
 }
 
